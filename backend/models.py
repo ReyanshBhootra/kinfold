@@ -42,6 +42,9 @@ class UploadRequest(BaseModel):
         if not self.name.strip() or not self.text.strip():
             raise ValueError("Record name and text cannot be blank")
         self.text.encode("utf8")  # reject malformed Unicode before hashing or persistence
+        # Normalize Windows/old-Mac line endings. Line spans count "\n" lines, and recorded AI replays are
+        # matched on the exact text hash; a CRLF checkout (git core.autocrlf) would otherwise miss them.
+        self.text = self.text.replace("\r\n", "\n").replace("\r", "\n")
         return self
 
 
