@@ -144,8 +144,18 @@ def test_live_run_is_recorded_and_replayed_with_reverification(tmp_path):
     replay = extract_document(document, [], None, cache_dir=tmp_path)
     assert replay["source"] == "replay" and replay["accepted"] == live["accepted"] and replay["recorded_at"] == live["recorded_at"]
     assert extract_document({**document, "text": OBITUARY + " "}, [], None, cache_dir=tmp_path) is None  # changed text: no replay
-    failed = extract_document(document, [], BrokenExtractor(), cache_dir=tmp_path)
+    # A live failure falls back to the real recording, and says so.
+    fallback = extract_document(document, [], BrokenExtractor(), cache_dir=tmp_path)
+    assert fallback["source"] == "replay" and fallback["accepted"] == live["accepted"]
+    assert "Live extraction failed (RuntimeError)" in fallback["fallback_note"] and "secret" not in fallback["fallback_note"]
+    # ...and without a recording it fails honestly.
+    failed = extract_document(document, [], BrokenExtractor(), cache_dir=tmp_path / "empty")
     assert failed["source"] == "failed" and "secret" not in failed["note"]
+    # A second successful live run does not overwrite the existing recording.
+    recording = next(tmp_path.glob("*.json"))
+    before = recording.read_text(encoding="utf8")
+    again = extract_document(document, [], FakeExtractor(), cache_dir=tmp_path)
+    assert again["source"] == "live" and recording.read_text(encoding="utf8") == before
 
 
 # --- end to end: the twist ---------------------------------------------------------------------
