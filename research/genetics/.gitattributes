@@ -1,0 +1,8 @@
+# These files are sha256-verified by tests/test_version2.py and tests/test_version3.py.
+# Never convert line endings, or the hashes break on Windows checkouts (core.autocrlf=true).
+results/** -text
+FINDINGS.md -text
+experiment_config.json -text
+record_stress_config.json -text
+version2.py -text
+version3.py -text

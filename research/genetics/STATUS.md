@@ -3,7 +3,7 @@
 VERSION2 bounded fallback repair COMPLETE (2026-11-14). Finished by Claude Code after the Codex build chat stopped; Codex had already frozen the protocol and run the evaluation.
 
 - Findings: `VERSION2_FINDINGS.md` (improvements, regressions and limits).
-- Artifacts: `results/v2/` (frozen_protocol.json + sha256, frozen_split.csv.gz, comparison.json). v1 artifacts preserved byte-identical in `results/v1_preserved/` and hash-verified during evaluation.
+- Artifacts: `results/v2/` (frozen_protocol.json + sha256, frozen_split.csv.gz, comparison.json). v1 artifacts preserved byte-identical in `results/v1_preserved/` and hash-verified during evaluation. These artifacts are committed (see `.gitattributes`: no line-ending conversion, so the hashes hold on every OS).
 - Tests: `.venv/Scripts/python -m pytest backend/tests research/genetics/tests -q` → 52 passed.
 - Headline: unknown-provenance coverage restored from 0.746 to 0.906 (nominal 0.90). Wrong reliability assumptions remain unhandled (coverage 0.757). The evaluation is a data-reuse reanalysis, not fresh independent data.
 

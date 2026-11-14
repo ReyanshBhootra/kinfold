@@ -1,0 +1,98 @@
+{
+  "version": 2,
+  "frozen_at_utc": "2026-11-14T15:47:55.375824+00:00",
+  "scope": "Repair score/threshold routing only; no new genetic model, app integration or reliability estimator",
+  "heldout_definition": "V1 calibration groups are deterministically divided into v2 calibration/evaluation; only batch1 calibrates, only batch2 evaluates. All matching IDs stay together across batches/models. Entire v1 test partition excluded.",
+  "historical_exposure": "No wholly unused source groups remain. V2 evaluation batch2 rows were not previously scored, but their group IDs had batch1 counterparts in v1 calibration. Not independent fresh simulations or a globally untouched holdout.",
+  "seed_independence": "Published source seed logs absent; independence not certified. Conservative ID grouping retained.",
+  "split_salt": "kinfold-fallback-v2-split-20261114",
+  "record_seed_salt": "kinfold-fallback-v2-records-20261114",
+  "source": "ss_intf only; positive-sharing full1C\u20138C summaries",
+  "dna_model": "Reuse v1 histogram counts trained only on v1 train groups; replace all calibration thresholds with v2 calibration",
+  "nominal_coverage": 0.9,
+  "assumed_reliabilities": {
+    "A": 0.85,
+    "B": 0.7
+  },
+  "nominal_missing_probability": 0.25,
+  "policy": "Use complete-bundle calibrated grouped fusion only when exactly A/B known, present, internally consistent and assumed reliabilities match. Otherwise route DNA scores together with DNA-calibrated thresholds. Unknown records are not partially fused.",
+  "calibration": "DNA thresholds on every positive v2-cal row; legacy mixed thresholds on nominal25 missing records; complete-fusion thresholds only on complete nominal bundles. No test-driven threshold changes.",
+  "comparators": [
+    "v1_logic_recalibrated_on_v2_cal",
+    "corrected_matching_fallback",
+    "dna_only"
+  ],
+  "scenarios": [
+    "clean_complete",
+    "nominal_missing25",
+    "missing70",
+    "incorrect_A45_complete",
+    "unknown_all_complete",
+    "unknown_A_complete"
+  ],
+  "evaluation_rule": "All positive-sharing v2-evaluation batch2 rows; no outcome-based exclusions/caps",
+  "class_group_counts": {
+    "1C": {
+      "frozen_dna_training": 29898,
+      "v2_calibration": 5033,
+      "v2_evaluation": 4982,
+      "v1_test_excluded": 10087
+    },
+    "2C": {
+      "frozen_dna_training": 30048,
+      "v2_calibration": 5005,
+      "v1_test_excluded": 9997,
+      "v2_evaluation": 4950
+    },
+    "3C": {
+      "frozen_dna_training": 30136,
+      "v2_evaluation": 5117,
+      "v1_test_excluded": 9850,
+      "v2_calibration": 4897
+    },
+    "4C": {
+      "v2_evaluation": 5060,
+      "frozen_dna_training": 30061,
+      "v1_test_excluded": 9929,
+      "v2_calibration": 4950
+    },
+    "5C": {
+      "frozen_dna_training": 29858,
+      "v1_test_excluded": 10089,
+      "v2_evaluation": 5032,
+      "v2_calibration": 5021
+    },
+    "6C": {
+      "frozen_dna_training": 30200,
+      "v1_test_excluded": 9949,
+      "v2_calibration": 4995,
+      "v2_evaluation": 4856
+    },
+    "7C": {
+      "v1_test_excluded": 9790,
+      "frozen_dna_training": 30265,
+      "v2_evaluation": 4895,
+      "v2_calibration": 5050
+    },
+    "8C": {
+      "v1_test_excluded": 9855,
+      "frozen_dna_training": 30017,
+      "v2_evaluation": 5120,
+      "v2_calibration": 5008
+    }
+  },
+  "split_sha256": "0ad8b25e8efa8733d001abc49b099d6a9c1f49c61eea8d73645546c17f65c4f0",
+  "source_manifest_sha256": "b46510673d9af6be7389c615b4c3fa699f4e8717fb3a1ac4467fc93992e2c9bb",
+  "dna_models_sha256": "06acf6a87f27b1584c54aefe8ec4d18e4c709e9976e27d2edc240967b91914c6",
+  "implementation_sha256": "cebf4760d10919ba409fb86c0a53f27b34c8a58b5985b5650ecb08a372296484",
+  "preserved_v1_sha256": {
+    "results/benchmark.json": "847b512daf67dbb35126de6335190294b0c3fd693f09a439a8faf4f8969968d7",
+    "results/record_stress.json": "e2380c3680226ae9c449b8ddf82b9a42c07500e8c4ecde4fcb41ce5bcff3682b",
+    "results/models.json": "06acf6a87f27b1584c54aefe8ec4d18e4c709e9976e27d2edc240967b91914c6",
+    "results/split_groups.csv.gz": "50f5069d37cd0c841a4bd9ee82fdbcd6e2d4a91b31544e2b9525dc2bb538b2c8",
+    "experiment_config.json": "5407f45b5985aea12bec77f88e496a2b7e889e4d81770c83063326225c796b13",
+    "record_stress_config.json": "0f68a3c0833c292427a3855bba128dae7c0820e653a85e4e9095d4668e71ec6d",
+    "FINDINGS.md": "199161378f339280f20ae6200dee389cf4b4ba31953b320624d83f3ac7fa1b7d"
+  },
+  "claims_limit": "Fabricated records with invented reliability; exploratory prototype repair, not novel genetics or validated forensic calibration"
+}
