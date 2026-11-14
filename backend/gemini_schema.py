@@ -8,9 +8,13 @@ validate the reply with the original strict Pydantic model, so nothing is loosen
 from pydantic import BaseModel
 
 _KEEP = {"type", "required", "enum", "description", "nullable", "minimum", "maximum", "format"}
+# Size limits. Gemini's Schema supports them (google.genai types.Schema: min_items/max_items/min_length/max_length).
+# Without them the model is never told our limits, and one oversized item fails strict validation.
+_LIMITS = {"minItems", "maxItems", "minLength", "maxLength"}
 
 
-def gemini_schema(model: type[BaseModel]) -> dict:
+def gemini_schema(model: type[BaseModel], limits: bool = False) -> dict:
+    keep = _KEEP | _LIMITS if limits else _KEEP
     schema = model.model_json_schema()
     defs = schema.get("$defs", {})
 
@@ -23,7 +27,7 @@ def gemini_schema(model: type[BaseModel]) -> dict:
             if len(options) < len(node["anyOf"]):
                 out["nullable"] = True
             return out
-        out = {k: v for k, v in node.items() if k in _KEEP}
+        out = {k: v for k, v in node.items() if k in keep}
         if "properties" in node:
             out["properties"] = {name: walk(sub) for name, sub in node["properties"].items()}
         if "items" in node:

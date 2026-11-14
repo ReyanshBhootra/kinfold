@@ -10,7 +10,7 @@ from .engine import derive
 from .manifest import evidence_manifest
 from .models import InvestigationRequest, UploadRequest, VerifyRequest
 from .repository import configured_repository, event
-from .providers import configured_provider
+from .providers import ProviderError, configured_provider
 from .extraction import configured_extractor, extract_document
 from . import anchors as anchoring
 
@@ -141,7 +141,8 @@ def create_app(repository=None, provider=None, extractor=_UNSET):
                     state["audit"].append(event("provider_success", f"Live {selected.name} adapter completed. " + " ".join(trace)))
                 except Exception as exc:
                     # Never leak raw SDK exceptions: they can include request/auth details.
-                    explanation = getattr(selected, "reason", type(exc).__name__)
+                    # ProviderError messages are Kinfold's own (error locations/types, never reply text or keys).
+                    explanation = getattr(selected, "reason", None) or (str(exc) if isinstance(exc, ProviderError) else type(exc).__name__)
                     state["audit"].append(event("provider_unavailable", f"Live {selected.name} adapter did not complete ({explanation}). Deterministic results retained; no live success claimed."))
             if before_model != (state["case"]["mode"], state.get("model_findings", [])):
                 state["case"]["version"] += 1
