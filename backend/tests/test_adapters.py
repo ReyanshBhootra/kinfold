@@ -46,7 +46,7 @@ def test_gemini_adapter_sends_schema_and_checks_returned_citations_offline(snaps
     adapter = GeminiProvider("offline-test", "explicit-model", SimpleNamespace(models=SimpleNamespace(generate_content=generate)))
     result, trace = adapter.extract(snapshot, "Compare birth years")
     assert len(result) == 1 and "structured extraction" in trace[0]
-    assert calls[0]["config"].response_schema == gemini_schema(ObservationBatch, limits=True)
+    assert calls[0]["config"].response_schema == gemini_schema(ObservationBatch)
     assert '"line": 2' in calls[0]["contents"]
     assert snapshot["candidates"][0]["status"] == "excluded"  # deterministic DNA check, unaffected by the model
 
@@ -168,20 +168,16 @@ def fake_gemini(reply_text):
     return GeminiProvider("offline-test", "explicit-model", SimpleNamespace(models=SimpleNamespace(generate_content=generate))), calls
 
 
-def test_annotation_schema_tells_gemini_our_limits_without_touching_extraction():
-    from backend.extraction import ExtractionBatch
-    sent = gemini_schema(ObservationBatch, limits=True)
-    obs = sent["properties"]["observations"]
-    item = obs["items"]["properties"]
-    assert obs["maxItems"] == 12
-    assert item["citations"]["minItems"] == 1 and item["citations"]["maxItems"] == 4
-    assert item["person_ids"]["maxItems"] == 6 and item["title"]["maxLength"] == 160 and item["description"]["maxLength"] == 2000
-    assert "known_people" in item["person_ids"]["description"]
-    # The live extraction request (recorded in data/ai_cache) is unchanged: no limit keywords by default.
-    assert "maxItems" not in json.dumps(gemini_schema(ExtractionBatch))
-    from google.genai import _transformers as t
-    converted = t.t_schema(None, sent).model_dump(exclude_none=True)  # the SDK forwards the limits to the API
-    assert converted["properties"]["observations"]["max_items"] == 12
+def test_annotation_schema_never_sends_size_limits_gemini_rejects():
+    """Regression (#8, live run on PR #17): gemini-3.5-flash answers 400 INVALID_ARGUMENT when the schema has
+    minItems/maxItems. Limits are stated in the prompt and field descriptions and enforced per item locally."""
+    from backend.providers import SYSTEM
+    sent = json.dumps(gemini_schema(ObservationBatch))
+    for keyword in ("minItems", "maxItems", "minLength", "maxLength"):
+        assert keyword not in sent
+    item = gemini_schema(ObservationBatch)["properties"]["observations"]["items"]["properties"]
+    assert "known_people" in item["person_ids"]["description"] and "160" in item["title"]["description"]
+    assert "At most 12 observations" in SYSTEM and "1 to 4 citations" in SYSTEM
 
 
 def test_one_bad_observation_no_longer_discards_the_valid_ones(snapshot):

@@ -113,7 +113,7 @@ class GeminiProvider:
         from google.genai import types
         payload = {"question": question, "known_people": [{"id": p["id"], "name": p["name"]} for p in snapshot["people"]], "records": record_payload(snapshot)}
         response = self.client.models.generate_content(model=self.model, contents=json.dumps(payload, ensure_ascii=False),
-                    config=types.GenerateContentConfig(system_instruction=SYSTEM, response_mime_type="application/json", response_schema=gemini_schema(ObservationBatch, limits=True), temperature=0))
+                    config=types.GenerateContentConfig(system_instruction=SYSTEM, response_mime_type="application/json", response_schema=gemini_schema(ObservationBatch), temperature=0))
         batch, schema_rejected, problems = parse_observations(response.text)
         shown = "; ".join(problems[:6]) + (f"; +{len(problems) - 6} more" if len(problems) > 6 else "")
         if schema_rejected and not batch.observations:
