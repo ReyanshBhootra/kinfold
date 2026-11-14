@@ -50,13 +50,14 @@ Evidence integrity isn't evidence truth. A shared-cM value fits several relation
 
 ## Built with
 React, TypeScript, Vite, Python, FastAPI, Pydantic, Google Gemini (`gemini-3.5-flash`).
-**[DECIDE: MongoDB Atlas, #6]** Add only if the app has really run against Atlas.
+MongoDB Atlas: case storage. Verified on a real Atlas cluster; the case survives a full app restart with an identical evidence digest.
 **[DECIDE: Solana, #3]** Add only if a real devnet anchor was made and verified. Otherwise leave Solana out of the copy.
 
 ## Prize tracks
 - **Best Use of Gemini AI:** real `gemini-3.5-flash` extraction, recorded on 2026-11-14 and replayed and re-verified in the demo.
 - **[DECIDE: Arlequin AI-Driven Forensics, #4]** We've emailed the sponsor and are waiting for an answer. List it first only if they confirm the project fits.
-- **[DECIDE: MongoDB, #6]** and **[DECIDE: Solana, #3]**: list only if verified as above.
+- **MongoDB Atlas:** cases persist in Atlas, verified with a real cluster. This is storage only, so describe it plainly.
+- **[DECIDE: Solana, #3]**: list only if verified as above.
 
 ## Demo video
 **[DECIDE: link from #5]** Not recorded yet.
