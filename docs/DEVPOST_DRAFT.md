@@ -33,6 +33,7 @@ Every finding opens the source record with the cited lines highlighted. Research
 - The DNA check overturns the obvious story, and the AI step finds a branch that fits. Each step cites the exact lines it relies on.
 - AI claims are proposals until they pass verification, and rejected claims stay visible.
 - The full workflow runs offline, without keys, replaying a real recorded Gemini run.
+- If a live Gemini call fails mid-demo, Kinfold falls back to the real recorded response and says so.
 
 ## What we tested
 - Backend test suite (pytest): source spans, contradictions, evidence-driven candidate changes, DNA ranges, extraction verification, the Gemini schema regression, prompt injection, uploads, persistence and exports.
@@ -44,7 +45,6 @@ Every finding opens the source record with the cited lines highlighted. Research
 Evidence integrity isn't evidence truth. A shared-cM value fits several relationships, and a perfectly located quote can still be misread. Useful research tooling shows its uncertainty and leaves the conclusion to a human reviewer.
 
 ## What's next
-- A replay fallback, so a live AI outage during a demo still shows the recorded run.
 - Better name linking, for example "Patricia Hale" and "the former Patricia Novak".
 - Relationship inference evaluated on simulated pedigrees with whole-family holdouts and declared baselines (`research/genetics/`).
 
@@ -54,12 +54,12 @@ React, TypeScript, Vite, Python, FastAPI, Pydantic, Google Gemini (`gemini-3.5-f
 **[DECIDE: Solana, #3]** Add only if a real devnet anchor was made and verified. Otherwise leave Solana out of the copy.
 
 ## Prize tracks
-- **Gemini** (**[DECIDE: use the exact track name from the HackPrinceton Devpost page]**): real `gemini-3.5-flash` extraction, recorded on 2026-11-14 and replayed and re-verified in the demo.
-- **[DECIDE: Arlequin AI-Driven Forensics, #4]** List it first only if the sponsor confirms the project fits.
+- **Best Use of Gemini AI:** real `gemini-3.5-flash` extraction, recorded on 2026-11-14 and replayed and re-verified in the demo.
+- **[DECIDE: Arlequin AI-Driven Forensics, #4]** We've emailed the sponsor and are waiting for an answer. List it first only if they confirm the project fits.
 - **[DECIDE: MongoDB, #6]** and **[DECIDE: Solana, #3]**: list only if verified as above.
 
 ## Demo video
-**[DECIDE: link from #5]**
+**[DECIDE: link from #5]** Not recorded yet.
 
 ## Accuracy notes (keep in the submission)
 - All people, records and DNA matches are synthetic. Kinfold identifies no one.
