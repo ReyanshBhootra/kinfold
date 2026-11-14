@@ -376,7 +376,11 @@ def derive(state):
             first = next(((i, line.strip()) for i, line in enumerate(d["text"].split("\n"), 1) if line.strip()), None)
             if first:
                 finding("observation", f"Reviewed without structured extraction: {d['name']}", "The deterministic demo parser found no supported claim patterns. The original record remains available for manual review or a configured live extraction adapter.", [], [{"document_id": d["id"], "quote": first[1], "start_line": first[0], "end_line": first[0]}])
-    snapshot = {"case": deepcopy(state["case"]), "people": list(people.values()), "relationships": relationships,
+    # What the AI actually said, sealed by hash (backend/extraction.py:raw_sha256). Part of the manifest.
+    ai_recordings = [{"document_id": document_id, "model": result.get("model"), "recorded_at": result.get("recorded_at"), "raw_sha256": result.get("raw_sha256")}
+                     for document_id, result in sorted(state.get("ai_extractions", {}).items())
+                     if document_id in names_by_document and result.get("source") != "failed"]
+    snapshot = {"case": deepcopy(state["case"]), "people": list(people.values()), "relationships": relationships, "ai_recordings": ai_recordings,
                 "documents": deepcopy(state["documents"]), "findings": findings + deepcopy(state.get("model_findings", [])), "candidates": candidates,
                 "next_actions": actions[:6], "audit": deepcopy(state["audit"]),
                 "metrics": {"documents_processed": sum(d["processed"] for d in state["documents"]), "supported_relationships": sum(r["status"] == "supported" for r in relationships), "conflicts": sum(f["kind"] == "conflict" for f in findings), "remaining_candidates": len(remaining)}}

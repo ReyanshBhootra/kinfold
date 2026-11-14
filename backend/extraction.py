@@ -127,6 +127,12 @@ def review(batch: ExtractionBatch, document: dict):
     return accepted, rejected
 
 
+def raw_sha256(raw):
+    """SHA-256 of the model's raw reply as canonical JSON. Sealed into the evidence manifest, so editing a
+    recorded AI response changes the case digest (and breaks verification against any earlier anchor)."""
+    return hashlib.sha256(json.dumps(raw, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf8")).hexdigest()
+
+
 def cache_key(model, text):
     return hashlib.sha256(f"{PROMPT_VERSION}\n{model}\n{text}".encode("utf8")).hexdigest()
 
@@ -203,5 +209,6 @@ def extract_document(document, known_names, extractor=None, cache_dir=None):
         return None
     accepted, rejected = review(batch, document)
     return {"source": source, "provider": "gemini", "model": model, "recorded_at": recorded_at, "prompt_version": PROMPT_VERSION,
+            "raw_sha256": raw_sha256(batch.model_dump()),
             "proposed": len(batch.claims), "accepted": accepted, "rejected": rejected,
             "fallback_note": f"{fallback_note}; used the recorded response instead." if fallback_note else None}
