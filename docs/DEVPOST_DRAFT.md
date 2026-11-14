@@ -1,35 +1,69 @@
-# Kinfold — Devpost draft
+# Kinfold: Devpost draft
+
+> Placeholders marked **[DECIDE]** need a human decision before submission (see the linked issues). Remove this note and every placeholder before you paste the copy into Devpost.
 
 ## Tagline
-Every connection, a source. An evidence-linked genealogy research workspace that keeps contradictions visible.
+Every connection, a source. A genealogy research assistant that checks the family story against the DNA, and makes the AI quote its sources.
 
 ## Inspiration
-An appealing family story can outrun its evidence. We wanted a research assistant that makes each relationship inspectable, preserves inconvenient records, and explains why a lead remains possible or falls outside a stated constraint.
+In forensic genetic genealogy, a tidy family story can run ahead of its evidence. A DNA match and a few records point at a family, and a researcher fills in the rest. We wanted a tool that does the opposite: it tests the story against the numbers, keeps contradictions visible, and makes every relationship traceable to the exact line of the record behind it.
 
 ## What it does
-Kinfold combines a disclosed synthetic unidentified-person case, simulated DNA-match summaries, and varied synthetic family records. The local engine extracts supported text patterns, builds a source-linked family graph, highlights conflicting dates and parent assertions, and evaluates candidate leads through explainable age, region, life-status and record-derived family-path criteria. Every cited assertion opens its original record and numbered excerpt. Leads remain unconfirmed.
+Kinfold works on a disclosed, fully **synthetic** unidentified-person case. An unknown person shares 220 cM of simulated DNA with Ruth Mercer, and the case records point at three of Ruth's nieces.
 
-New text evidence can change eligibility. Unsupported prose stays readable and is explicitly labeled without structured extraction. Research packs export the evidence, provenance fingerprints, findings, candidate reasons, next actions, audit log and versioned manifest. A local verifier checks citations, fingerprints and digest consistency; an independently saved digest supports change detection.
+1. **The DNA says no.** Kinfold builds a family graph from the records. Every edge cites a document line span. It then follows the recorded parent links from each lead to the DNA match. Under the recorded pedigree, all three leads would be Ruth's nieces, with an expected 1,201–2,282 cM, against 220 observed. All three are excluded, and each also has record-based reasons: a birth year outside the estimated range, an alive record after the estimated death, or conflicting birth sources. The first suggested next step is to search branches that fit 220 cM.
+2. **The AI reads messy records, and must quote them.** We upload two new synthetic records: an obituary and a 1972 birth announcement. Gemini proposes typed claims (birth, death, parent, spouse, sibling), each with a quote and a line span. Kinfold accepts a claim only if the quote is verbatim in the cited lines and names every person and year the claim asserts. In our recorded run, Gemini proposed 13 claims. Kinfold verified 11 and rejected 2, and the UI shows each rejection with its reason. Both rejections are conservative: the record arguably implies the claim, but the quote doesn't state it. One said George Hale was alive in 2008, but the quote never states the year. The other claimed a marriage from a quote with no explicit marriage wording. Rejected claims never reach the graph.
+3. **A new lead appears.** The verified claims link Frances Hale, Arthur Mercer's sister, to her granddaughter Lena Hale. Kinfold proposes Lena itself ("Found by Kinfold"). Her 1972 birth year falls inside the estimated range. Under the recorded pedigree she would be Ruth's first cousin once removed, with an expected 102–980 cM, so 220 cM is consistent. The record gives her birthplace only as "Cooper Hospital", so Kinfold awards no region point it can't support.
+
+Every finding opens the source record with the cited lines highlighted. Research packs export the records, source fingerprints, findings, candidate reasoning, audit log and a manifest digest, and a local verifier detects later changes.
 
 ## How we built it
-React, TypeScript and Vite power the investigation interface. FastAPI and Pydantic provide the API, bounded text ingestion, structured claims and citation validation. Atomic local JSON persistence keeps the demo runnable without accounts or keys. Separate synthetic evaluation families and evidence-perturbation tests check that decisions follow records rather than a hidden winner lookup.
-
-Optional genuine adapters add Gemini structured **annotations**, a restricted deepagents plan/retrieve/extract/check/report loop, and MongoDB persistence. Model annotations remain separate from deterministic ranking; the live adapter is not arbitrary-document-to-pedigree reconstruction. Optional Solana devnet tooling submits only a namespaced SHA-256 digest to the Memo program and verifies actual confirmed transaction contents. It does not put names, DNA or source records on-chain.
-
-## What we tested
-Use the exact final counts and commands in docs/VALIDATION.md when submitting. The tests cover source spans, contradictory constraints, evidence-driven candidate changes, new leads, malformed parent assertions, prompt injection, upload continuation, persistence, exports and tampering. Browser checks exercise the actual API. deepagents executes its real harness against a scripted offline model; Gemini transport/schema and Mongo database contracts have offline tests.
+- **Frontend:** React, TypeScript and Vite. The UI has an interactive family graph, a source reader with line highlighting, candidate review, uploads and the research log.
+- **Backend:** FastAPI and Pydantic. A deterministic pipeline turns claims into relationships, findings and leads. Atomic local JSON storage keeps the demo runnable without accounts.
+- **DNA check:** finds the closest common ancestors through recorded parent links. It compares observed shared cM with a reference range for that relationship: 99% Ped-sim intervals for first to third cousins, approximate Shared cM Project ranges otherwise. It's a range-consistency check, not a likelihood.
+- **Gemini extraction:** `gemini-3.5-flash` with structured JSON output. Strict Pydantic models validate the reply, and a separate verifier checks each quote against the document. Every real response is recorded with its model and timestamp, so the demo can replay it offline and re-verify it, clearly labelled "replay of a recorded response". We never fabricate a live AI result.
+- **Safety:** uploaded documents are treated as untrusted evidence, never as instructions. Tests cover prompt injection.
 
 ## Challenges
-The difficult boundary is between a source assertion and a conclusion. We kept conflicting claims instead of overwriting them, abstain when case estimates disagree, and flag malformed parent paths. We also separated a local checksum from a real on-chain anchor and a configured adapter from a successful live service run.
+- **Live Gemini rejected our strict response schemas** (`additionalProperties`, `$ref`, nullable `anyOf`) with 400 errors, which our offline tests couldn't catch. We now send Gemini a simplified OpenAPI-subset schema and still validate replies against the original strict models, so nothing is loosened on our side.
+- **Deciding what counts as "supported".** A quote can be located exactly and still not support the claim built on it. Our verifier prefers to drop a true claim rather than accept an unsupported one, and it shows every rejection.
+- **Keeping heuristics honest.** Lead scores are labelled heuristic evidence scores, never probabilities. "DNA consistent" means inside a reference range under the recorded pedigree, nothing more.
 
 ## Accomplishments
-A complete local workflow works without keys: source records → cited relationships → explicit contradictions → explainable lead review → new evidence → changed constraints → verifiable research handoff. The interface exposes the evidence behind each step.
+- The DNA check overturns the obvious story, and the AI step finds a branch that fits. Each step cites the exact lines it relies on.
+- AI claims are proposals until they pass verification, and rejected claims stay visible.
+- The full workflow runs offline, without keys, replaying a real recorded Gemini run.
+
+## What we tested
+- Backend test suite (pytest): source spans, contradictions, evidence-driven candidate changes, DNA ranges, extraction verification, the Gemini schema regression, prompt injection, uploads, persistence and exports.
+- `scripts/evaluate.py`: two held-out synthetic families with 6 candidate decisions. The full engine got 6/6 against 4/6 for a birth-range-only baseline. That's a small correctness check, not scientific validation.
+- `npm run test:integration`: runs against the real HTTP API. It locates every citation, checks digests across Python and JavaScript, uploads a record and confirms that an old digest no longer matches.
+- **[DECIDE before submitting]** Paste the final test counts from the submission commit, from the commands in `AGENTS.md`.
 
 ## What we learned
-Evidence integrity does not establish evidence truth. A quote can be accurately located while its interpretation is still wrong. A shared-cM value can fit multiple relationship paths. Useful research tooling must make uncertainty and review requirements visible.
+Evidence integrity isn't evidence truth. A shared-cM value fits several relationships, and a perfectly located quote can still be misread. Useful research tooling shows its uncertainty and leaves the conclusion to a human reviewer.
 
 ## What's next
-Configure and record actual successful Gemini/deepagents/Atlas runs before claiming live use. With an explicitly configured development wallet, demonstrate a real Solana devnet anchor and independent transaction verification. Separately evaluate genetic inference using pedigree simulation/research methods with whole-family holdouts, declared baselines and abstention. No sequence-level inference or scientific calibration is claimed in this prototype.
+- A replay fallback, so a live AI outage during a demo still shows the recorded run.
+- Better name linking, for example "Patricia Hale" and "the former Patricia Novak".
+- Relationship inference evaluated on simulated pedigrees with whole-family holdouts and declared baselines (`research/genetics/`).
 
-## Submission accuracy notes
-All people, records and DNA matches in the demo are synthetic. Candidate scores are heuristic, not identity probabilities. This is a local research prototype, not a validated forensic identification system. No live Gemini/Atlas/remote-model deepagents run or real Solana transaction has been verified during the offline build. Arlequin genetic genealogy eligibility needs organizer confirmation; no prize or eligibility is promised. Select sponsor technologies/categories based on the final demonstrated behavior and current organizer rules.
+## Built with
+React, TypeScript, Vite, Python, FastAPI, Pydantic, Google Gemini (`gemini-3.5-flash`).
+**[DECIDE: MongoDB Atlas, #6]** Add only if the app has really run against Atlas.
+**[DECIDE: Solana, #3]** Add only if a real devnet anchor was made and verified. Otherwise leave Solana out of the copy.
+
+## Prize tracks
+- **Gemini** (**[DECIDE: use the exact track name from the HackPrinceton Devpost page]**): real `gemini-3.5-flash` extraction, recorded on 2026-11-14 and replayed and re-verified in the demo.
+- **[DECIDE: Arlequin AI-Driven Forensics, #4]** List it first only if the sponsor confirms the project fits.
+- **[DECIDE: MongoDB, #6]** and **[DECIDE: Solana, #3]**: list only if verified as above.
+
+## Demo video
+**[DECIDE: link from #5]**
+
+## Accuracy notes (keep in the submission)
+- All people, records and DNA matches are synthetic. Kinfold identifies no one.
+- Lena Hale is a research lead, not an identification. DNA consistency is a range check on a recorded pedigree, not a likelihood. Evidence scores are heuristic, not probabilities.
+- The AI step in the demo is a replay of a real recorded Gemini response, labelled as such in the UI.
+- The integrity screen reads "not anchored" unless a real Solana devnet transaction has been verified.
+- This is a hackathon research prototype, not a validated forensic system.
