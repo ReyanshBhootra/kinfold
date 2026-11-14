@@ -1,0 +1,23 @@
+{
+  "notice": "Approximate total shared-cM ranges used only to check whether an observed match amount is plausible for the relationship implied by recorded parent links. Not a likelihood, identification or genetic test.",
+  "sources": {
+    "pedsim": "Kinfold research pipeline: 99% interval (0.5th-99.5th percentile) of positive-sharing pairs in Ped-sim full-cousin simulations (Williams 2025, Zenodo 17489849, CC BY 4.0; ss_intf model, 100,000 pairs per class). Simulated totals, no detection threshold.",
+    "shared_cm_project": "Approximate ranges from the Shared cM Project v4 (Blaine Bettinger, 2020, CC BY 4.0). Verify against the current published tool before relying on exact bounds."
+  },
+  "relationships": {
+    "parent_child": {"label": "parent / child", "low_cM": 2376, "high_cM": 3720, "source": "shared_cm_project"},
+    "full_sibling": {"label": "full siblings", "low_cM": 1613, "high_cM": 3488, "source": "shared_cm_project"},
+    "half_sibling": {"label": "half siblings", "low_cM": 1160, "high_cM": 2436, "source": "shared_cm_project"},
+    "grandparent": {"label": "grandparent / grandchild", "low_cM": 984, "high_cM": 2462, "source": "shared_cm_project"},
+    "aunt_niece": {"label": "aunt or uncle / niece or nephew", "low_cM": 1201, "high_cM": 2282, "source": "shared_cm_project"},
+    "half_aunt_niece": {"label": "half aunt or uncle / half niece or nephew", "low_cM": 492, "high_cM": 1315, "source": "shared_cm_project"},
+    "great_grandparent": {"label": "great-grandparent / great-grandchild", "low_cM": 464, "high_cM": 1486, "source": "shared_cm_project"},
+    "great_aunt_niece": {"label": "great-aunt or uncle / grandniece or nephew", "low_cM": 330, "high_cM": 1467, "source": "shared_cm_project"},
+    "1C": {"label": "first cousins", "low_cM": 505, "high_cM": 1206, "source": "pedsim"},
+    "half_1C": {"label": "half first cousins", "low_cM": 156, "high_cM": 979, "source": "shared_cm_project"},
+    "1C1R": {"label": "first cousins once removed", "low_cM": 102, "high_cM": 980, "source": "shared_cm_project"},
+    "2C": {"label": "second cousins", "low_cM": 53, "high_cM": 429, "source": "pedsim"},
+    "2C1R": {"label": "second cousins once removed", "low_cM": 0, "high_cM": 316, "source": "shared_cm_project"},
+    "3C": {"label": "third cousins", "low_cM": 0, "high_cM": 169, "source": "pedsim"}
+  }
+}

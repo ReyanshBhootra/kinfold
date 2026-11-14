@@ -1,0 +1,23 @@
+{
+  "name": "kinfold",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend",
+    "preview": "npm run preview --workspace frontend",
+    "anchor": "node blockchain/anchor.mjs",
+    "test:anchor": "node --test blockchain/anchor.test.mjs",
+    "test:integration": "node scripts/integration.mjs",
+    "start": "node scripts/dev.mjs",
+    "verify:package": "node scripts/verify-package.mjs",
+    "test:package": "node --test scripts/verify-package.test.mjs"
+  },
+  "devDependencies": {
+    "@solana/web3.js": "^3.2.1"
+  }
+}

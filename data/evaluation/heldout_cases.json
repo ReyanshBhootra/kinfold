@@ -1,0 +1,23 @@
+[
+  {
+    "id":"rowan-eval", "title":"Synthetic Rowan holdout",
+    "people":[{"id":"ada","name":"Ada Rowan","candidate":true},{"id":"iris","name":"Iris Rowan","candidate":true},{"id":"mae","name":"Mae Rowan","candidate":true}],
+    "records":[
+      "SYNTHETIC CASE\nEstimated birth year range: 1960-1970.\nEstimated death year: 2010.\nCase region: Oregon.",
+      "SYNTHETIC REGISTER\nAda Rowan was born in 1964 in Salem, Oregon.\nIris Rowan was born in 1967 in Portland, Oregon.\nMae Rowan was born in 1954 in Eugene, Oregon.",
+      "SYNTHETIC ATTESTATION\nIris Rowan was recorded alive in 2016 in Portland, Oregon."
+    ],
+    "expected":{"ada":"possible","iris":"excluded","mae":"excluded"}, "expected_conflicts":0
+  },
+  {
+    "id":"fen-eval", "title":"Synthetic Fen constraint-abstention holdout",
+    "people":[{"id":"leo","name":"Leo Fen","candidate":true},{"id":"mara","name":"Mara Fen","candidate":true},{"id":"orin","name":"Orin Fen","candidate":true}],
+    "records":[
+      "SYNTHETIC CASE\nEstimated birth year range: 1980-1990.\nEstimated death year: 2020.\nCase region: Maine.",
+      "SYNTHETIC ALTERNATE AGE ESTIMATE\nEstimated birth year range: 1970-1990.",
+      "SYNTHETIC REGISTER\nLeo Fen was born in 1975 in Augusta, Maine.\nMara Fen was born in 1984 in Bangor, Maine.\nOrin Fen was born in 1987 in Portland, Maine.",
+      "SYNTHETIC SECONDARY NOTICE\nMara Fen was born in 1986 in Bangor, Maine.\nOrin Fen was recorded alive in 2023 in Portland, Maine."
+    ],
+    "expected":{"leo":"possible","mara":"needs_review","orin":"excluded"}, "expected_conflicts":2
+  }
+]

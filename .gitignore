@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.log
+*.key
+*.keypair.json
+data/runtime/
+.claude/settings.local.json
+.claude/worktrees/

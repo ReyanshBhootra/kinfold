@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "Fabricated record-error/lineage layer over real public simulation features; not real historical records or empirically estimated document reliability",
+  "genetic_model": "cm_segments_positive_only fitted by benchmark.py",
+  "calibration": "ss_intf batch1 calibration groups, positive-sharing rows only",
+  "test": "ss_intf batch2 test groups, positive sharing, at most1000 per class selected by a separate stable hash",
+  "assumed_source_reliabilities": {"A":0.85,"B":0.7},
+  "nominal_missing_probability_per_source":0.25,
+  "nominal_record_generation": "Each original source states the true cousin class with its declared reliability, otherwise chooses uniformly from other supported classes. This directly informative toy record is intentionally simplified.",
+  "scenarios":["nominal_single_copy","missing_70_percent","A_copied_six_times","A_wrong_rate_45_percent_copied_six_times","A_copied_six_times_lineage_unknown"],
+  "fusion": "Naive treats each document as independent. Provenance-aware counts a known, internally consistent origin once; contradictory known-origin groups and unknown lineage are ignored for fusion.",
+  "conformal": "Both fused methods calibrated on nominal single-copy record generation; no recalibration on test shifts",
+  "verification": "Select the binary claim-verification question with greatest entropy under the method's reference scores. Idealized oracle says whether the asserted degree is true; never used by the policy. Compare first-available question and an evaluation-only oracle upper bound.",
+  "seed_salt":"kinfold-record-stress-v1",
+  "interpretation":"A dependence-sensitivity plumbing experiment, not a new method, biological realism, real-record effectiveness or scientific novelty claim"
+}

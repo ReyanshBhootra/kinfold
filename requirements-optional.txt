@@ -1,0 +1,5 @@
+# Optional adapters, versions imported/checked during this build. Core needs only requirements.txt.
+google-genai==3.3.0
+pymongo==4.20.0
+deepagents==0.7.38
+langchain-google-genai==4.5.0

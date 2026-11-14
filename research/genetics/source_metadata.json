@@ -1,0 +1,44 @@
+{
+  "record_url": "https://zenodo.org/records/17489849",
+  "doi": "10.5281/zenodo.17489849",
+  "creator": "Amy L. Williams",
+  "publication_date": "2025-10-31",
+  "license": [
+    {
+      "description": {
+        "en": "The Creative Commons Attribution license allows re-distribution and re-use of a licensed work on the condition that the creator is appropriately credited."
+      },
+      "icon": "cc-by-icon",
+      "id": "cc-by-4.0",
+      "props": {
+        "scheme": "spdx",
+        "url": "https://creativecommons.org/licenses/by/4.0/legalcode"
+      },
+      "title": {
+        "en": "Creative Commons Attribution 4.0 International"
+      }
+    }
+  ],
+  "archive_files": {
+    "ped-sim-defs.zip": {
+      "size": 13686,
+      "checksum": "md5:18256c9e65895b2142e82103a065558e"
+    },
+    "segs_summary_stats-sa_intf.zip": {
+      "size": 501326211,
+      "checksum": "md5:14f4ce3ec32246765e8a1714fc9c067c"
+    },
+    "segs_summary_stats-sa_poiss.zip": {
+      "size": 499875321,
+      "checksum": "md5:43515cdebb6e7fc718abce6fb7a99ed1"
+    },
+    "segs_summary_stats-ss_intf.zip": {
+      "size": 725646367,
+      "checksum": "md5:a4af18b68ceaaf97c2b841b870c244b4"
+    },
+    "segs_summary_stats-ss_poiss.zip": {
+      "size": 499385604,
+      "checksum": "md5:1f8d9476f1a6633be706a895f8956c27"
+    }
+  }
+}

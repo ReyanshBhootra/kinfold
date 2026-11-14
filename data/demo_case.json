@@ -1,0 +1,32 @@
+{
+  "case": {
+    "id": "demo-case",
+    "title": "The Alder Creek case",
+    "summary": "An unidentified adult was recovered near Alder Creek in 2011. A simulated DNA match points toward the Mercer family. Three relatives are research leads; the records must establish which assumptions hold.",
+    "status": "ready", "synthetic": true, "mode": "demo", "version": 1
+  },
+  "roster": [
+    {"id":"arthur","name":"Arthur Mercer","candidate":false},
+    {"id":"edith","name":"Edith Mercer","candidate":false},
+    {"id":"daniel","name":"Daniel Mercer","candidate":false},
+    {"id":"thomas","name":"Thomas Mercer","candidate":false},
+    {"id":"ruth","name":"Ruth Mercer","candidate":false},
+    {"id":"helen","name":"Helen Mercer","candidate":false},
+    {"id":"alice","name":"Alice Mercer","candidate":false},
+    {"id":"june","name":"June Mercer","candidate":true},
+    {"id":"clara","name":"Clara Mercer","candidate":true},
+    {"id":"nora","name":"Nora Mercer","candidate":true}
+  ],
+  "documents": [
+    {"id":"d01","name":"Alder Creek · case intake","kind":"case_intake","synthetic":true,"processed":false,"text":"SYNTHETIC CASE INTAKE — AC-2011\nAn unidentified adult was recovered near Alder Creek, New Jersey.\nEstimated birth year range: 1969-1977.\nEstimated death year: 2011.\nCase region: New Jersey.\nThese estimated constraints are research assumptions, not identity proof."},
+    {"id":"d02","name":"Simulated match summary · M-017","kind":"simulated_dna","synthetic":true,"processed":false,"text":"SYNTHETIC DNA MATCH SUMMARY\nDNA match: Unidentified individual and Ruth Mercer share 220 cM (simulated).\nThe shared-cM value can fit multiple relationship paths.\nNo sequence-level analysis, calibrated likelihood, or exact relationship is asserted.\nCandidate family branches must be checked using independent records."},
+    {"id":"d03","name":"Mercer household · 1950 census transcript","kind":"census","synthetic":true,"processed":false,"text":"SYNTHETIC CENSUS TRANSCRIPT — Trenton, New Jersey\nArthur Mercer was born in 1918 in Trenton, New Jersey.\nEdith Mercer was born in 1921 in Trenton, New Jersey.\nDaniel Mercer was born in 1943 in Trenton, New Jersey.\nThomas Mercer was born in 1946 in Trenton, New Jersey.\nRuth Mercer was born in 1948 in Trenton, New Jersey.\nDaniel Mercer is the son of Arthur Mercer and Edith Mercer.\nThomas Mercer is the son of Arthur Mercer and Edith Mercer.\nRuth Mercer is the daughter of Arthur Mercer and Edith Mercer."},
+    {"id":"d04","name":"Thomas & Alice · marriage index","kind":"marriage","synthetic":true,"processed":false,"text":"SYNTHETIC MARRIAGE INDEX — 1969\nThomas Mercer married Alice Mercer.\nAlice Mercer was born in 1949 in Trenton, New Jersey.\nThe index is a fictional research fixture, not a certified record."},
+    {"id":"d05","name":"Clara Mercer · birth register","kind":"birth_register","synthetic":true,"processed":false,"text":"SYNTHETIC BIRTH REGISTER — volume 71\nClara Mercer was born in 1971 in Trenton, New Jersey.\nClara Mercer is the daughter of Thomas Mercer and Alice Mercer.\nThis transcript is an independent source assertion; retain conflicts."},
+    {"id":"d06","name":"Nora Mercer · birth register","kind":"birth_register","synthetic":true,"processed":false,"text":"SYNTHETIC BIRTH REGISTER — volume 74\nNora Mercer was born in 1974 in Trenton, New Jersey.\nNora Mercer is the daughter of Thomas Mercer and Alice Mercer."},
+    {"id":"d07","name":"Daniel & Helen · family register","kind":"family_register","synthetic":true,"processed":false,"text":"SYNTHETIC FAMILY REGISTER — Mercer branch B\nDaniel Mercer married Helen Mercer.\nHelen Mercer was born in 1945 in Princeton, New Jersey.\nJune Mercer was born in 1965 in Princeton, New Jersey.\nJune Mercer is the daughter of Daniel Mercer and Helen Mercer."},
+    {"id":"d08","name":"Thomas Mercer · newspaper obituary","kind":"obituary","synthetic":true,"processed":false,"text":"SYNTHETIC NEWSPAPER OBITUARY — 2002\nThomas Mercer died in 2002.\nSurviving family includes Alice Mercer, Clara Mercer and Nora Mercer.\nClara Mercer was born in 1973 in Trenton, New Jersey.\nThe birth year in this notice conflicts with the birth register. Neither source is silently overwritten."},
+    {"id":"d09","name":"Nora Mercer · 2015 directory attestation","kind":"directory","synthetic":true,"processed":false,"text":"SYNTHETIC DIRECTORY ATTESTATION — 2015\nNora Mercer was recorded alive in 2015 in Newark, New Jersey.\nAssumption for this exercise: this attestation refers to the same Nora Mercer as the birth register.\nIndependent verification of the source and person linkage remains necessary."},
+    {"id":"d10","name":"Clara Mercer · 2009 address index","kind":"address_index","synthetic":true,"processed":false,"text":"SYNTHETIC ADDRESS INDEX — 2009\nClara Mercer was recorded alive in 2009 in Trenton, New Jersey.\nAn address entry is a lead, not proof of presence or a confirmed identity.\nRequest an independent life-status record and resolve the conflicting birth year."}
+  ]
+}

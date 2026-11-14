@@ -1,0 +1,39 @@
+# Two-minute local demo
+
+**Before you start:**
+- Run `npm start` and open http://127.0.0.1:5173. Reset the synthetic case from Research log.
+- Keep two files ready to upload:
+  - `data/examples/synthetic-hale-obituary.txt`
+  - `data/examples/synthetic-hale-birth-announcement.txt`
+- Say explicitly that all people and DNA matches are synthetic.
+
+**Gemini setup:** AI extraction needs a recorded Gemini response, or a live key (see "Before the event" below). Without either, the uploads are kept and shown as "Reviewed without structured extraction", and no AI result is invented.
+
+**0:00–0:20: The question.** "An unidentified person shares 220 cM of DNA with Ruth Mercer. The records point at three of Ruth's nieces. Kinfold checks whether that story holds up." Run the investigation.
+
+**0:20–0:50: The DNA says no.**
+- Open Candidate leads. All three recorded leads are excluded.
+- Under the recorded pedigree, each would be Ruth's niece: about 1,201–2,282 cM expected, against 220 observed.
+- Point out the record-based reasons too: June's birth year is outside the estimated range, Nora has an alive record after the death estimate, and Clara's birth sources conflict.
+- The first next action reads "Search branches that fit 220 cM": first cousins once removed or second cousins, through Ruth's grandparents.
+
+**0:50–1:30: AI reads messy records, and every claim must quote its source.**
+- Upload the Hale obituary and the 1972 birth announcement, then investigate.
+- Gemini proposes claims. Kinfold accepts a claim only if:
+  - the quote is verbatim in the cited lines;
+  - the quote names each person;
+  - the quote states the year.
+- Show the two rejected claims. The model turned a *granddaughter* into a daughter, and it took a 1972 birth year from a record that never states it. The rejected claims never reach the graph.
+
+**1:30–1:50: A new lead appears.**
+- The obituary says Frances Hale was Arthur Mercer's sister. Lena Hale is Frances's granddaughter.
+- Kinfold proposes Lena itself ("Found by Kinfold"): born 1972, in New Jersey, and the 220 cM DNA fits. Under the recorded pedigree she is Ruth's first cousin once removed (expected 102–980 cM).
+- Open a citation to show the exact line behind each step.
+
+**1:50–2:00: Honest boundaries.** "This is a research lead, not an identification. DNA consistency is a range check on a recorded pedigree, not a likelihood. The integrity screen says not anchored because no Solana transaction was verified."
+
+**Before the event:**
+1. Put `KINFOLD_AI_MODE=gemini`, `GEMINI_API_KEY` and `GEMINI_MODEL` in `.env`.
+2. Run the upload once. This records Gemini's raw response in `data/ai_cache/`.
+3. Commit that cache so the demo replays the real recorded response offline. The finding then says "replay of a recorded response" with its timestamp.
+4. If the live model makes different mistakes than the ones above, describe what it actually did.
