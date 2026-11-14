@@ -359,6 +359,8 @@ def derive(state):
             finding("observation", f"AI extraction did not run: {name}", result["note"], [], line_citation(document_id), "ai-failed-" + document_id)
             continue
         origin = "live call" if result["source"] == "live" else f"replay of a recorded response ({result['recorded_at']})"
+        if result.get("fallback_note"):
+            origin += f"; {result['fallback_note']}"
         finding("ai_extraction", f"AI read {name}: {len(result['accepted'])} claims verified, {len(result['rejected'])} rejected",
                 f"Gemini ({result['model']}, {origin}) proposed {result['proposed']} claims. Kinfold accepted only claims whose quote is verbatim in the record and names every person and year it asserts.",
                 [], [c["citation"] for c in result["accepted"]][:6], "ai-" + document_id)

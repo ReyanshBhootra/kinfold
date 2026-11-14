@@ -23,16 +23,22 @@
   - the quote is verbatim in the cited lines;
   - the quote names each person;
   - the quote states the year.
-- Show the two rejected claims. The model turned a *granddaughter* into a daughter, and it took a 1972 birth year from a record that never states it. The rejected claims never reach the graph.
+- Show the two rejected claims from the recorded `gemini-3.5-flash` run. Both are probably true, but the quotes the model chose don't state them outright, so the conservative verifier drops them. "We'd rather drop a true claim than accept an unsupported one."
+  - George Hale "alive in 2008": implied by "survived by" in a 2008 obituary, but the quote never states the year.
+  - A George–Patricia marriage: the record supports it ("Mr. and Mrs. George Hale … the former Patricia Novak"), but the quote has no explicit marriage wording.
+- Because that link was dropped, the graph shows "Patricia Hale" and "Patricia Novak" as separate people. Say so in one sentence; it's the verifier being honest, not a bug.
 
 **1:30–1:50: A new lead appears.**
 - The obituary says Frances Hale was Arthur Mercer's sister. Lena Hale is Frances's granddaughter.
-- Kinfold proposes Lena itself ("Found by Kinfold"): born 1972, in New Jersey, and the 220 cM DNA fits. Under the recorded pedigree she is Ruth's first cousin once removed (expected 102–980 cM).
+- Kinfold proposes Lena itself ("Found by Kinfold"): she was born in 1972, inside the estimated range, and the 220 cM DNA fits. Under the recorded pedigree she is Ruth's first cousin once removed (expected 102–980 cM).
+- The model gave her birthplace only as "Cooper Hospital", so Kinfold does not award a region point it can't support.
 - Open a citation to show the exact line behind each step.
 
 **1:50–2:00: Honest boundaries.** "This is a research lead, not an identification. DNA consistency is a range check on a recorded pedigree, not a likelihood. The integrity screen says not anchored because no Solana transaction was verified."
 
-**Before the event:**
+**Recorded run:** `data/ai_cache/` holds real `gemini-3.5-flash` responses for both Hale records, recorded on 2026-11-14. With no key set, the app replays them and labels them as a replay. With a key set, a failed live call (for example a 503 overload) falls back to the recording and says so. A successful live run never overwrites an existing recording. `gemini-3.8-flash` returned 503 overloads while we recorded. **Record the demo video with no key set**, so it shows exactly the run described here.
+
+**To re-record:**
 1. Put `KINFOLD_AI_MODE=gemini`, `GEMINI_API_KEY` and `GEMINI_MODEL` in `.env`.
 2. Run the upload once. This records Gemini's raw response in `data/ai_cache/`.
 3. Commit that cache so the demo replays the real recorded response offline. The finding then says "replay of a recorded response" with its timestamp.

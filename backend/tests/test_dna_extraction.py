@@ -144,8 +144,18 @@ def test_live_run_is_recorded_and_replayed_with_reverification(tmp_path):
     replay = extract_document(document, [], None, cache_dir=tmp_path)
     assert replay["source"] == "replay" and replay["accepted"] == live["accepted"] and replay["recorded_at"] == live["recorded_at"]
     assert extract_document({**document, "text": OBITUARY + " "}, [], None, cache_dir=tmp_path) is None  # changed text: no replay
-    failed = extract_document(document, [], BrokenExtractor(), cache_dir=tmp_path)
+    # A live failure falls back to the real recording, and says so.
+    fallback = extract_document(document, [], BrokenExtractor(), cache_dir=tmp_path)
+    assert fallback["source"] == "replay" and fallback["accepted"] == live["accepted"]
+    assert "Live extraction failed (RuntimeError)" in fallback["fallback_note"] and "secret" not in fallback["fallback_note"]
+    # ...and without a recording it fails honestly.
+    failed = extract_document(document, [], BrokenExtractor(), cache_dir=tmp_path / "empty")
     assert failed["source"] == "failed" and "secret" not in failed["note"]
+    # A second successful live run does not overwrite the existing recording.
+    recording = next(tmp_path.glob("*.json"))
+    before = recording.read_text(encoding="utf8")
+    again = extract_document(document, [], FakeExtractor(), cache_dir=tmp_path)
+    assert again["source"] == "live" and recording.read_text(encoding="utf8") == before
 
 
 # --- end to end: the twist ---------------------------------------------------------------------
@@ -175,3 +185,28 @@ def test_ai_read_records_reveal_a_branch_that_fits_the_dna(tmp_path, monkeypatch
     assert any(f["kind"] == "ai_extraction" and "8 claims verified" in f["title"] for f in result["findings"])
     assert any(e["action"] == "ai_extraction" for e in result["audit"])
     assert not any(a["id"] == "dna-branch-search" for a in result["next_actions"])
+
+
+# --- the schema actually sent to Gemini -------------------------------------------------------
+
+def test_gemini_schema_uses_only_the_openapi_subset_gemini_accepts():
+    """Regression: strict Pydantic schemas sent as-is got 400 INVALID_ARGUMENT from the live API."""
+    import json
+    from backend.gemini_schema import gemini_schema
+    from backend.providers import ObservationBatch
+    allowed = {"type", "properties", "required", "items", "enum", "description", "nullable", "minimum", "maximum", "format"}
+
+    def keywords(node):  # schema keywords at every level, skipping user-defined property names
+        yield from node.keys()
+        for sub in node.get("properties", {}).values():
+            yield from keywords(sub)
+        if "items" in node:
+            yield from keywords(node["items"])
+
+    for model in (ExtractionBatch, ObservationBatch):
+        assert set(keywords(gemini_schema(model))) <= allowed, model.__name__
+        assert "$ref" not in json.dumps(gemini_schema(model))
+    claim_schema = gemini_schema(ExtractionBatch)["properties"]["claims"]["items"]
+    assert claim_schema["properties"]["other_person"] == {"type": "string", "nullable": True}
+    assert claim_schema["properties"]["kind"]["enum"] == ["birth", "death", "alive", "parent", "spouse", "sibling"]
+    assert set(claim_schema["required"]) >= {"kind", "person", "quote", "start_line", "end_line"}

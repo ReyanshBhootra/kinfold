@@ -19,6 +19,7 @@ from pathlib import Path
 import re
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
+from .gemini_schema import gemini_schema, parse, retry_options
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = Path(os.getenv("KINFOLD_AI_CACHE", ROOT / "data" / "ai_cache"))
@@ -144,14 +145,14 @@ class GeminiExtractor:
         else:
             from google import genai
             from google.genai import types
-            self.client = genai.Client(api_key=key, http_options=types.HttpOptions(timeout=60000))
+            self.client = genai.Client(api_key=key, http_options=types.HttpOptions(timeout=60000, retry_options=retry_options(types)))
 
     def propose(self, text, known_names):
         from google.genai import types
         prompt = PROMPT.format(known=", ".join(known_names) or "none", lines=numbered(text))
         response = self.client.models.generate_content(model=self.model, contents=prompt, config=types.GenerateContentConfig(
-            response_mime_type="application/json", response_schema=ExtractionBatch, temperature=0))
-        return response.parsed if response.parsed is not None else ExtractionBatch.model_validate_json(response.text)
+            response_mime_type="application/json", response_schema=gemini_schema(ExtractionBatch), temperature=0))
+        return parse(response, ExtractionBatch)
 
 
 def configured_extractor():
@@ -167,29 +168,40 @@ def configured_extractor():
 
 
 def extract_document(document, known_names, extractor=None, cache_dir=None):
-    """Extract and verify claims for one record. Uses a live model if configured, else a recorded replay, else nothing."""
+    """Extract and verify claims for one record.
+
+    Live model if configured; if that fails (or none is configured), a recorded replay of a real earlier
+    response for the same text; else nothing. A live run records its response only when no recording
+    exists yet, so committed demo recordings are never silently overwritten.
+    """
     cache_dir = Path(cache_dir or CACHE)
     text_hash = hashlib.sha256(document["text"].encode("utf8")).hexdigest()
-    batch, source, model, recorded_at = None, None, None, None
+    batch, source, model, recorded_at, fallback_note = None, None, None, None, None
     if extractor is not None:
         try:
             batch = extractor.propose(document["text"], known_names)
             source, model = "live", extractor.model
             recorded_at = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-            cache_dir.mkdir(parents=True, exist_ok=True)
-            (cache_dir / f"{cache_key(model, document['text'])}.json").write_text(json.dumps(
-                {"provider": extractor.name, "model": model, "prompt_version": PROMPT_VERSION, "recorded_at": recorded_at,
-                 "document_sha256": text_hash, "raw": batch.model_dump()}, indent=2, ensure_ascii=False), encoding="utf8")
+            target = cache_dir / f"{cache_key(model, document['text'])}.json"
+            if not target.exists():
+                cache_dir.mkdir(parents=True, exist_ok=True)
+                target.write_text(json.dumps(
+                    {"provider": extractor.name, "model": model, "prompt_version": PROMPT_VERSION, "recorded_at": recorded_at,
+                     "document_sha256": text_hash, "raw": batch.model_dump()}, indent=2, ensure_ascii=False), encoding="utf8")
         except Exception as exc:  # never surface raw SDK errors (may include request details)
-            return {"source": "failed", "note": f"Live extraction failed ({type(exc).__name__}); record kept for manual review.", "accepted": [], "rejected": []}
-    else:
+            batch = None
+            fallback_note = f"Live extraction failed ({type(exc).__name__})"
+    if batch is None:
         for path in sorted(cache_dir.glob("*.json")) if cache_dir.exists() else []:
             entry = json.loads(path.read_text(encoding="utf8"))
             if entry.get("document_sha256") == text_hash and entry.get("prompt_version") == PROMPT_VERSION and path.stem == cache_key(entry["model"], document["text"]):
                 batch, source, model, recorded_at = ExtractionBatch.model_validate(entry["raw"]), "replay", entry["model"], entry["recorded_at"]
                 break
     if batch is None:
+        if fallback_note:
+            return {"source": "failed", "note": f"{fallback_note}; no recorded response for this text. Record kept for manual review.", "accepted": [], "rejected": []}
         return None
     accepted, rejected = review(batch, document)
     return {"source": source, "provider": "gemini", "model": model, "recorded_at": recorded_at, "prompt_version": PROMPT_VERSION,
-            "proposed": len(batch.claims), "accepted": accepted, "rejected": rejected}
+            "proposed": len(batch.claims), "accepted": accepted, "rejected": rejected,
+            "fallback_note": f"{fallback_note}; used the recorded response instead." if fallback_note else None}
