@@ -3,6 +3,7 @@ from types import SimpleNamespace
 import pytest
 from fastapi.testclient import TestClient
 from backend.engine import derive
+from backend.gemini_schema import gemini_schema
 from backend.main import create_app
 from backend.providers import ObservationBatch, GeminiProvider, ProviderError, configured_provider, validated_observations
 from backend.repository import JsonRepository, MongoRepository, demo_state
@@ -44,7 +45,7 @@ def test_gemini_adapter_sends_schema_and_checks_returned_citations_offline(snaps
     adapter = GeminiProvider("offline-test", "explicit-model", SimpleNamespace(models=SimpleNamespace(generate_content=generate)))
     result, trace = adapter.extract(snapshot, "Compare birth years")
     assert len(result) == 1 and "structured extraction" in trace[0]
-    assert calls[0]["config"].response_schema is ObservationBatch
+    assert calls[0]["config"].response_schema == gemini_schema(ObservationBatch)
     assert '"line": 2' in calls[0]["contents"]
     assert snapshot["candidates"][0]["status"] == "excluded"  # deterministic DNA check, unaffected by the model
 

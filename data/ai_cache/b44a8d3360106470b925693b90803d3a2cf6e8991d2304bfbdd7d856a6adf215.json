@@ -1,0 +1,101 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "kinfold-extract-v1",
+  "recorded_at": "2026-11-14T20:15:32.713723Z",
+  "document_sha256": "e03e0f6f5da5a175e2076989468da6113934e46c66ceff8a3f25b876b939dfaa",
+  "raw": {
+    "claims": [
+      {
+        "kind": "death",
+        "person": "Frances Mercer Hale",
+        "other_person": null,
+        "year": 2008,
+        "place": "Trenton, New Jersey",
+        "quote": "Frances Mercer Hale, 88, of Trenton, New Jersey, died peacefully at home on March 3, 2008.",
+        "start_line": 5,
+        "end_line": 5
+      },
+      {
+        "kind": "birth",
+        "person": "Frances Mercer Hale",
+        "other_person": null,
+        "year": 1920,
+        "place": "Trenton",
+        "quote": "Born in 1920 in Trenton, Frances was the daughter of the late",
+        "start_line": 6,
+        "end_line": 6
+      },
+      {
+        "kind": "parent",
+        "person": "Walter Mercer",
+        "other_person": "Frances Mercer Hale",
+        "year": null,
+        "place": null,
+        "quote": "Born in 1920 in Trenton, Frances was the daughter of the late Walter and Mary Mercer.",
+        "start_line": 6,
+        "end_line": 7
+      },
+      {
+        "kind": "parent",
+        "person": "Mary Mercer",
+        "other_person": "Frances Mercer Hale",
+        "year": null,
+        "place": null,
+        "quote": "Born in 1920 in Trenton, Frances was the daughter of the late Walter and Mary Mercer.",
+        "start_line": 6,
+        "end_line": 7
+      },
+      {
+        "kind": "spouse",
+        "person": "Frances Mercer Hale",
+        "other_person": "Edward Hale",
+        "year": null,
+        "place": null,
+        "quote": "Frances was predeceased by her husband of 51 years, Edward Hale, and by",
+        "start_line": 10,
+        "end_line": 10
+      },
+      {
+        "kind": "sibling",
+        "person": "Frances Mercer Hale",
+        "other_person": "Arthur Mercer",
+        "year": null,
+        "place": null,
+        "quote": "Frances was predeceased by her husband of 51 years, Edward Hale, and by her brother, Arthur Mercer.",
+        "start_line": 10,
+        "end_line": 11
+      },
+      {
+        "kind": "parent",
+        "person": "Frances Mercer Hale",
+        "other_person": "George Hale",
+        "year": null,
+        "place": null,
+        "quote": "Frances is survived by her son, George Hale, and his wife Patricia, of Camden;",
+        "start_line": 13,
+        "end_line": 13
+      },
+      {
+        "kind": "spouse",
+        "person": "George Hale",
+        "other_person": "Patricia Hale",
+        "year": null,
+        "place": null,
+        "quote": "Frances is survived by her son, George Hale, and his wife Patricia, of Camden;",
+        "start_line": 13,
+        "end_line": 13
+      },
+      {
+        "kind": "alive",
+        "person": "George Hale",
+        "other_person": null,
+        "year": 2008,
+        "place": null,
+        "quote": "Frances is survived by her son, George Hale, and his wife Patricia, of Camden;",
+        "start_line": 13,
+        "end_line": 13
+      }
+    ]
+  }
+}

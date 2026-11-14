@@ -19,6 +19,7 @@ from pathlib import Path
 import re
 from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
+from .gemini_schema import gemini_schema, parse, retry_options
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = Path(os.getenv("KINFOLD_AI_CACHE", ROOT / "data" / "ai_cache"))
@@ -144,14 +145,14 @@ class GeminiExtractor:
         else:
             from google import genai
             from google.genai import types
-            self.client = genai.Client(api_key=key, http_options=types.HttpOptions(timeout=60000))
+            self.client = genai.Client(api_key=key, http_options=types.HttpOptions(timeout=60000, retry_options=retry_options(types)))
 
     def propose(self, text, known_names):
         from google.genai import types
         prompt = PROMPT.format(known=", ".join(known_names) or "none", lines=numbered(text))
         response = self.client.models.generate_content(model=self.model, contents=prompt, config=types.GenerateContentConfig(
-            response_mime_type="application/json", response_schema=ExtractionBatch, temperature=0))
-        return response.parsed if response.parsed is not None else ExtractionBatch.model_validate_json(response.text)
+            response_mime_type="application/json", response_schema=gemini_schema(ExtractionBatch), temperature=0))
+        return parse(response, ExtractionBatch)
 
 
 def configured_extractor():
