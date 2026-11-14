@@ -43,20 +43,36 @@ On macOS/Linux use `.venv/bin/python` in place of `.venv/Scripts/python`. `front
    The **DNA check** follows recorded parent links to the closest common ancestors with the DNA match. It then compares the shared cM with the reference range for that relationship. Ranges are 99% intervals from Ped-sim for first to third cousins, and approximate Shared cM Project ranges otherwise (`data/dna_reference.json`). In the demo all three recorded leads would be Ruth Mercer's nieces, and 220 cM is far too little for that, so the next action points to more distant branches. This is a consistency check, not a likelihood.
 5. Upload `data/examples/synthetic-hale-obituary.txt` and `synthetic-hale-birth-announcement.txt`, then investigate. **AI extraction** asks Gemini for typed claims, each with a quote and line span. Kinfold keeps a claim only when the quote is verbatim in those lines and names every person and year it asserts. Rejected claims are listed with the reason. In the demo, the new records tie Frances Hale, Arthur Mercer's sister, to her granddaughter Lena Hale. Kinfold then proposes Lena as a lead whose birth year, region and DNA all fit. AI extraction needs a Gemini key, or a response recorded earlier in `data/ai_cache/`. Without either, uploads are kept for manual review and no AI result is invented.
 6. Open **Evidence integrity**, export the manifest, and save a comparison digest. Add a synthetic/public text record with **Add evidence**, then run the investigation again. Comparing to the earlier digest detects changed content.
-7. Review the **Research log** and export it. The integrity panel stays **Not anchored on-chain** when no real Solana transaction has been verified.
+7. Review the **Research log** and export it. The integrity panel says **Not anchored on-chain** unless a confirmed Solana devnet transaction anchors the current digest (see below).
 
 Text uploads support `.txt`, `.md`, and `.csv`, or pasted text. Preserve line breaks for useful citations. The UI caps files at 100 KB and text at 100,000 characters; the backend applies its own validation. Uploaded sources are untrusted evidence, not tool instructions. Keep private DNA, personal accounts, and sensitive real-person records out of this demo.
 
-## Optional Solana devnet anchoring
+## Optional Solana devnet anchoring: the lead timeline
 
-The local checksum and blockchain anchor are different operations. The optional CLI sends only a namespaced manifest digest to the Solana Memo program, with an explicitly provided development keypair. It checks the devnet genesis hash and successful transaction contents. It does not automatically create/fund wallets, send transactions, or claim an anchor from a receipt file alone.
+**Every lead gets a tamper-evident timeline.** **Evidence integrity → Anchor this state** records the current manifest digest on Solana devnet. The digest covers:
+- the cited records;
+- the AI's raw outputs (`ai_recordings`, the SHA-256 of each recorded Gemini reply);
+- the lead decisions.
+
+Only `kinfold:v1:sha256:<digest>` goes on-chain, in a Memo transaction: no names, DNA or records. Each anchor lists what changed since the previous one, links to Solana Explorer, and can be re-checked on-chain with **Verify**. If the evidence changes later, the panel says "current evidence differs from anchor #N". An anchor proves this exact state existed by that time, unchanged. **It does not prove the records are true.**
+
+Setup takes about 5 minutes. Use a devnet-only wallet and never commit it:
+
+```powershell
+solana-keygen new --outfile C:/path/outside/repository/kinfold-dev.keypair.json
+solana airdrop 1 --url devnet --keypair C:/path/outside/repository/kinfold-dev.keypair.json
+```
+
+Add `KINFOLD_SOLANA_KEYPAIR=C:/path/outside/repository/kinfold-dev.keypair.json` to `.env` and restart. The path must be absolute and outside the repository. Without it, anchoring returns setup help and nothing is sent. If the faucet rate-limits you, use https://faucet.solana.com.
+
+The backend calls the same CLI (`blockchain/anchor.mjs`) used below. It stores an anchor only after the script confirms the transaction and checks its memo on-chain. Anchors are stored outside the manifest, so a digest never covers its own anchor. The CLI also works on its own:
 
 ```powershell
 npm run anchor -- --manifest C:/path/to/exported-manifest.json
 npm run anchor -- --help
 ```
 
-See [blockchain/README.md](blockchain/README.md) for explicit send commands, receipt handling, and on-chain verification. CLI receipts are separate from backend state; the UI does not silently import or trust them. No actual transaction is claimed by the build.
+See [blockchain/README.md](blockchain/README.md) for explicit send commands, receipt handling, and on-chain verification. A CLI receipt file is never imported or trusted by the UI.
 
 ## Checks
 

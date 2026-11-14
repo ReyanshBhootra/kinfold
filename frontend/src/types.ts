@@ -11,6 +11,8 @@ export interface Snapshot {
  next_actions: {id: string; title: string; reason: string; person_ids: string[]; document_ids: string[]}[];
  audit: {id: string; timestamp: string; action: string; description: string}[];
  metrics: {documents_processed: number; supported_relationships: number; conflicts: number; remaining_candidates: number};
+ anchors?: AnchorRecord[]; ai_recordings?: {document_id: string; model: string; recorded_at: string; raw_sha256: string}[];
 }
-export interface Manifest { case_id: string; version: number; algorithm: string; digest: string; manifest: unknown; anchor: { status: string; network: string; transaction: string | null } }
+export interface AnchorRecord { number: number; digest: string; version: number; network: string; transaction: string; explorer: string; anchored_at: string; leads: Record<string,string>; lead_names?: Record<string,string>; documents: number; changes: string[]; matches_current: boolean; limits: string }
+export interface Manifest { case_id: string; version: number; algorithm: string; digest: string; manifest: unknown; anchor: { status: string; network: string; transaction: string | null; explorer?: string; anchored_at?: string; number?: number } }
 export interface Health {status: string; mode: string; providers: Record<string, boolean>}
