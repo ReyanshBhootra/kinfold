@@ -34,7 +34,7 @@ npm run anchor -- --manifest C:/path/to/kinfold-manifest-v1.json --verify C:/pat
 
 Verification recomputes the local digest, checks the devnet network, retrieves the actual transaction, requires successful execution, and matches the exact Memo program payload and receipt signer. A receipt file by itself is never proof. A changed manifest cannot verify against an earlier receipt. Devnet history may be reset or pruned.
 
-The UI remains `not_anchored`: CLI receipts are intentionally separate from backend state and are not silently trusted or imported. Use the CLI verification result and Explorer URL to demonstrate a real anchor. No live anchor has been created during the build without an explicitly configured wallet.
+CLI receipt files are never imported or trusted by the UI. The app's own **Anchor this state** button (Evidence integrity) runs this same script via `POST /api/cases/{id}/anchor` with `KINFOLD_SOLANA_KEYPAIR`. It records an anchor only when the script returns a confirmed, on-chain-checked receipt. Otherwise the UI stays `not_anchored`.
 
 ```powershell
 npm run test:anchor

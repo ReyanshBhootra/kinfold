@@ -24,3 +24,10 @@
 .package-details summary{cursor:pointer;font-weight:600}.package-details p{margin-top:8px}.package-details pre{white-space:pre-wrap;font-size:9px;line-height:1.8;background:#fbfcf6;padding:10px;border-radius:4px}
 .source-lines{margin-top:16px}
 .tag.dna{gap:5px;text-transform:none}.tag.dna svg{flex-shrink:0}.candidate-title .tag{white-space:normal}.finding.ai:not(.conflict) .finding-icon{background:#e9eef5;color:#5d7591}
+.lead-timeline{display:grid;gap:10px}.timeline-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}.timeline-head h3{margin:0 0 4px;font-family:var(--serif);font-weight:400;font-size:20px;color:var(--forest)}.timeline-head p{margin:0;font-size:11px;line-height:1.55;color:#607151}.timeline-head button{flex-shrink:0}
+.timeline-limits{margin:0;padding:8px 10px;border-left:3px solid #c9d6b8;background:#f4f6ee;font-size:10.5px;color:#536b40;line-height:1.5}
+.lead-timeline .verification{display:flex;align-items:center;gap:6px;font-size:11px}
+.timeline-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}.timeline-list>li{border:1px solid var(--line);border-radius:6px;padding:11px 12px;background:var(--paper);display:grid;gap:7px}.timeline-list>li.current{border-color:#b8cba3}
+.timeline-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12px;color:var(--forest)}.timeline-list .digest{font-size:10.5px;overflow-wrap:anywhere}
+.timeline-changes{margin:0;padding-left:16px;font-size:11px;color:#4f6243;line-height:1.55}.timeline-leads{display:flex;flex-wrap:wrap;gap:5px}.timeline-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+@media(max-width:720px){.timeline-head{flex-direction:column}}
