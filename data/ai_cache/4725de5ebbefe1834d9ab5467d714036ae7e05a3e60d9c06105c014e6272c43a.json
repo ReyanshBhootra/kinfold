@@ -1,0 +1,51 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "kinfold-extract-v1",
+  "recorded_at": "2026-11-14T20:14:48.237927Z",
+  "document_sha256": "ec6e3d53c4974e1f47186a118cf15d0839f22ad2028fb56459554f44e74c5ec0",
+  "raw": {
+    "claims": [
+      {
+        "kind": "birth",
+        "person": "Lena Hale",
+        "other_person": null,
+        "year": 1972,
+        "place": "Cooper Hospital",
+        "quote": "Mr. and Mrs. George Hale, of 214 Linden St., Camden, New Jersey, announce\nthe birth of their first child, a daughter, Lena Hale, born June 4, 1972,\nat Cooper Hospital. Mrs. Hale is the former Patricia Novak of Collingswood.",
+        "start_line": 4,
+        "end_line": 6
+      },
+      {
+        "kind": "parent",
+        "person": "George Hale",
+        "other_person": "Lena Hale",
+        "year": null,
+        "place": null,
+        "quote": "Mr. and Mrs. George Hale, of 214 Linden St., Camden, New Jersey, announce\nthe birth of their first child, a daughter, Lena Hale, born June 4, 1972,\nat Cooper Hospital. Mrs. Hale is the former Patricia Novak of Collingswood.",
+        "start_line": 4,
+        "end_line": 6
+      },
+      {
+        "kind": "parent",
+        "person": "Patricia Novak",
+        "other_person": "Lena Hale",
+        "year": null,
+        "place": null,
+        "quote": "Mr. and Mrs. George Hale, of 214 Linden St., Camden, New Jersey, announce\nthe birth of their first child, a daughter, Lena Hale, born June 4, 1972,\nat Cooper Hospital. Mrs. Hale is the former Patricia Novak of Collingswood.",
+        "start_line": 4,
+        "end_line": 6
+      },
+      {
+        "kind": "spouse",
+        "person": "George Hale",
+        "other_person": "Patricia Novak",
+        "year": null,
+        "place": null,
+        "quote": "Mr. and Mrs. George Hale, of 214 Linden St., Camden, New Jersey, announce\nthe birth of their first child, a daughter, Lena Hale, born June 4, 1972,\nat Cooper Hospital. Mrs. Hale is the former Patricia Novak of Collingswood.",
+        "start_line": 4,
+        "end_line": 6
+      }
+    ]
+  }
+}
