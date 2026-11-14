@@ -210,3 +210,21 @@ def test_gemini_schema_uses_only_the_openapi_subset_gemini_accepts():
     assert claim_schema["properties"]["other_person"] == {"type": "string", "nullable": True}
     assert claim_schema["properties"]["kind"]["enum"] == ["birth", "death", "alive", "parent", "spouse", "sibling"]
     assert set(claim_schema["required"]) >= {"kind", "person", "quote", "start_line", "end_line"}
+
+
+def test_crlf_upload_is_normalized_and_still_replays_the_recording(tmp_path, monkeypatch):
+    """Regression (#15): a Windows CRLF checkout of the Hale examples must replay the LF-keyed recordings."""
+    from pathlib import Path
+    import backend.extraction
+    root = Path(__file__).resolve().parents[2]
+    monkeypatch.setattr(backend.extraction, "CACHE", root / "data" / "ai_cache")  # the real committed recordings
+    with TestClient(create_app(JsonRepository(tmp_path / "store"), provider=None, extractor=None)) as client:
+        client.post("/api/cases/demo", json={})
+        for name in ("synthetic-hale-obituary.txt", "synthetic-hale-birth-announcement.txt"):
+            text = (root / "data" / "examples" / name).read_text(encoding="utf8").replace("\n", "\r\n")
+            snapshot = client.post("/api/cases/demo-case/documents", json={"name": name, "text": text}).json()
+            assert "\r" not in snapshot["documents"][-1]["text"]
+        result = client.post("/api/cases/demo-case/investigate", json={"question": "", "max_steps": 3}).json()
+    assert len(result["ai_recordings"]) == 2
+    lena = next(p["id"] for p in result["people"] if p["name"] == "Lena Hale")
+    assert next(c for c in result["candidates"] if c["person_id"] == lena)["status"] == "possible"
