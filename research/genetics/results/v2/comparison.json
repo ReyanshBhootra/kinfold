@@ -1,0 +1,2184 @@
+{
+  "version": 2,
+  "protocol_sha256": "2f70cc2af9c490a104e6d957f2f54a94a2dab0e737c78eadcc10ff97a7648f6e",
+  "evaluation_rows_sha256": "1c5c8a2023aadebecf063bb6d846a24bbd151702bb1dceba1b621151c58c1ae3",
+  "historical_exposure": "No wholly unused source groups remain. V2 evaluation batch2 rows were not previously scored, but their group IDs had batch1 counterparts in v1 calibration. Not independent fresh simulations or a globally untouched holdout.",
+  "independent_fresh_source_data_claimed": false,
+  "split_integrity": {
+    "positive_calibration_groups": 20772,
+    "positive_evaluation_groups": 21004,
+    "overlap": 0,
+    "v1_test_groups_used": 0,
+    "v1_training_groups_evaluated": 0
+  },
+  "calibration_counts": {
+    "dna_only": [
+      5033,
+      5005,
+      4824,
+      3603,
+      1602,
+      512,
+      146,
+      47
+    ],
+    "legacy_nominal_mixture": [
+      5033,
+      5005,
+      4824,
+      3603,
+      1602,
+      512,
+      146,
+      47
+    ],
+    "complete_known_fusion": [
+      2836,
+      2789,
+      2702,
+      1997,
+      884,
+      280,
+      75,
+      27
+    ]
+  },
+  "calibrations": {
+    "dna_only": {
+      "family": "dna_only",
+      "thresholds": [
+        0.06623085561940434,
+        0.34212156064296406,
+        0.8633295895620829,
+        0.8922943605804956,
+        0.7990087690804017,
+        0.8103183750511683,
+        0.8806414178717139,
+        0.9508264462161459
+      ]
+    },
+    "legacy_nominal_mixture": {
+      "family": "legacy_nominal_mixture",
+      "thresholds": [
+        0.026447359771987422,
+        0.10650140113215434,
+        0.5540562555800497,
+        0.8550680235612806,
+        0.7908592557570917,
+        0.8192006975766936,
+        0.8204198353069687,
+        0.9524527062146275
+      ]
+    },
+    "complete_known_fusion": {
+      "family": "complete_known_fusion",
+      "thresholds": [
+        0.009789812731492598,
+        0.02452286157855932,
+        0.20369481517096533,
+        0.4958580202902546,
+        0.6003199637275546,
+        0.5569306933907394,
+        0.47715783039047277,
+        0.9183228271107866
+      ]
+    }
+  },
+  "scenarios": {
+    "clean_complete": {
+      "metrics": {
+        "v1_logic_recalibrated_on_v2_cal": {
+          "overall": {
+            "n": 21004,
+            "covered": 19921,
+            "total_set_size": 22050,
+            "abstained": 1598,
+            "empty": 306,
+            "set_coverage": 0.9484383926871072,
+            "false_exclusion_rate": 0.051561607312892783,
+            "mean_set_size": 1.0498000380879833,
+            "abstention_rate": 0.07608074652447153,
+            "empty_set_rate": 0.01456865358979242
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4714,
+              "total_set_size": 4837,
+              "abstained": 155,
+              "empty": 150,
+              "set_coverage": 0.9462063428342031,
+              "false_exclusion_rate": 0.05379365716579687,
+              "mean_set_size": 0.9708952228020875,
+              "abstention_rate": 0.03111200321156162,
+              "empty_set_rate": 0.030108390204737052
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4661,
+              "total_set_size": 4851,
+              "abstained": 164,
+              "empty": 132,
+              "set_coverage": 0.9416161616161616,
+              "false_exclusion_rate": 0.058383838383838385,
+              "mean_set_size": 0.98,
+              "abstention_rate": 0.03313131313131313,
+              "empty_set_rate": 0.02666666666666667
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4774,
+              "total_set_size": 5285,
+              "abstained": 267,
+              "empty": 20,
+              "set_coverage": 0.9468464894882983,
+              "false_exclusion_rate": 0.0531535105117017,
+              "mean_set_size": 1.0481951606505355,
+              "abstention_rate": 0.05295517651725506,
+              "empty_set_rate": 0.003966679888932963
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3520,
+              "total_set_size": 4199,
+              "abstained": 511,
+              "empty": 4,
+              "set_coverage": 0.9580838323353293,
+              "false_exclusion_rate": 0.041916167664670656,
+              "mean_set_size": 1.142896026129559,
+              "abstention_rate": 0.1390854654327708,
+              "empty_set_rate": 0.0010887316276537834
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1501,
+              "total_set_size": 1898,
+              "abstained": 321,
+              "empty": 0,
+              "set_coverage": 0.9572704081632653,
+              "false_exclusion_rate": 0.04272959183673469,
+              "mean_set_size": 1.2104591836734695,
+              "abstention_rate": 0.20471938775510204,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 543,
+              "total_set_size": 700,
+              "abstained": 126,
+              "empty": 0,
+              "set_coverage": 0.9610619469026549,
+              "false_exclusion_rate": 0.03893805309734513,
+              "mean_set_size": 1.238938053097345,
+              "abstention_rate": 0.22300884955752212,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 150,
+              "total_set_size": 210,
+              "abstained": 43,
+              "empty": 0,
+              "set_coverage": 0.9090909090909091,
+              "false_exclusion_rate": 0.09090909090909091,
+              "mean_set_size": 1.2727272727272727,
+              "abstention_rate": 0.2606060606060606,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 58,
+              "total_set_size": 70,
+              "abstained": 11,
+              "empty": 0,
+              "set_coverage": 1.0,
+              "false_exclusion_rate": 0.0,
+              "mean_set_size": 1.206896551724138,
+              "abstention_rate": 0.1896551724137931,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "corrected_matching_fallback": {
+          "overall": {
+            "n": 21004,
+            "covered": 18933,
+            "total_set_size": 20083,
+            "abstained": 1359,
+            "empty": 1140,
+            "set_coverage": 0.9013997333841173,
+            "false_exclusion_rate": 0.09860026661588268,
+            "mean_set_size": 0.9561512092934679,
+            "abstention_rate": 0.06470196153113693,
+            "empty_set_rate": 0.054275376118834505
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4546,
+              "total_set_size": 4624,
+              "abstained": 358,
+              "empty": 358,
+              "set_coverage": 0.9124849458048976,
+              "false_exclusion_rate": 0.08751505419510237,
+              "mean_set_size": 0.9281413087113609,
+              "abstention_rate": 0.0718586912886391,
+              "empty_set_rate": 0.0718586912886391
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4435,
+              "total_set_size": 4540,
+              "abstained": 410,
+              "empty": 410,
+              "set_coverage": 0.895959595959596,
+              "false_exclusion_rate": 0.10404040404040404,
+              "mean_set_size": 0.9171717171717172,
+              "abstention_rate": 0.08282828282828283,
+              "empty_set_rate": 0.08282828282828283
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4509,
+              "total_set_size": 4773,
+              "abstained": 291,
+              "empty": 280,
+              "set_coverage": 0.8942879809599366,
+              "false_exclusion_rate": 0.10571201904006347,
+              "mean_set_size": 0.9466481554938516,
+              "abstention_rate": 0.057715192383974614,
+              "empty_set_rate": 0.055533518445061485
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3322,
+              "total_set_size": 3695,
+              "abstained": 167,
+              "empty": 73,
+              "set_coverage": 0.9041916167664671,
+              "false_exclusion_rate": 0.09580838323353294,
+              "mean_set_size": 1.0057158410451823,
+              "abstention_rate": 0.045454545454545456,
+              "empty_set_rate": 0.019869352204681546
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1428,
+              "total_set_size": 1637,
+              "abstained": 91,
+              "empty": 11,
+              "set_coverage": 0.9107142857142857,
+              "false_exclusion_rate": 0.08928571428571429,
+              "mean_set_size": 1.0440051020408163,
+              "abstention_rate": 0.05803571428571429,
+              "empty_set_rate": 0.00701530612244898
+            },
+            "6C": {
+              "n": 565,
+              "covered": 505,
+              "total_set_size": 588,
+              "abstained": 33,
+              "empty": 5,
+              "set_coverage": 0.8938053097345132,
+              "false_exclusion_rate": 0.10619469026548672,
+              "mean_set_size": 1.0407079646017698,
+              "abstention_rate": 0.0584070796460177,
+              "empty_set_rate": 0.008849557522123894
+            },
+            "7C": {
+              "n": 165,
+              "covered": 130,
+              "total_set_size": 163,
+              "abstained": 4,
+              "empty": 3,
+              "set_coverage": 0.7878787878787878,
+              "false_exclusion_rate": 0.21212121212121213,
+              "mean_set_size": 0.9878787878787879,
+              "abstention_rate": 0.024242424242424242,
+              "empty_set_rate": 0.01818181818181818
+            },
+            "8C": {
+              "n": 58,
+              "covered": 58,
+              "total_set_size": 63,
+              "abstained": 5,
+              "empty": 0,
+              "set_coverage": 1.0,
+              "false_exclusion_rate": 0.0,
+              "mean_set_size": 1.0862068965517242,
+              "abstention_rate": 0.08620689655172414,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "dna_only": {
+          "overall": {
+            "n": 21004,
+            "covered": 19021,
+            "total_set_size": 42386,
+            "abstained": 9613,
+            "empty": 78,
+            "set_coverage": 0.905589411540659,
+            "false_exclusion_rate": 0.09441058845934108,
+            "mean_set_size": 2.017996572081508,
+            "abstention_rate": 0.4576747286231194,
+            "empty_set_rate": 0.003713578366025519
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4498,
+              "total_set_size": 4939,
+              "abstained": 113,
+              "empty": 78,
+              "set_coverage": 0.9028502609393818,
+              "false_exclusion_rate": 0.09714973906061823,
+              "mean_set_size": 0.9913689281413087,
+              "abstention_rate": 0.022681653954235246,
+              "empty_set_rate": 0.01565636290646327
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5554,
+              "abstained": 601,
+              "empty": 0,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.122020202020202,
+              "abstention_rate": 0.12141414141414142,
+              "empty_set_rate": 0.0
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4533,
+              "total_set_size": 9171,
+              "abstained": 2937,
+              "empty": 0,
+              "set_coverage": 0.899047996826656,
+              "false_exclusion_rate": 0.10095200317334391,
+              "mean_set_size": 1.8189210630702102,
+              "abstention_rate": 0.5825069416898057,
+              "empty_set_rate": 0.0
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3376,
+              "total_set_size": 12642,
+              "abstained": 3607,
+              "empty": 0,
+              "set_coverage": 0.9188894937397931,
+              "false_exclusion_rate": 0.08111050626020685,
+              "mean_set_size": 3.4409363091997824,
+              "abstention_rate": 0.9817637452367991,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1440,
+              "total_set_size": 6522,
+              "abstained": 1567,
+              "empty": 0,
+              "set_coverage": 0.9183673469387755,
+              "false_exclusion_rate": 0.08163265306122448,
+              "mean_set_size": 4.159438775510204,
+              "abstention_rate": 0.9993622448979592,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2543,
+              "abstained": 565,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 4.500884955752213,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 154,
+              "total_set_size": 749,
+              "abstained": 165,
+              "empty": 0,
+              "set_coverage": 0.9333333333333333,
+              "false_exclusion_rate": 0.06666666666666667,
+              "mean_set_size": 4.539393939393939,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 266,
+              "abstained": 58,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.586206896551724,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            }
+          }
+        }
+      },
+      "corrected_routes": {
+        "complete_known_fusion:complete_known_consistent_origins": 21004
+      },
+      "fallback_dna_equality": {
+        "fallback_rows": 0,
+        "set_disagreements_with_dna": 0
+      }
+    },
+    "nominal_missing25": {
+      "metrics": {
+        "v1_logic_recalibrated_on_v2_cal": {
+          "overall": {
+            "n": 21004,
+            "covered": 19041,
+            "total_set_size": 23136,
+            "abstained": 2378,
+            "empty": 551,
+            "set_coverage": 0.9065416111216911,
+            "false_exclusion_rate": 0.09345838887830889,
+            "mean_set_size": 1.1015044753380308,
+            "abstention_rate": 0.11321653018472672,
+            "empty_set_rate": 0.02623309845743668
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4512,
+              "total_set_size": 4694,
+              "abstained": 306,
+              "empty": 297,
+              "set_coverage": 0.9056603773584906,
+              "false_exclusion_rate": 0.09433962264150944,
+              "mean_set_size": 0.9421918908069049,
+              "abstention_rate": 0.06142111601766359,
+              "empty_set_rate": 0.05961461260537937
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4492,
+              "total_set_size": 4780,
+              "abstained": 252,
+              "empty": 211,
+              "set_coverage": 0.9074747474747474,
+              "false_exclusion_rate": 0.09252525252525252,
+              "mean_set_size": 0.9656565656565657,
+              "abstention_rate": 0.05090909090909091,
+              "empty_set_rate": 0.04262626262626262
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4545,
+              "total_set_size": 5600,
+              "abstained": 541,
+              "empty": 41,
+              "set_coverage": 0.9014280047600158,
+              "false_exclusion_rate": 0.09857199523998414,
+              "mean_set_size": 1.1106703689012296,
+              "abstention_rate": 0.10729869099563666,
+              "empty_set_rate": 0.008131693772312574
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3367,
+              "total_set_size": 4756,
+              "abstained": 726,
+              "empty": 2,
+              "set_coverage": 0.9164398475775721,
+              "false_exclusion_rate": 0.08356015242242787,
+              "mean_set_size": 1.2945019052803484,
+              "abstention_rate": 0.19760479041916168,
+              "empty_set_rate": 0.0005443658138268917
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1410,
+              "total_set_size": 2134,
+              "abstained": 334,
+              "empty": 0,
+              "set_coverage": 0.8992346938775511,
+              "false_exclusion_rate": 0.10076530612244898,
+              "mean_set_size": 1.3609693877551021,
+              "abstention_rate": 0.21301020408163265,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 517,
+              "total_set_size": 851,
+              "abstained": 162,
+              "empty": 0,
+              "set_coverage": 0.9150442477876106,
+              "false_exclusion_rate": 0.08495575221238938,
+              "mean_set_size": 1.5061946902654868,
+              "abstention_rate": 0.2867256637168142,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 140,
+              "total_set_size": 242,
+              "abstained": 44,
+              "empty": 0,
+              "set_coverage": 0.8484848484848485,
+              "false_exclusion_rate": 0.15151515151515152,
+              "mean_set_size": 1.4666666666666666,
+              "abstention_rate": 0.26666666666666666,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 58,
+              "total_set_size": 79,
+              "abstained": 13,
+              "empty": 0,
+              "set_coverage": 1.0,
+              "false_exclusion_rate": 0.0,
+              "mean_set_size": 1.3620689655172413,
+              "abstention_rate": 0.22413793103448276,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "corrected_matching_fallback": {
+          "overall": {
+            "n": 21004,
+            "covered": 18977,
+            "total_set_size": 29969,
+            "abstained": 4974,
+            "empty": 654,
+            "set_coverage": 0.9034945724623881,
+            "false_exclusion_rate": 0.09650542753761189,
+            "mean_set_size": 1.4268234621976765,
+            "abstention_rate": 0.23681203580270424,
+            "empty_set_rate": 0.031136926299752427
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4531,
+              "total_set_size": 4765,
+              "abstained": 243,
+              "empty": 230,
+              "set_coverage": 0.909474106784424,
+              "false_exclusion_rate": 0.09052589321557607,
+              "mean_set_size": 0.9564431955038137,
+              "abstention_rate": 0.048775592131674025,
+              "empty_set_rate": 0.04616619831393015
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4449,
+              "total_set_size": 4975,
+              "abstained": 478,
+              "empty": 227,
+              "set_coverage": 0.8987878787878788,
+              "false_exclusion_rate": 0.10121212121212121,
+              "mean_set_size": 1.005050505050505,
+              "abstention_rate": 0.09656565656565656,
+              "empty_set_rate": 0.045858585858585856
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4515,
+              "total_set_size": 6722,
+              "abstained": 1446,
+              "empty": 152,
+              "set_coverage": 0.8954779849266165,
+              "false_exclusion_rate": 0.10452201507338357,
+              "mean_set_size": 1.333201110670369,
+              "abstention_rate": 0.2867909559698532,
+              "empty_set_rate": 0.03014676715589052
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3338,
+              "total_set_size": 7568,
+              "abstained": 1660,
+              "empty": 33,
+              "set_coverage": 0.9085465432770822,
+              "false_exclusion_rate": 0.0914534567229178,
+              "mean_set_size": 2.059880239520958,
+              "abstention_rate": 0.4518236254763201,
+              "empty_set_rate": 0.008982035928143712
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1443,
+              "total_set_size": 3884,
+              "abstained": 762,
+              "empty": 7,
+              "set_coverage": 0.920280612244898,
+              "false_exclusion_rate": 0.07971938775510204,
+              "mean_set_size": 2.4770408163265305,
+              "abstention_rate": 0.48596938775510207,
+              "empty_set_rate": 0.004464285714285714
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 1465,
+              "abstained": 273,
+              "empty": 2,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 2.5929203539823007,
+              "abstention_rate": 0.4831858407079646,
+              "empty_set_rate": 0.0035398230088495575
+            },
+            "7C": {
+              "n": 165,
+              "covered": 141,
+              "total_set_size": 445,
+              "abstained": 84,
+              "empty": 3,
+              "set_coverage": 0.8545454545454545,
+              "false_exclusion_rate": 0.14545454545454545,
+              "mean_set_size": 2.696969696969697,
+              "abstention_rate": 0.509090909090909,
+              "empty_set_rate": 0.01818181818181818
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 145,
+              "abstained": 28,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 2.5,
+              "abstention_rate": 0.4827586206896552,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "dna_only": {
+          "overall": {
+            "n": 21004,
+            "covered": 19021,
+            "total_set_size": 42386,
+            "abstained": 9613,
+            "empty": 78,
+            "set_coverage": 0.905589411540659,
+            "false_exclusion_rate": 0.09441058845934108,
+            "mean_set_size": 2.017996572081508,
+            "abstention_rate": 0.4576747286231194,
+            "empty_set_rate": 0.003713578366025519
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4498,
+              "total_set_size": 4939,
+              "abstained": 113,
+              "empty": 78,
+              "set_coverage": 0.9028502609393818,
+              "false_exclusion_rate": 0.09714973906061823,
+              "mean_set_size": 0.9913689281413087,
+              "abstention_rate": 0.022681653954235246,
+              "empty_set_rate": 0.01565636290646327
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5554,
+              "abstained": 601,
+              "empty": 0,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.122020202020202,
+              "abstention_rate": 0.12141414141414142,
+              "empty_set_rate": 0.0
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4533,
+              "total_set_size": 9171,
+              "abstained": 2937,
+              "empty": 0,
+              "set_coverage": 0.899047996826656,
+              "false_exclusion_rate": 0.10095200317334391,
+              "mean_set_size": 1.8189210630702102,
+              "abstention_rate": 0.5825069416898057,
+              "empty_set_rate": 0.0
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3376,
+              "total_set_size": 12642,
+              "abstained": 3607,
+              "empty": 0,
+              "set_coverage": 0.9188894937397931,
+              "false_exclusion_rate": 0.08111050626020685,
+              "mean_set_size": 3.4409363091997824,
+              "abstention_rate": 0.9817637452367991,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1440,
+              "total_set_size": 6522,
+              "abstained": 1567,
+              "empty": 0,
+              "set_coverage": 0.9183673469387755,
+              "false_exclusion_rate": 0.08163265306122448,
+              "mean_set_size": 4.159438775510204,
+              "abstention_rate": 0.9993622448979592,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2543,
+              "abstained": 565,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 4.500884955752213,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 154,
+              "total_set_size": 749,
+              "abstained": 165,
+              "empty": 0,
+              "set_coverage": 0.9333333333333333,
+              "false_exclusion_rate": 0.06666666666666667,
+              "mean_set_size": 4.539393939393939,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 266,
+              "abstained": 58,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.586206896551724,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            }
+          }
+        }
+      },
+      "corrected_routes": {
+        "complete_known_fusion:complete_known_consistent_origins": 11782,
+        "dna_only:missing_required_origin": 7890,
+        "dna_only:no_records": 1332
+      },
+      "fallback_dna_equality": {
+        "fallback_rows": 9222,
+        "set_disagreements_with_dna": 0
+      }
+    },
+    "missing70": {
+      "metrics": {
+        "v1_logic_recalibrated_on_v2_cal": {
+          "overall": {
+            "n": 21004,
+            "covered": 17136,
+            "total_set_size": 28536,
+            "abstained": 5583,
+            "empty": 1058,
+            "set_coverage": 0.8158446010283755,
+            "false_exclusion_rate": 0.18415539897162445,
+            "mean_set_size": 1.3585983622167206,
+            "abstention_rate": 0.26580651304513425,
+            "empty_set_rate": 0.05037135783660255
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4034,
+              "total_set_size": 4374,
+              "abstained": 642,
+              "empty": 625,
+              "set_coverage": 0.8097149739060618,
+              "false_exclusion_rate": 0.1902850260939382,
+              "mean_set_size": 0.8779606583701325,
+              "abstention_rate": 0.1288639100762746,
+              "empty_set_rate": 0.12545162585307107
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4141,
+              "total_set_size": 4668,
+              "abstained": 418,
+              "empty": 350,
+              "set_coverage": 0.8365656565656565,
+              "false_exclusion_rate": 0.16343434343434343,
+              "mean_set_size": 0.943030303030303,
+              "abstention_rate": 0.08444444444444445,
+              "empty_set_rate": 0.0707070707070707
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4061,
+              "total_set_size": 6651,
+              "abstained": 1411,
+              "empty": 82,
+              "set_coverage": 0.8054343514478381,
+              "false_exclusion_rate": 0.19456564855216185,
+              "mean_set_size": 1.3191193970646569,
+              "abstention_rate": 0.27984926616422057,
+              "empty_set_rate": 0.016263387544625148
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 2959,
+              "total_set_size": 7236,
+              "abstained": 1801,
+              "empty": 1,
+              "set_coverage": 0.8053892215568862,
+              "false_exclusion_rate": 0.19461077844311378,
+              "mean_set_size": 1.9695155144256942,
+              "abstention_rate": 0.49020141535111594,
+              "empty_set_rate": 0.00027218290691344586
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1261,
+              "total_set_size": 3632,
+              "abstained": 849,
+              "empty": 0,
+              "set_coverage": 0.8042091836734694,
+              "false_exclusion_rate": 0.19579081632653061,
+              "mean_set_size": 2.316326530612245,
+              "abstention_rate": 0.5414540816326531,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 487,
+              "total_set_size": 1415,
+              "abstained": 335,
+              "empty": 0,
+              "set_coverage": 0.8619469026548673,
+              "false_exclusion_rate": 0.13805309734513274,
+              "mean_set_size": 2.504424778761062,
+              "abstention_rate": 0.5929203539823009,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 140,
+              "total_set_size": 431,
+              "abstained": 99,
+              "empty": 0,
+              "set_coverage": 0.8484848484848485,
+              "false_exclusion_rate": 0.15151515151515152,
+              "mean_set_size": 2.6121212121212123,
+              "abstention_rate": 0.6,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 53,
+              "total_set_size": 129,
+              "abstained": 28,
+              "empty": 0,
+              "set_coverage": 0.9137931034482759,
+              "false_exclusion_rate": 0.08620689655172414,
+              "mean_set_size": 2.2241379310344827,
+              "abstention_rate": 0.4827586206896552,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "corrected_matching_fallback": {
+          "overall": {
+            "n": 21004,
+            "covered": 19022,
+            "total_set_size": 40427,
+            "abstained": 8880,
+            "empty": 168,
+            "set_coverage": 0.9056370215197105,
+            "false_exclusion_rate": 0.09436297848028947,
+            "mean_set_size": 1.9247286231194058,
+            "abstention_rate": 0.42277661397828986,
+            "empty_set_rate": 0.007998476480670348
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4507,
+              "total_set_size": 4906,
+              "abstained": 136,
+              "empty": 106,
+              "set_coverage": 0.904656764351666,
+              "false_exclusion_rate": 0.095343235648334,
+              "mean_set_size": 0.9847450822962666,
+              "abstention_rate": 0.02729827378562826,
+              "empty_set_rate": 0.02127659574468085
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5478,
+              "abstained": 589,
+              "empty": 32,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.1066666666666667,
+              "abstention_rate": 0.11898989898989899,
+              "empty_set_rate": 0.006464646464646465
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4535,
+              "total_set_size": 8792,
+              "abstained": 2707,
+              "empty": 22,
+              "set_coverage": 0.8994446648155494,
+              "false_exclusion_rate": 0.10055533518445062,
+              "mean_set_size": 1.7437524791749306,
+              "abstention_rate": 0.5368901229670766,
+              "empty_set_rate": 0.00436334787782626
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3361,
+              "total_set_size": 11832,
+              "abstained": 3293,
+              "empty": 6,
+              "set_coverage": 0.9148067501360915,
+              "false_exclusion_rate": 0.08519324986390854,
+              "mean_set_size": 3.220468154599891,
+              "abstention_rate": 0.8962983124659771,
+              "empty_set_rate": 0.001633097441480675
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1449,
+              "total_set_size": 6112,
+              "abstained": 1434,
+              "empty": 1,
+              "set_coverage": 0.9241071428571429,
+              "false_exclusion_rate": 0.07589285714285714,
+              "mean_set_size": 3.8979591836734695,
+              "abstention_rate": 0.9145408163265306,
+              "empty_set_rate": 0.0006377551020408163
+            },
+            "6C": {
+              "n": 565,
+              "covered": 502,
+              "total_set_size": 2375,
+              "abstained": 522,
+              "empty": 0,
+              "set_coverage": 0.8884955752212389,
+              "false_exclusion_rate": 0.11150442477876106,
+              "mean_set_size": 4.20353982300885,
+              "abstention_rate": 0.9238938053097345,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 152,
+              "total_set_size": 681,
+              "abstained": 146,
+              "empty": 1,
+              "set_coverage": 0.9212121212121213,
+              "false_exclusion_rate": 0.07878787878787878,
+              "mean_set_size": 4.127272727272727,
+              "abstention_rate": 0.8848484848484849,
+              "empty_set_rate": 0.006060606060606061
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 251,
+              "abstained": 53,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.327586206896552,
+              "abstention_rate": 0.9137931034482759,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "dna_only": {
+          "overall": {
+            "n": 21004,
+            "covered": 19021,
+            "total_set_size": 42386,
+            "abstained": 9613,
+            "empty": 78,
+            "set_coverage": 0.905589411540659,
+            "false_exclusion_rate": 0.09441058845934108,
+            "mean_set_size": 2.017996572081508,
+            "abstention_rate": 0.4576747286231194,
+            "empty_set_rate": 0.003713578366025519
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4498,
+              "total_set_size": 4939,
+              "abstained": 113,
+              "empty": 78,
+              "set_coverage": 0.9028502609393818,
+              "false_exclusion_rate": 0.09714973906061823,
+              "mean_set_size": 0.9913689281413087,
+              "abstention_rate": 0.022681653954235246,
+              "empty_set_rate": 0.01565636290646327
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5554,
+              "abstained": 601,
+              "empty": 0,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.122020202020202,
+              "abstention_rate": 0.12141414141414142,
+              "empty_set_rate": 0.0
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4533,
+              "total_set_size": 9171,
+              "abstained": 2937,
+              "empty": 0,
+              "set_coverage": 0.899047996826656,
+              "false_exclusion_rate": 0.10095200317334391,
+              "mean_set_size": 1.8189210630702102,
+              "abstention_rate": 0.5825069416898057,
+              "empty_set_rate": 0.0
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3376,
+              "total_set_size": 12642,
+              "abstained": 3607,
+              "empty": 0,
+              "set_coverage": 0.9188894937397931,
+              "false_exclusion_rate": 0.08111050626020685,
+              "mean_set_size": 3.4409363091997824,
+              "abstention_rate": 0.9817637452367991,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1440,
+              "total_set_size": 6522,
+              "abstained": 1567,
+              "empty": 0,
+              "set_coverage": 0.9183673469387755,
+              "false_exclusion_rate": 0.08163265306122448,
+              "mean_set_size": 4.159438775510204,
+              "abstention_rate": 0.9993622448979592,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2543,
+              "abstained": 565,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 4.500884955752213,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 154,
+              "total_set_size": 749,
+              "abstained": 165,
+              "empty": 0,
+              "set_coverage": 0.9333333333333333,
+              "false_exclusion_rate": 0.06666666666666667,
+              "mean_set_size": 4.539393939393939,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 266,
+              "abstained": 58,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.586206896551724,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            }
+          }
+        }
+      },
+      "corrected_routes": {
+        "complete_known_fusion:complete_known_consistent_origins": 1866,
+        "dna_only:missing_required_origin": 8886,
+        "dna_only:no_records": 10252
+      },
+      "fallback_dna_equality": {
+        "fallback_rows": 19138,
+        "set_disagreements_with_dna": 0
+      }
+    },
+    "incorrect_A45_complete": {
+      "metrics": {
+        "v1_logic_recalibrated_on_v2_cal": {
+          "overall": {
+            "n": 21004,
+            "covered": 18086,
+            "total_set_size": 22705,
+            "abstained": 3064,
+            "empty": 762,
+            "set_coverage": 0.8610740811274044,
+            "false_exclusion_rate": 0.1389259188725957,
+            "mean_set_size": 1.0809845743667872,
+            "abstention_rate": 0.14587697581413064,
+            "empty_set_rate": 0.03627880403732622
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4194,
+              "total_set_size": 4560,
+              "abstained": 461,
+              "empty": 442,
+              "set_coverage": 0.841830590124448,
+              "false_exclusion_rate": 0.15816940987555198,
+              "mean_set_size": 0.9152950622240065,
+              "abstention_rate": 0.0925331192292252,
+              "empty_set_rate": 0.08871938980329185
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4265,
+              "total_set_size": 4774,
+              "abstained": 335,
+              "empty": 256,
+              "set_coverage": 0.8616161616161616,
+              "false_exclusion_rate": 0.1383838383838384,
+              "mean_set_size": 0.9644444444444444,
+              "abstention_rate": 0.06767676767676768,
+              "empty_set_rate": 0.05171717171717172
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4352,
+              "total_set_size": 5584,
+              "abstained": 600,
+              "empty": 59,
+              "set_coverage": 0.8631495438318127,
+              "false_exclusion_rate": 0.13685045616818722,
+              "mean_set_size": 1.1074970249900833,
+              "abstention_rate": 0.1190003966679889,
+              "empty_set_rate": 0.011701705672352241
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3244,
+              "total_set_size": 4649,
+              "abstained": 927,
+              "empty": 5,
+              "set_coverage": 0.8829613500272183,
+              "false_exclusion_rate": 0.11703864997278171,
+              "mean_set_size": 1.2653783342406097,
+              "abstention_rate": 0.25231355470876426,
+              "empty_set_rate": 0.0013609145345672292
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1359,
+              "total_set_size": 2084,
+              "abstained": 498,
+              "empty": 0,
+              "set_coverage": 0.8667091836734694,
+              "false_exclusion_rate": 0.13329081632653061,
+              "mean_set_size": 1.3290816326530612,
+              "abstention_rate": 0.31760204081632654,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 488,
+              "total_set_size": 760,
+              "abstained": 177,
+              "empty": 0,
+              "set_coverage": 0.863716814159292,
+              "false_exclusion_rate": 0.13628318584070798,
+              "mean_set_size": 1.345132743362832,
+              "abstention_rate": 0.31327433628318585,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 127,
+              "total_set_size": 214,
+              "abstained": 47,
+              "empty": 0,
+              "set_coverage": 0.7696969696969697,
+              "false_exclusion_rate": 0.23030303030303031,
+              "mean_set_size": 1.2969696969696969,
+              "abstention_rate": 0.28484848484848485,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 57,
+              "total_set_size": 80,
+              "abstained": 19,
+              "empty": 0,
+              "set_coverage": 0.9827586206896551,
+              "false_exclusion_rate": 0.017241379310344827,
+              "mean_set_size": 1.3793103448275863,
+              "abstention_rate": 0.3275862068965517,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "corrected_matching_fallback": {
+          "overall": {
+            "n": 21004,
+            "covered": 15892,
+            "total_set_size": 18683,
+            "abstained": 2887,
+            "empty": 2604,
+            "set_coverage": 0.7566177870881737,
+            "false_exclusion_rate": 0.24338221291182632,
+            "mean_set_size": 0.889497238621215,
+            "abstention_rate": 0.13745000952199582,
+            "empty_set_rate": 0.1239763854503904
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 3818,
+              "total_set_size": 4042,
+              "abstained": 942,
+              "empty": 941,
+              "set_coverage": 0.7663588920112404,
+              "false_exclusion_rate": 0.23364110798875953,
+              "mean_set_size": 0.8113207547169812,
+              "abstention_rate": 0.1890806904857487,
+              "empty_set_rate": 0.18887996788438377
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 3807,
+              "total_set_size": 4106,
+              "abstained": 846,
+              "empty": 845,
+              "set_coverage": 0.769090909090909,
+              "false_exclusion_rate": 0.2309090909090909,
+              "mean_set_size": 0.8294949494949495,
+              "abstention_rate": 0.1709090909090909,
+              "empty_set_rate": 0.1707070707070707
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 3818,
+              "total_set_size": 4475,
+              "abstained": 607,
+              "empty": 587,
+              "set_coverage": 0.7572391907973026,
+              "false_exclusion_rate": 0.24276080920269735,
+              "mean_set_size": 0.8875446251487505,
+              "abstention_rate": 0.12038873462911542,
+              "empty_set_rate": 0.11642205474018247
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 2729,
+              "total_set_size": 3614,
+              "abstained": 294,
+              "empty": 177,
+              "set_coverage": 0.7427871529667937,
+              "false_exclusion_rate": 0.2572128470332063,
+              "mean_set_size": 0.9836690255851932,
+              "abstention_rate": 0.08002177463255307,
+              "empty_set_rate": 0.04817637452367991
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1171,
+              "total_set_size": 1640,
+              "abstained": 138,
+              "empty": 33,
+              "set_coverage": 0.7468112244897959,
+              "false_exclusion_rate": 0.2531887755102041,
+              "mean_set_size": 1.0459183673469388,
+              "abstention_rate": 0.08801020408163265,
+              "empty_set_rate": 0.021045918367346938
+            },
+            "6C": {
+              "n": 565,
+              "covered": 397,
+              "total_set_size": 577,
+              "abstained": 40,
+              "empty": 14,
+              "set_coverage": 0.7026548672566372,
+              "false_exclusion_rate": 0.2973451327433628,
+              "mean_set_size": 1.0212389380530973,
+              "abstention_rate": 0.07079646017699115,
+              "empty_set_rate": 0.024778761061946902
+            },
+            "7C": {
+              "n": 165,
+              "covered": 96,
+              "total_set_size": 161,
+              "abstained": 8,
+              "empty": 6,
+              "set_coverage": 0.5818181818181818,
+              "false_exclusion_rate": 0.41818181818181815,
+              "mean_set_size": 0.9757575757575757,
+              "abstention_rate": 0.048484848484848485,
+              "empty_set_rate": 0.03636363636363636
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 68,
+              "abstained": 12,
+              "empty": 1,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 1.1724137931034482,
+              "abstention_rate": 0.20689655172413793,
+              "empty_set_rate": 0.017241379310344827
+            }
+          }
+        },
+        "dna_only": {
+          "overall": {
+            "n": 21004,
+            "covered": 19021,
+            "total_set_size": 42386,
+            "abstained": 9613,
+            "empty": 78,
+            "set_coverage": 0.905589411540659,
+            "false_exclusion_rate": 0.09441058845934108,
+            "mean_set_size": 2.017996572081508,
+            "abstention_rate": 0.4576747286231194,
+            "empty_set_rate": 0.003713578366025519
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4498,
+              "total_set_size": 4939,
+              "abstained": 113,
+              "empty": 78,
+              "set_coverage": 0.9028502609393818,
+              "false_exclusion_rate": 0.09714973906061823,
+              "mean_set_size": 0.9913689281413087,
+              "abstention_rate": 0.022681653954235246,
+              "empty_set_rate": 0.01565636290646327
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5554,
+              "abstained": 601,
+              "empty": 0,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.122020202020202,
+              "abstention_rate": 0.12141414141414142,
+              "empty_set_rate": 0.0
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4533,
+              "total_set_size": 9171,
+              "abstained": 2937,
+              "empty": 0,
+              "set_coverage": 0.899047996826656,
+              "false_exclusion_rate": 0.10095200317334391,
+              "mean_set_size": 1.8189210630702102,
+              "abstention_rate": 0.5825069416898057,
+              "empty_set_rate": 0.0
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3376,
+              "total_set_size": 12642,
+              "abstained": 3607,
+              "empty": 0,
+              "set_coverage": 0.9188894937397931,
+              "false_exclusion_rate": 0.08111050626020685,
+              "mean_set_size": 3.4409363091997824,
+              "abstention_rate": 0.9817637452367991,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1440,
+              "total_set_size": 6522,
+              "abstained": 1567,
+              "empty": 0,
+              "set_coverage": 0.9183673469387755,
+              "false_exclusion_rate": 0.08163265306122448,
+              "mean_set_size": 4.159438775510204,
+              "abstention_rate": 0.9993622448979592,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2543,
+              "abstained": 565,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 4.500884955752213,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 154,
+              "total_set_size": 749,
+              "abstained": 165,
+              "empty": 0,
+              "set_coverage": 0.9333333333333333,
+              "false_exclusion_rate": 0.06666666666666667,
+              "mean_set_size": 4.539393939393939,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 266,
+              "abstained": 58,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.586206896551724,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            }
+          }
+        }
+      },
+      "corrected_routes": {
+        "complete_known_fusion:complete_known_consistent_origins": 21004
+      },
+      "fallback_dna_equality": {
+        "fallback_rows": 0,
+        "set_disagreements_with_dna": 0
+      }
+    },
+    "unknown_all_complete": {
+      "metrics": {
+        "v1_logic_recalibrated_on_v2_cal": {
+          "overall": {
+            "n": 21004,
+            "covered": 15673,
+            "total_set_size": 34865,
+            "abstained": 9048,
+            "empty": 1484,
+            "set_coverage": 0.7461912016758713,
+            "false_exclusion_rate": 0.2538087983241287,
+            "mean_set_size": 1.6599219196343553,
+            "abstention_rate": 0.4307750904589602,
+            "empty_set_rate": 0.07065320891258808
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 3674,
+              "total_set_size": 4092,
+              "abstained": 914,
+              "empty": 902,
+              "set_coverage": 0.7374548374146929,
+              "false_exclusion_rate": 0.2625451625853071,
+              "mean_set_size": 0.8213568847852268,
+              "abstention_rate": 0.1834604576475311,
+              "empty_set_rate": 0.18105178643115213
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 3907,
+              "total_set_size": 4570,
+              "abstained": 522,
+              "empty": 451,
+              "set_coverage": 0.7892929292929293,
+              "false_exclusion_rate": 0.2107070707070707,
+              "mean_set_size": 0.9232323232323232,
+              "abstention_rate": 0.10545454545454545,
+              "empty_set_rate": 0.09111111111111111
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 3599,
+              "total_set_size": 7709,
+              "abstained": 2281,
+              "empty": 131,
+              "set_coverage": 0.7138040460134867,
+              "false_exclusion_rate": 0.28619595398651326,
+              "mean_set_size": 1.5289567631892107,
+              "abstention_rate": 0.4523998413328044,
+              "empty_set_rate": 0.02598175327251091
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 2624,
+              "total_set_size": 10194,
+              "abstained": 3066,
+              "empty": 0,
+              "set_coverage": 0.7142079477408819,
+              "false_exclusion_rate": 0.28579205225911813,
+              "mean_set_size": 2.774632553075667,
+              "abstention_rate": 0.8345127925966249,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1170,
+              "total_set_size": 5373,
+              "abstained": 1484,
+              "empty": 0,
+              "set_coverage": 0.7461734693877551,
+              "false_exclusion_rate": 0.2538265306122449,
+              "mean_set_size": 3.426658163265306,
+              "abstention_rate": 0.9464285714285714,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2084,
+              "abstained": 560,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 3.6884955752212387,
+              "abstention_rate": 0.9911504424778761,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 139,
+              "total_set_size": 629,
+              "abstained": 164,
+              "empty": 0,
+              "set_coverage": 0.8424242424242424,
+              "false_exclusion_rate": 0.15757575757575756,
+              "mean_set_size": 3.812121212121212,
+              "abstention_rate": 0.9939393939393939,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 214,
+              "abstained": 57,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 3.689655172413793,
+              "abstention_rate": 0.9827586206896551,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "corrected_matching_fallback": {
+          "overall": {
+            "n": 21004,
+            "covered": 19021,
+            "total_set_size": 42386,
+            "abstained": 9613,
+            "empty": 78,
+            "set_coverage": 0.905589411540659,
+            "false_exclusion_rate": 0.09441058845934108,
+            "mean_set_size": 2.017996572081508,
+            "abstention_rate": 0.4576747286231194,
+            "empty_set_rate": 0.003713578366025519
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4498,
+              "total_set_size": 4939,
+              "abstained": 113,
+              "empty": 78,
+              "set_coverage": 0.9028502609393818,
+              "false_exclusion_rate": 0.09714973906061823,
+              "mean_set_size": 0.9913689281413087,
+              "abstention_rate": 0.022681653954235246,
+              "empty_set_rate": 0.01565636290646327
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5554,
+              "abstained": 601,
+              "empty": 0,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.122020202020202,
+              "abstention_rate": 0.12141414141414142,
+              "empty_set_rate": 0.0
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4533,
+              "total_set_size": 9171,
+              "abstained": 2937,
+              "empty": 0,
+              "set_coverage": 0.899047996826656,
+              "false_exclusion_rate": 0.10095200317334391,
+              "mean_set_size": 1.8189210630702102,
+              "abstention_rate": 0.5825069416898057,
+              "empty_set_rate": 0.0
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3376,
+              "total_set_size": 12642,
+              "abstained": 3607,
+              "empty": 0,
+              "set_coverage": 0.9188894937397931,
+              "false_exclusion_rate": 0.08111050626020685,
+              "mean_set_size": 3.4409363091997824,
+              "abstention_rate": 0.9817637452367991,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1440,
+              "total_set_size": 6522,
+              "abstained": 1567,
+              "empty": 0,
+              "set_coverage": 0.9183673469387755,
+              "false_exclusion_rate": 0.08163265306122448,
+              "mean_set_size": 4.159438775510204,
+              "abstention_rate": 0.9993622448979592,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2543,
+              "abstained": 565,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 4.500884955752213,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 154,
+              "total_set_size": 749,
+              "abstained": 165,
+              "empty": 0,
+              "set_coverage": 0.9333333333333333,
+              "false_exclusion_rate": 0.06666666666666667,
+              "mean_set_size": 4.539393939393939,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 266,
+              "abstained": 58,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.586206896551724,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "dna_only": {
+          "overall": {
+            "n": 21004,
+            "covered": 19021,
+            "total_set_size": 42386,
+            "abstained": 9613,
+            "empty": 78,
+            "set_coverage": 0.905589411540659,
+            "false_exclusion_rate": 0.09441058845934108,
+            "mean_set_size": 2.017996572081508,
+            "abstention_rate": 0.4576747286231194,
+            "empty_set_rate": 0.003713578366025519
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4498,
+              "total_set_size": 4939,
+              "abstained": 113,
+              "empty": 78,
+              "set_coverage": 0.9028502609393818,
+              "false_exclusion_rate": 0.09714973906061823,
+              "mean_set_size": 0.9913689281413087,
+              "abstention_rate": 0.022681653954235246,
+              "empty_set_rate": 0.01565636290646327
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5554,
+              "abstained": 601,
+              "empty": 0,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.122020202020202,
+              "abstention_rate": 0.12141414141414142,
+              "empty_set_rate": 0.0
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4533,
+              "total_set_size": 9171,
+              "abstained": 2937,
+              "empty": 0,
+              "set_coverage": 0.899047996826656,
+              "false_exclusion_rate": 0.10095200317334391,
+              "mean_set_size": 1.8189210630702102,
+              "abstention_rate": 0.5825069416898057,
+              "empty_set_rate": 0.0
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3376,
+              "total_set_size": 12642,
+              "abstained": 3607,
+              "empty": 0,
+              "set_coverage": 0.9188894937397931,
+              "false_exclusion_rate": 0.08111050626020685,
+              "mean_set_size": 3.4409363091997824,
+              "abstention_rate": 0.9817637452367991,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1440,
+              "total_set_size": 6522,
+              "abstained": 1567,
+              "empty": 0,
+              "set_coverage": 0.9183673469387755,
+              "false_exclusion_rate": 0.08163265306122448,
+              "mean_set_size": 4.159438775510204,
+              "abstention_rate": 0.9993622448979592,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2543,
+              "abstained": 565,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 4.500884955752213,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 154,
+              "total_set_size": 749,
+              "abstained": 165,
+              "empty": 0,
+              "set_coverage": 0.9333333333333333,
+              "false_exclusion_rate": 0.06666666666666667,
+              "mean_set_size": 4.539393939393939,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 266,
+              "abstained": 58,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.586206896551724,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            }
+          }
+        }
+      },
+      "corrected_routes": {
+        "dna_only:unknown_or_unsupported_origin": 21004
+      },
+      "fallback_dna_equality": {
+        "fallback_rows": 21004,
+        "set_disagreements_with_dna": 0
+      }
+    },
+    "unknown_A_complete": {
+      "metrics": {
+        "v1_logic_recalibrated_on_v2_cal": {
+          "overall": {
+            "n": 21004,
+            "covered": 17395,
+            "total_set_size": 23437,
+            "abstained": 3491,
+            "empty": 997,
+            "set_coverage": 0.8281755856027423,
+            "false_exclusion_rate": 0.17182441439725765,
+            "mean_set_size": 1.1158350790325653,
+            "abstention_rate": 0.16620643686916778,
+            "empty_set_rate": 0.04746714911445439
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4055,
+              "total_set_size": 4448,
+              "abstained": 572,
+              "empty": 553,
+              "set_coverage": 0.813930148534725,
+              "false_exclusion_rate": 0.186069851465275,
+              "mean_set_size": 0.892814130871136,
+              "abstention_rate": 0.11481332798073063,
+              "empty_set_rate": 0.11099959855479727
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4181,
+              "total_set_size": 4701,
+              "abstained": 453,
+              "empty": 351,
+              "set_coverage": 0.8446464646464646,
+              "false_exclusion_rate": 0.15535353535353535,
+              "mean_set_size": 0.9496969696969697,
+              "abstention_rate": 0.09151515151515152,
+              "empty_set_rate": 0.07090909090909091
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4244,
+              "total_set_size": 6024,
+              "abstained": 952,
+              "empty": 88,
+              "set_coverage": 0.8417294724315748,
+              "false_exclusion_rate": 0.15827052756842522,
+              "mean_set_size": 1.1947639825466085,
+              "abstention_rate": 0.18881396271320905,
+              "empty_set_rate": 0.01745339151130504
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3059,
+              "total_set_size": 5015,
+              "abstained": 997,
+              "empty": 4,
+              "set_coverage": 0.8326075122482308,
+              "false_exclusion_rate": 0.16739248775176918,
+              "mean_set_size": 1.364997278170931,
+              "abstention_rate": 0.2713663581927055,
+              "empty_set_rate": 0.0010887316276537834
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1216,
+              "total_set_size": 2168,
+              "abstained": 358,
+              "empty": 1,
+              "set_coverage": 0.7755102040816326,
+              "false_exclusion_rate": 0.22448979591836735,
+              "mean_set_size": 1.3826530612244898,
+              "abstention_rate": 0.22831632653061223,
+              "empty_set_rate": 0.0006377551020408163
+            },
+            "6C": {
+              "n": 565,
+              "covered": 456,
+              "total_set_size": 779,
+              "abstained": 115,
+              "empty": 0,
+              "set_coverage": 0.8070796460176991,
+              "false_exclusion_rate": 0.1929203539823009,
+              "mean_set_size": 1.3787610619469026,
+              "abstention_rate": 0.20353982300884957,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 129,
+              "total_set_size": 222,
+              "abstained": 34,
+              "empty": 0,
+              "set_coverage": 0.7818181818181819,
+              "false_exclusion_rate": 0.21818181818181817,
+              "mean_set_size": 1.3454545454545455,
+              "abstention_rate": 0.20606060606060606,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 55,
+              "total_set_size": 80,
+              "abstained": 10,
+              "empty": 0,
+              "set_coverage": 0.9482758620689655,
+              "false_exclusion_rate": 0.05172413793103448,
+              "mean_set_size": 1.3793103448275863,
+              "abstention_rate": 0.1724137931034483,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "corrected_matching_fallback": {
+          "overall": {
+            "n": 21004,
+            "covered": 19021,
+            "total_set_size": 42386,
+            "abstained": 9613,
+            "empty": 78,
+            "set_coverage": 0.905589411540659,
+            "false_exclusion_rate": 0.09441058845934108,
+            "mean_set_size": 2.017996572081508,
+            "abstention_rate": 0.4576747286231194,
+            "empty_set_rate": 0.003713578366025519
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4498,
+              "total_set_size": 4939,
+              "abstained": 113,
+              "empty": 78,
+              "set_coverage": 0.9028502609393818,
+              "false_exclusion_rate": 0.09714973906061823,
+              "mean_set_size": 0.9913689281413087,
+              "abstention_rate": 0.022681653954235246,
+              "empty_set_rate": 0.01565636290646327
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5554,
+              "abstained": 601,
+              "empty": 0,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.122020202020202,
+              "abstention_rate": 0.12141414141414142,
+              "empty_set_rate": 0.0
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4533,
+              "total_set_size": 9171,
+              "abstained": 2937,
+              "empty": 0,
+              "set_coverage": 0.899047996826656,
+              "false_exclusion_rate": 0.10095200317334391,
+              "mean_set_size": 1.8189210630702102,
+              "abstention_rate": 0.5825069416898057,
+              "empty_set_rate": 0.0
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3376,
+              "total_set_size": 12642,
+              "abstained": 3607,
+              "empty": 0,
+              "set_coverage": 0.9188894937397931,
+              "false_exclusion_rate": 0.08111050626020685,
+              "mean_set_size": 3.4409363091997824,
+              "abstention_rate": 0.9817637452367991,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1440,
+              "total_set_size": 6522,
+              "abstained": 1567,
+              "empty": 0,
+              "set_coverage": 0.9183673469387755,
+              "false_exclusion_rate": 0.08163265306122448,
+              "mean_set_size": 4.159438775510204,
+              "abstention_rate": 0.9993622448979592,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2543,
+              "abstained": 565,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 4.500884955752213,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 154,
+              "total_set_size": 749,
+              "abstained": 165,
+              "empty": 0,
+              "set_coverage": 0.9333333333333333,
+              "false_exclusion_rate": 0.06666666666666667,
+              "mean_set_size": 4.539393939393939,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 266,
+              "abstained": 58,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.586206896551724,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            }
+          }
+        },
+        "dna_only": {
+          "overall": {
+            "n": 21004,
+            "covered": 19021,
+            "total_set_size": 42386,
+            "abstained": 9613,
+            "empty": 78,
+            "set_coverage": 0.905589411540659,
+            "false_exclusion_rate": 0.09441058845934108,
+            "mean_set_size": 2.017996572081508,
+            "abstention_rate": 0.4576747286231194,
+            "empty_set_rate": 0.003713578366025519
+          },
+          "per_class": {
+            "1C": {
+              "n": 4982,
+              "covered": 4498,
+              "total_set_size": 4939,
+              "abstained": 113,
+              "empty": 78,
+              "set_coverage": 0.9028502609393818,
+              "false_exclusion_rate": 0.09714973906061823,
+              "mean_set_size": 0.9913689281413087,
+              "abstention_rate": 0.022681653954235246,
+              "empty_set_rate": 0.01565636290646327
+            },
+            "2C": {
+              "n": 4950,
+              "covered": 4460,
+              "total_set_size": 5554,
+              "abstained": 601,
+              "empty": 0,
+              "set_coverage": 0.901010101010101,
+              "false_exclusion_rate": 0.09898989898989899,
+              "mean_set_size": 1.122020202020202,
+              "abstention_rate": 0.12141414141414142,
+              "empty_set_rate": 0.0
+            },
+            "3C": {
+              "n": 5042,
+              "covered": 4533,
+              "total_set_size": 9171,
+              "abstained": 2937,
+              "empty": 0,
+              "set_coverage": 0.899047996826656,
+              "false_exclusion_rate": 0.10095200317334391,
+              "mean_set_size": 1.8189210630702102,
+              "abstention_rate": 0.5825069416898057,
+              "empty_set_rate": 0.0
+            },
+            "4C": {
+              "n": 3674,
+              "covered": 3376,
+              "total_set_size": 12642,
+              "abstained": 3607,
+              "empty": 0,
+              "set_coverage": 0.9188894937397931,
+              "false_exclusion_rate": 0.08111050626020685,
+              "mean_set_size": 3.4409363091997824,
+              "abstention_rate": 0.9817637452367991,
+              "empty_set_rate": 0.0
+            },
+            "5C": {
+              "n": 1568,
+              "covered": 1440,
+              "total_set_size": 6522,
+              "abstained": 1567,
+              "empty": 0,
+              "set_coverage": 0.9183673469387755,
+              "false_exclusion_rate": 0.08163265306122448,
+              "mean_set_size": 4.159438775510204,
+              "abstention_rate": 0.9993622448979592,
+              "empty_set_rate": 0.0
+            },
+            "6C": {
+              "n": 565,
+              "covered": 504,
+              "total_set_size": 2543,
+              "abstained": 565,
+              "empty": 0,
+              "set_coverage": 0.8920353982300885,
+              "false_exclusion_rate": 0.1079646017699115,
+              "mean_set_size": 4.500884955752213,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "7C": {
+              "n": 165,
+              "covered": 154,
+              "total_set_size": 749,
+              "abstained": 165,
+              "empty": 0,
+              "set_coverage": 0.9333333333333333,
+              "false_exclusion_rate": 0.06666666666666667,
+              "mean_set_size": 4.539393939393939,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            },
+            "8C": {
+              "n": 58,
+              "covered": 56,
+              "total_set_size": 266,
+              "abstained": 58,
+              "empty": 0,
+              "set_coverage": 0.9655172413793104,
+              "false_exclusion_rate": 0.034482758620689655,
+              "mean_set_size": 4.586206896551724,
+              "abstention_rate": 1.0,
+              "empty_set_rate": 0.0
+            }
+          }
+        }
+      },
+      "corrected_routes": {
+        "dna_only:unknown_or_unsupported_origin": 21004
+      },
+      "fallback_dna_equality": {
+        "fallback_rows": 21004,
+        "set_disagreements_with_dna": 0
+      }
+    }
+  },
+  "v1_preservation_verified": true,
+  "runtime_seconds": 7.957641099994362,
+  "limits": [
+    "No globally untouched or independently seeded simulation groups available; newly evaluated batch2 rows have historical matching-group v1 calibration exposure.",
+    "Fabricated records, direct cousin-label statements and invented reliability remain exploratory assumptions.",
+    "Correction routes missing/unknown metadata conservatively, discarding partial record information; set size/abstention may increase.",
+    "Incorrect reliability in otherwise complete known bundles is not detected or solved.",
+    "Small distant-cousin calibration/test counts; no population/forensic validity, novelty or app integration claimed."
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "version": 3,
+  "frozen_at_utc": "2026-11-14T19:01:26.421970+00:00",
+  "scope": "Label-free, source-level reliability check before fusion. No new DNA model, data, app integration or AI.",
+  "design_disclosure": "Designed after the v2 incorrect_A45_complete failure was observed on these same evaluation rows. Four new scenarios (seen_before_design=false) were fixed here before any v3 result existed.",
+  "historical_exposure": "No wholly unused source groups remain. V2 evaluation batch2 rows were not previously scored, but their group IDs had batch1 counterparts in v1 calibration. Not independent fresh simulations or a globally untouched holdout.",
+  "split": "Reuses the frozen v2 split unchanged (v2_calibration batch1 calibrates/references; v2_evaluation batch2 evaluates).",
+  "reference": "Per-origin residual mean/variance from v2-calibration rows with v2 nominal_missing25 records whose actual reliability equals the assumed reliability.",
+  "residual": "DNA score of claimed degree minus sum_c s(c)*(r*s(c)+(1-r)/7*(1-s(c))) with r the assumed reliability and s the DNA-only scores.",
+  "test": {
+    "type": "one-sided z on batch mean residual vs reference",
+    "alpha_per_origin": 0.005,
+    "z_critical": 2.5758293035489,
+    "min_records_per_origin": 10
+  },
+  "routing": "If any origin is rejected or has fewer than the minimum records in the batch, rows that would fuse instead use DNA scores with DNA calibration. Other rows follow v2 routing.",
+  "batching": {
+    "sizes": [
+      25,
+      100,
+      400,
+      "all"
+    ],
+    "salt": "kinfold-reliability-v3-batches-20261114",
+    "rule": "One frozen shuffle of evaluation rows, chunked; final partial batch kept."
+  },
+  "record_seed_salt": "kinfold-fallback-v2-records-20261114",
+  "nominal_coverage": 0.9,
+  "assumed_reliabilities": {
+    "A": 0.85,
+    "B": 0.7
+  },
+  "scenarios": {
+    "clean_complete": {
+      "actual": {
+        "A": 0.85,
+        "B": 0.7
+      },
+      "missing": 0.0,
+      "unknown": [],
+      "seen_before_design": true
+    },
+    "nominal_missing25": {
+      "actual": {
+        "A": 0.85,
+        "B": 0.7
+      },
+      "missing": 0.25,
+      "unknown": [],
+      "seen_before_design": true
+    },
+    "missing70": {
+      "actual": {
+        "A": 0.85,
+        "B": 0.7
+      },
+      "missing": 0.7,
+      "unknown": [],
+      "seen_before_design": true
+    },
+    "incorrect_A45_complete": {
+      "actual": {
+        "A": 0.55,
+        "B": 0.7
+      },
+      "missing": 0.0,
+      "unknown": [],
+      "seen_before_design": true
+    },
+    "unknown_all_complete": {
+      "actual": {
+        "A": 0.85,
+        "B": 0.7
+      },
+      "missing": 0.0,
+      "unknown": [
+        "A",
+        "B"
+      ],
+      "seen_before_design": true
+    },
+    "unknown_A_complete": {
+      "actual": {
+        "A": 0.85,
+        "B": 0.7
+      },
+      "missing": 0.0,
+      "unknown": [
+        "A"
+      ],
+      "seen_before_design": true
+    },
+    "incorrect_A25_complete": {
+      "actual": {
+        "A": 0.75,
+        "B": 0.7
+      },
+      "missing": 0.0,
+      "unknown": [],
+      "seen_before_design": false
+    },
+    "incorrect_B_complete": {
+      "actual": {
+        "A": 0.85,
+        "B": 0.45
+      },
+      "missing": 0.0,
+      "unknown": [],
+      "seen_before_design": false
+    },
+    "incorrect_A45_missing25": {
+      "actual": {
+        "A": 0.55,
+        "B": 0.7
+      },
+      "missing": 0.25,
+      "unknown": [],
+      "seen_before_design": false
+    },
+    "better_A_complete": {
+      "actual": {
+        "A": 0.95,
+        "B": 0.7
+      },
+      "missing": 0.0,
+      "unknown": [],
+      "seen_before_design": false
+    }
+  },
+  "comparators": [
+    "dna_only",
+    "v2_corrected_no_check",
+    "v3_checked_batch_25",
+    "v3_checked_batch_100",
+    "v3_checked_batch_400",
+    "v3_checked_batch_all"
+  ],
+  "calibration_rule": "Thresholds recomputed with the v2 procedure on v2-calibration rows and required to equal those saved in v2 comparison.json.",
+  "v2_split_sha256": "0ad8b25e8efa8733d001abc49b099d6a9c1f49c61eea8d73645546c17f65c4f0",
+  "v2_protocol_sha256": "2f70cc2af9c490a104e6d957f2f54a94a2dab0e737c78eadcc10ff97a7648f6e",
+  "v2_comparison_sha256": "350a0a2ee6d47856eb7ebeb581f41f148ed0a8b526d420d8e978a75866d96d75",
+  "v2_implementation_sha256": "cebf4760d10919ba409fb86c0a53f27b34c8a58b5985b5650ecb08a372296484",
+  "source_manifest_sha256": "b46510673d9af6be7389c615b4c3fa699f4e8717fb3a1ac4467fc93992e2c9bb",
+  "dna_models_sha256": "06acf6a87f27b1584c54aefe8ec4d18e4c709e9976e27d2edc240967b91914c6",
+  "implementation_sha256": "22dd67b0b9c89c790799e9512e25dc9e43b129075c0c506eaefb113ff8c0b314",
+  "claims_limit": "Fabricated records with invented reliabilities; batch-level check needs many cases per source; prototype only, not validated forensic calibration or novel genetics."
+}

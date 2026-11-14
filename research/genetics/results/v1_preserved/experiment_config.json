@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "scope": "Simulated full first-through-eighth cousins only; no unrelated or half/removed/lineal hypotheses",
+  "source_record": "https://zenodo.org/records/17489849",
+  "pairs_per_relationship_per_batch": 50000,
+  "training_source": "ss_intf batch1, hash groups0..5999",
+  "calibration_source": "ss_intf batch1, hash groups6000..7999",
+  "test_sources": "batch2 of each crossover model, hash groups8000..9999",
+  "group_key": "cousin_number:replicate_number (excludes batch/model so matching IDs cannot cross splits)",
+  "hash_salt": "kinfold-genetics-v1",
+  "target_set_coverage": 0.9,
+  "histogram_log1p_cm_width": 0.18,
+  "max_positive_cm_bin": 50,
+  "max_ibd1_segment_bin": 80,
+  "dirichlet_pseudocount": 0.1,
+  "class_prior": "uniform over the eight supported full-cousin hypotheses; not a population prior",
+  "hyperparameters": "Fixed before reading benchmark outcomes; no test-based tuning",
+  "zero_policy": "Restore absent IDs only within validated1..50000 replicate universe documented by source definitions/README"
+}
