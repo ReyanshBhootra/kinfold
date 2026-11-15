@@ -1,6 +1,27 @@
 # Kinfold: Devpost draft
 
-> Placeholders marked **[DECIDE]** need a human decision before submission (see the linked issues). Remove this note and every placeholder before you paste the copy into Devpost.
+> Placeholders marked **[DECIDE]** need a human decision before submission (see the linked issues). Remove this note, the checklist and every placeholder before you paste the copy into Devpost.
+
+## Submission checklist (Devpost fields → where the text is)
+1. **Project name:** `Kinfold`
+2. **Tagline / elevator pitch** (Devpost limits it to about 200 characters): copy "Tagline" below.
+3. **Thumbnail / gallery images** (3–5 screenshots, 3:2 works best):
+   - the family graph with the case summary;
+   - Candidate leads, showing the three leads excluded by DNA;
+   - the AI extraction findings, with a rejected claim and its reason;
+   - Lena Hale "Found by Kinfold" and DNA consistent;
+   - the agent run panel;
+   - the Lead timeline with "On-chain: transaction found on devnet".
+4. **About the project:** Devpost's story fields. Paste "Inspiration", "What it does", "How we built it", "Challenges", "Accomplishments", "What we learned" and "What's next" into the matching boxes. Keep "Accuracy notes" at the end of the story.
+5. **Built with** (tags): copy the tag list under "Built with".
+6. **"Try it out" links:**
+   - GitHub: https://github.com/ReyanshBhootra/kinfold (public);
+   - the Solana Explorer link for the Hale-state anchor (under "Built with").
+   - There's no hosted demo; it runs locally (README → "Run locally").
+7. **Video demo link:** YouTube or Vimeo URL from #5, at most 2 minutes. Devpost needs a public or unlisted link.
+8. **Prize tracks / opt-in prizes:** select exactly the tracks under "Prize tracks". Add Arlequin only if the sponsor confirms (#4).
+9. **Team members:** add both teammates' Devpost accounts so both are on the submission.
+10. **Submit before 08:00 ET.** Devpost lets you edit after submitting, until the deadline.
 
 ## Tagline
 Every connection, a source. A genealogy research assistant that checks the family story against the DNA, and makes the AI quote its sources.
@@ -14,6 +35,8 @@ Kinfold works on a disclosed, fully **synthetic** unidentified-person case. An u
 1. **The DNA says no.** Kinfold builds a family graph from the records. Every edge cites a document line span. It then follows the recorded parent links from each lead to the DNA match. Under the recorded pedigree, all three leads would be Ruth's nieces, with an expected 1,201–2,282 cM, against 220 observed. All three are excluded, and each also has record-based reasons: a birth year outside the estimated range, an alive record after the estimated death, or conflicting birth sources. The first suggested next step is to search branches that fit 220 cM.
 2. **The AI reads messy records, and must quote them.** We upload two new synthetic records: an obituary and a 1972 birth announcement. Gemini proposes typed claims (birth, death, parent, spouse, sibling), each with a quote and a line span. Kinfold accepts a claim only if the quote is verbatim in the cited lines and names every person and year the claim asserts. In our recorded run, Gemini proposed 13 claims. Kinfold verified 11 and rejected 2, and the UI shows each rejection with its reason. Both rejections are conservative: the record arguably implies the claim, but the quote doesn't state it. One said George Hale was alive in 2008, but the quote never states the year. The other claimed a marriage from a quote with no explicit marriage wording. Rejected claims never reach the graph.
 3. **A new lead appears.** The verified claims link Frances Hale, Arthur Mercer's sister, to her granddaughter Lena Hale. Kinfold proposes Lena itself ("Found by Kinfold"). Her 1972 birth year falls inside the estimated range. Under the recorded pedigree she would be Ruth's first cousin once removed, with an expected 102–980 cM, so 220 cM is consistent. The record gives her birthplace only as "Cooper Hospital", so Kinfold awards no region point it can't support.
+4. **An agent checks the lead.** A LangChain deep agent investigates Lena step by step. It searches and reads records, tests relationship hypotheses against the DNA, and submits claims to the same quote verifier. Kinfold computes every result, and the agent can't change any lead.
+5. **Every lead gets a tamper-evident timeline.** One click anchors a hash of the current research state on Solana devnet. The hash covers the cited records, the AI's raw outputs and the lead decisions. If the evidence later changes, Kinfold says the current state differs from the anchor. Only the hash goes on-chain: no names, DNA or records.
 
 Every finding opens the source record with the cited lines highlighted. Research packs export the records, source fingerprints, findings, candidate reasoning, audit log and a manifest digest, and a local verifier detects later changes.
 
@@ -27,6 +50,8 @@ Every finding opens the source record with the cited lines highlighted. Research
 - tested 7 relationship hypotheses against 220 cM (4 fit, 3 didn't);
 - had 7 of 8 claims verified, then fixed the rejected one;
 - rewrote its report after Kinfold refused the first draft as too long.
+- **Lead timeline (Solana devnet):** the manifest digest goes into a Memo transaction through our CLI. The app stores an anchor only after the transaction is confirmed and its memo checked on-chain, and **Verify** re-checks it later.
+- **Storage:** MongoDB Atlas (verified on a real cluster), or local JSON.
 - **Safety:** uploaded documents are treated as untrusted evidence, never as instructions. Tests cover prompt injection.
 
 ## Challenges
@@ -44,7 +69,8 @@ Every finding opens the source record with the cited lines highlighted. Research
 - Backend test suite (pytest): source spans, contradictions, evidence-driven candidate changes, DNA ranges, extraction verification, the Gemini schema regression, prompt injection, uploads, persistence and exports.
 - `scripts/evaluate.py`: two held-out synthetic families with 6 candidate decisions. The full engine got 6/6 against 4/6 for a birth-range-only baseline. That's a small correctness check, not scientific validation.
 - `npm run test:integration`: runs against the real HTTP API. It locates every citation, checks digests across Python and JavaScript, uploads a record and confirms that an old digest no longer matches.
-- **[DECIDE before submitting]** Paste the final test counts from the submission commit, from the commands in `AGENTS.md`.
+- `pytest backend/tests research/genetics/tests`: **100 passed**. `npm run build`, `npm run test:anchor` (4) and `npm run test:package` (3) also pass. Re-run on the final commit before submitting if anything changes.
+- **Live runs, all recorded in `docs/VALIDATION.md`:** Gemini extraction and annotations, the deep agent's investigation, MongoDB Atlas persistence, and three Solana devnet anchors.
 
 ## What we learned
 Evidence integrity isn't evidence truth. A shared-cM value fits several relationships, and a perfectly located quote can still be misread. Useful research tooling shows its uncertainty and leaves the conclusion to a human reviewer.
@@ -54,15 +80,16 @@ Evidence integrity isn't evidence truth. A shared-cM value fits several relation
 - Relationship inference evaluated on simulated pedigrees with whole-family holdouts and declared baselines (`research/genetics/`).
 
 ## Built with
-React, TypeScript, Vite, Python, FastAPI, Pydantic, Google Gemini (`gemini-3.5-flash`).
-MongoDB Atlas: case storage. Verified on a real Atlas cluster; the case survives a full app restart with an identical evidence digest.
-**[DECIDE: Solana, #3]** Add only if a real devnet anchor was made and verified. Otherwise leave Solana out of the copy.
+Tags: `react`, `typescript`, `vite`, `python`, `fastapi`, `pydantic`, `google-gemini`, `langchain`, `deepagents`, `mongodb-atlas`, `solana`, `node.js`.
+
+- **MongoDB Atlas:** case storage. Verified on a real Atlas cluster; the case survives a full app restart with an identical evidence digest.
+- **Solana devnet:** the lead timeline. Verified anchor of the Hale state (Lena Hale possible): https://explorer.solana.com/tx/4qWrFgPTGC8wxif392icaBQM7ijpqc289k48GWndCpMFhM4q4k3yZ5MfAwEoVBrE9qeMuN3q9BCHbTj48jRWpwFV?cluster=devnet
 
 ## Prize tracks
 - **Best Use of Gemini AI:** real `gemini-3.5-flash` extraction, recorded on 2026-11-14 and replayed and re-verified in the demo.
 - **[DECIDE: Arlequin AI-Driven Forensics, #4]** We've emailed the sponsor and are waiting for an answer. List it first only if they confirm the project fits.
 - **MongoDB Atlas:** cases persist in Atlas, verified with a real cluster. This is storage only, so describe it plainly.
-- **[DECIDE: Solana, #3]**: list only if verified as above.
+- **Solana:** "Every lead gets a tamper-evident timeline". Real devnet Memo anchors of each research state, verified on-chain from the app (Explorer link above). An anchor proves the state existed unchanged; it doesn't prove the records are true.
 - **LangChain "Best use of deepagents":** a deep agent that plans and investigates a lead with real forensic tools. Deterministic code recomputes every conclusion, so the run is replayable. A live `gemini-3.5-flash` run is recorded in `data/agent_runs/`.
 - **Amazon "Best Practical AI":** the agent reasons, plans and takes multi-step actions. Its tools are bounded, every step is in a cited audit trail, and it has no ability to change outcomes.
 
@@ -73,5 +100,6 @@ MongoDB Atlas: case storage. Verified on a real Atlas cluster; the case survives
 - All people, records and DNA matches are synthetic. Kinfold identifies no one.
 - Lena Hale is a research lead, not an identification. DNA consistency is a range check on a recorded pedigree, not a likelihood. Evidence scores are heuristic, not probabilities.
 - The AI step in the demo is a replay of a real recorded Gemini response, labelled as such in the UI.
-- The integrity screen reads "not anchored" unless a real Solana devnet transaction has been verified.
+- On-chain status is shown only for a confirmed Solana devnet transaction of the current evidence digest; otherwise the screen says "not anchored". An anchor proves a state existed unchanged, not that the records are true.
+- The agent step in the demo is a replay of a real recorded agent run, with every result recomputed, and it's labelled as such.
 - This is a hackathon research prototype, not a validated forensic system.

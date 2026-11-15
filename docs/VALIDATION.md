@@ -1,12 +1,12 @@
 # Validation record
 
-Observed November 14, 2026 (America/New_York). The local product is runnable. Team workflow is described in AGENTS.md.
+Observed November 14, 2026 (America/New_York); checks re-run November 15, 2026 01:40 UTC on `main` (`12820ad`). The local product is runnable. Team workflow is described in AGENTS.md.
 
 | Check | Observed result |
 | --- | --- |
-| `.venv/Scripts/python -m pytest backend/tests -q` | **21 passed**. Extraction/citation integrity, evidence-driven exclusions, renaming/new-candidate tests, constraint abstention, conflicting parent chronology/cycles, upload/continuation, persistence, prompt injection, API bounds/errors, manifests and optional adapter checks. |
+| `.venv/bin/python -m pytest backend/tests research/genetics/tests -q` | **100 passed** (60 backend, 40 research; November 15 re-run). Covers extraction/citation integrity, evidence-driven exclusions, renaming/new-candidate tests, constraint abstention, conflicting parent chronology/cycles, upload/continuation, persistence, prompt injection, API bounds/errors, manifests, the DNA range check, AI extraction verification and replay, per-item annotation validation, anchoring (mocked subprocess, plus the real `anchor.mjs` preview), CRLF uploads, the deepagents investigator with a scripted model, and the hash-verified research artifacts. |
 | `.venv/Scripts/python scripts/evaluate.py` | **PASS** on 2 separate synthetic families: 6 candidate decisions, 36 cited references. Expected outcomes live in evaluation fixtures only, outside runtime ranking inputs. This small correctness check is not scientific genetic validation. |
-| `npm run test:integration -- --reset-demo` | **PASS** against the actual running HTTP API: 72 citation references, stable manifests, cross-language Python/JavaScript digest equality, upload, continued investigation, old-digest mismatch, and honest not_anchored status. This command resets the synthetic case. |
+| `npm run test:integration -- --reset-demo` | **PASS** against the actual running HTTP API (82 citation references on the November 15 re-run), stable manifests, cross-language Python/JavaScript digest equality, upload, continued investigation, old-digest mismatch, and honest not_anchored status. This command resets the synthetic case. |
 | `npm run build` | **PASS**, strict TypeScript plus production Vite bundle. |
 | `npm run test:anchor` | **4 passed**: canonicalization/Unicode, tampering, exact Memo-program payload/signer verification, real SDK offline signing/serialization of a Memo-only transaction. |
 | `.venv/Scripts/python -m pip check` | **PASS**, no broken requirements. |
@@ -20,10 +20,24 @@ The installed upstream LangSmith/deepagents stack emits 13 Python3.14 deprecatio
 
 ## Optional adapters: implemented versus live-tested
 
-- **Gemini:** real Google SDK client initializes without a call; offline transport verifies structured schema and citation validation. No real API key/request was used. Set KINFOLD_AI_MODE=gemini, GEMINI_API_KEY or GOOGLE_API_KEY, and explicit GEMINI_MODEL in server .env, then restart.
-- **deepagents:** actual installed harness compiles for the Google model without a network request; actual harness executes plan/retrieve/extract/check phases using a scripted offline model, with an unauthorized file read denied. Live remote-model execution remains unverified.
-- **MongoDB:** genuine PyMongo repository adapter implemented and offline database-contract behavior tested. No Atlas instance/connection was verified. JSON is active storage.
-- **Solana:** optional devnet CLI implemented and offline tests pass. No wallet was read/funded, no transaction sent, and no on-chain anchor claimed. UI remains not_anchored; receipts alone are never trusted.
+Updated November 14–15, 2026 (UTC) after real runs. Each entry names the PR or issue where the run is recorded.
+
+- **Gemini extraction (uploads):** live `gemini-3.5-flash` runs on both Hale records. The real responses are committed in `data/ai_cache/` (#7) and replayed and re-verified offline. A failed live call falls back to the recording and says so. Re-run live on #17: obituary 11 proposed, 8 verified; birth announcement 4 proposed, 3 verified; Lena Hale `possible`.
+- **Gemini annotations (Run investigation):** live on #17 after the per-item validation fix: `provider_success`, 10 validated annotations, 0 rejected. A later call in the same minute got a `ClientError`, most likely the free-tier rate limit; deterministic results were unaffected.
+- **deepagents lead investigator:** one complete live `gemini-3.5-flash` run on Lena Hale (2026-11-15 01:55 UTC, #19), recorded in `data/agent_runs/`:
+  - read all 12 records;
+  - tested 7 DNA hypotheses (4 fit 220 cM);
+  - 7 of 8 claims verified, and the rejected one was resubmitted correctly;
+  - 3 next steps;
+  - the first report was refused as too long and rewritten.
+
+  An earlier live attempt ran out of its tool budget before reporting. Without a key, the demo replays the recorded calls and recomputes every result.
+- **MongoDB Atlas:** a real free M0 cluster (#11). The full demo ran with `KINFOLD_STORAGE=mongodb`, and a fresh app instance reloaded the case with an identical manifest digest. JSON remains the default storage.
+- **Solana devnet:** three real Memo transactions from the app's **Anchor this state** (#3), each checked via devnet RPC (finalized, memo equal to the manifest digest) and with in-app Verify:
+  - Hale state with Lena Hale `possible`, the acceptance anchor: [4qWrFgPT…RpwFV](https://explorer.solana.com/tx/4qWrFgPTGC8wxif392icaBQM7ijpqc289k48GWndCpMFhM4q4k3yZ5MfAwEoVBrE9qeMuN3q9BCHbTj48jRWpwFV?cluster=devnet), digest `2b1d9685…f48a`;
+  - two earlier states: [2HnRhAr9…poRAV](https://explorer.solana.com/tx/2HnRhAr9iAqJ8FqpVuD31CgVXizZQVQfYPbVJT6oYXUCMcRG5ymKG1D1zLVbJ1ZVw8WFxvFfgDTewxwB9NnpoRAV?cluster=devnet) and [5tPFJY6B…yXRwW](https://explorer.solana.com/tx/5tPFJY6Bg78JTAh8QWBfNuK6yxi27AUkTkt5QJ5xeZP4tM7x7d9RE1bMVXxPPrjoxfDqv86Ng8aEdNDr1R6yXRwW?cluster=devnet).
+
+  The UI says "anchored" only for a confirmed anchor of the current digest; otherwise it says "not anchored". An anchor proves a state existed unchanged; it does not prove the records are true.
 
 ## Material limits
 
@@ -32,6 +46,8 @@ The deterministic parser recognizes documented line-level patterns, not arbitrar
 Exact setup and parser rules: docs/LIVE_ADAPTERS.md. Optional devnet verification: blockchain/README.md. Genetic research stretch: docs/GENETIC_RESEARCH_NEXT.md.
 
 ## Final offline handoff checks
+
+_Historical: recorded at the end of the original offline build, before the live runs above. Its "pending" and "not anchored" statements are superseded by the section "Optional adapters: implemented versus live-tested"._
 
 - `npm run test:package`: **3 passed**. Source fingerprint tampering is caught even if an attacker recomputes the bundled manifest; snapshot divergence, forged citations and an incorrect comparison digest are rejected.
 - Source fingerprints are captured on fixture load or upload, persist with the record, and appear in the source reader. Legacy records without one are reported explicitly. Package capture is atomic with the snapshot/manifest under the repository lock.

@@ -97,7 +97,7 @@ The integration check calls the real HTTP API, locates every returned citation i
 
 ## Material limitations
 
-This is a local research prototype, not a validated forensic system. Simulated cM summaries do not provide sequence-level genetic inference, calibrated relationship likelihoods, or a confirmed identity. Record-derived constraints and model prose must remain separate. Optional provider credentials and a real successful invocation are needed before claiming Gemini, MongoDB Atlas, or deepagents use. The offline demo is fully useful without them.
+This is a local research prototype, not a validated forensic system. Simulated cM summaries do not provide sequence-level genetic inference, calibrated relationship likelihoods, or a confirmed identity. Record-derived constraints and model prose must remain separate. Live use of Gemini, MongoDB Atlas, deepagents and Solana devnet has been verified with real runs, recorded in `docs/VALIDATION.md`. The demo replays the recorded Gemini and agent runs offline, and it is fully useful without any keys.
 
 Public research datasets, pedigree simulation, relationship inference evaluation, and held-out-family baselines are stretch work. There is no model training or validated genetic benchmark in the core. Arlequin genetic genealogy eligibility still requires organizer confirmation. Sponsor integrations and prize eligibility must be described from implemented, verified behavior rather than intent.
 
