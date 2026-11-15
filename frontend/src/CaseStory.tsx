@@ -21,7 +21,7 @@ export function storySteps(s: Snapshot): Step[] {
   { title: 'The question', detail: question, done: true, go: 'workspace', next: '', domain: 'records' },
   { title: 'DNA tests the story', detail: investigated ? `${dnaExcluded} recorded lead${dnaExcluded === 1 ? '' : 's'} ruled out` : 'Run the investigation', done: investigated && dnaExcluded > 0, go: 'candidates', next: 'Run the investigation', domain: 'dna' },
   { title: 'AI reads new records', detail: aiRead ? 'Every claim checked against its quote' : 'Add the two Hale records', done: aiRead, go: 'workspace', next: 'Add the Hale obituary and birth announcement, then investigate', domain: 'ai' },
-  { title: 'A new lead appears', detail: foundName ? `${foundName}: found by Kinfold` : 'Waiting for evidence', done: !!found, go: 'candidates', next: 'Investigate after the new records', domain: 'records' },
+  { title: 'A new lead appears', detail: foundName ? `${foundName}: found by KinFold` : 'Waiting for evidence', done: !!found, go: 'candidates', next: 'Investigate after the new records', domain: 'records' },
   { title: 'Agent checks the lead', detail: s.agent_run ? `${s.agent_run.steps.length} tool steps, claims cited` : 'Optional', done: !!s.agent_run, go: 'candidates', next: 'Investigate the lead with the agent', domain: 'ai' },
   { title: 'Anchored on-chain', detail: anchored ? 'This exact state is on Solana devnet' : 'Not anchored', done: anchored, go: 'integrity', next: 'Anchor this state in Evidence integrity', domain: 'chain' },
  ]

@@ -32,7 +32,7 @@ export default function LeadCard({ c, person, nameOf, docs, busy, onAgent, onGra
  </>
  const head = <div className="lead-head">
   <span className="candidate-rank">{String(c.rank).padStart(2, '0')}</span>
-  <div className="lead-id"><div className="candidate-title"><h2>{name}</h2><span className={`tag ${excluded ? 'red' : 'green'}`}>{c.status}</span>{c.proposed_by_engine && <span className="tag found-tag" title="Kinfold proposed this lead from the record graph; nobody named them as a candidate."><Sparkles size={12}/>Found by Kinfold</span>}</div>
+  <div className="lead-id"><div className="candidate-title"><h2>{name}</h2><span className={`tag ${excluded ? 'red' : 'green'}`}>{c.status}</span>{c.proposed_by_engine && <span className="tag found-tag" title="KinFold proposed this lead from the record graph; nobody named them as a candidate."><Sparkles size={12}/>Found by KinFold</span>}</div>
    <p className="small-muted">{facts}</p></div>
   <div className="score" title="Heuristic evidence score, not a probability"><strong>{c.score}</strong><span>evidence<br/>score</span></div>
  </div>

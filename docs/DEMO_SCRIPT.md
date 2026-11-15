@@ -20,8 +20,8 @@
 > "We're Reyansh and Shippy. We built KinFold so no link goes unchecked: it tests every family-tree lead against the DNA, and ties each step to the exact record line behind it."
 
 ### 0:18–0:40 · Why it matters (the part judges remember)
-**On screen:** a simple slide, *DNA match → distant cousin → family tree → one person*, then the numbers.
-> "When police have DNA but no name, genealogists find the unknown person's distant cousins in public DNA databases, then build their family trees backwards until one person fits. That caught the Golden State Killer in 2018 and has helped solve more than a thousand cases since, and about sixteen thousand people in the U.S. are still unidentified. Add AI that writes confident family trees, and one wrong link can point at the wrong person."
+**On screen:** a simple slide, *DNA match → distant cousin → family tree → one person*, then the numbers, each with its source caption on the slide: "1,000+ publicly reported cases (Genealogy Explained registry, end of 2023)" and "15,946 unidentified-person cases (NamUs, May 2026)". The full links are under "Real-world facts used above".
+> "When police have DNA but no name, genealogists find the unknown person's distant cousins in public DNA databases, then build their family trees backwards until one person fits. That caught the Golden State Killer in 2018 and has helped solve more than a thousand publicly reported cases since, and about sixteen thousand people in the U.S. are still unidentified. Add AI that writes confident family trees, and one wrong link can point at the wrong person."
 
 ### 0:40–0:55 · The DNA says no
 **On screen:** Candidate leads. Point at the storyline, then click Clara Mercer (under Excluded) to open her card and show the DNA bar.
@@ -56,7 +56,7 @@ Optional, if you have spare seconds: show **Case activity**. It lists who worked
 
 ## Real-world facts used above (sources)
 - Golden State Killer, 2018: genetic genealogy led to Joseph DeAngelo's arrest; widely seen as the start of the technique. [Wikipedia: Investigative genetic genealogy](https://en.wikipedia.org/wiki/Investigative_genetic_genealogy)
-- "More than a thousand cases": a public registry counted 1,130 publicly disclosed cases solved by the end of 2023. [Genealogy Explained, 2023 recap](https://www.genealogyexplained.com/blog/the-figg-blog-a-recap-of-2023-nine-years-of-figg/). An academic dataset counted 545 criminal cases by the end of 2022 ([Criminal Legal News](https://criminallegalnews.org/news/2023/aug/1/forensic-genetic-genealogy-has-solved-545-cases-and-counting)), so "more than a thousand" is the registry's broader count.
+- "More than a thousand publicly reported cases": a public registry counted 1,130 publicly disclosed cases solved by the end of 2023. [Genealogy Explained, 2023 recap](https://www.genealogyexplained.com/blog/the-figg-blog-a-recap-of-2023-nine-years-of-figg/). An academic dataset counted 545 criminal cases by the end of 2022 ([Criminal Legal News](https://criminallegalnews.org/news/2023/aug/1/forensic-genetic-genealogy-has-solved-545-cases-and-counting)), so "more than a thousand" is the registry's broader count.
 - "About sixteen thousand unidentified people": NamUs lists 15,946 active unidentified-person cases (May 2026). [NamUs monthly report](https://namus.nij.ojp.gov/sites/namus/files/media/document/namus-stats-all-may-2026.pdf)
 - The innocent filmmaker (2014): in the Angie Dodge case, police pursued a filmmaker after his father's genealogy-database DNA came close to the crime-scene profile. His own DNA cleared him. [PBS NewsHour](https://www.pbs.org/newshour/show/a-father-took-an-at-home-dna-test-his-son-was-falsely-accused-of-murder)
 
