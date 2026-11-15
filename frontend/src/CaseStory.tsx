@@ -13,12 +13,16 @@ export function storySteps(s: Snapshot): Step[] {
  const found = s.candidates.find(c => c.proposed_by_engine && c.status !== 'excluded')
  const foundName = found && s.people.find(p => p.id === found.person_id)?.name
  const anchored = (s.anchors || []).some(a => a.matches_current)
+ // The case question, from the case's own DNA data rather than hard-coded text.
+ const dnaCheck = s.candidates.flatMap(c => c.dna_checks || []).find(d => d.observed_cm)
+ const matchName = dnaCheck?.match_person_id ? s.people.find(p => p.id === dnaCheck.match_person_id)?.name : undefined
+ const question = dnaCheck ? `${dnaCheck.observed_cm} cM shared${matchName ? ` with ${matchName}` : ''}` : 'The unidentified person'
  return [
-  { title: 'The question', detail: '220 cM shared with Ruth Mercer', done: true, go: 'workspace', next: '', domain: 'records' },
+  { title: 'The question', detail: question, done: true, go: 'workspace', next: '', domain: 'records' },
   { title: 'DNA tests the story', detail: investigated ? `${dnaExcluded} recorded lead${dnaExcluded === 1 ? '' : 's'} ruled out` : 'Run the investigation', done: investigated && dnaExcluded > 0, go: 'candidates', next: 'Run the investigation', domain: 'dna' },
   { title: 'AI reads new records', detail: aiRead ? 'Every claim checked against its quote' : 'Add the two Hale records', done: aiRead, go: 'workspace', next: 'Add the Hale obituary and birth announcement, then investigate', domain: 'ai' },
   { title: 'A new lead appears', detail: foundName ? `${foundName}: found by Kinfold` : 'Waiting for evidence', done: !!found, go: 'candidates', next: 'Investigate after the new records', domain: 'records' },
-  { title: 'Agent checks the lead', detail: s.agent_run ? `${s.agent_run.steps.length} tool steps, cited` : 'Optional', done: !!s.agent_run, go: 'candidates', next: 'Investigate the lead with the agent', domain: 'ai' },
+  { title: 'Agent checks the lead', detail: s.agent_run ? `${s.agent_run.steps.length} tool steps, claims cited` : 'Optional', done: !!s.agent_run, go: 'candidates', next: 'Investigate the lead with the agent', domain: 'ai' },
   { title: 'Anchored on-chain', detail: anchored ? 'This exact state is on Solana devnet' : 'Not anchored', done: anchored, go: 'integrity', next: 'Anchor this state in Evidence integrity', domain: 'chain' },
  ]
 }
