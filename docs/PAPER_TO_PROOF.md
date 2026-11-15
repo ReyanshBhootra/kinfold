@@ -39,7 +39,12 @@ An unconfirmed photo is not evidence and is not in the manifest.
   - To print: print at 100% scale and cut along the dashed line.
   - Opening it with `#clip` hides the instructions, for a clean screenshot.
   - The newspaper name is fictional on purpose; a real masthead on a fabricated clipping would be misleading.
-- **A handwritten page (optional):** for example, a family-Bible-style entry such as "Lena Hale, born June 4, 1972, daughter of George & Patricia Hale". Write it by hand and photograph it. Mark it as synthetic on the page.
+- **`data/examples/print/hale-bible-handwritten.jpg`:** a synthetic family-Bible page handwritten by Reyansh and photographed on a phone, with "(Synethetic, kinfold demo)" written on it.
+  - **Recorded live run (`gemini-3.5-flash`, 2026-11-15 04:24 UTC):** 6 lines, none flagged uncertain. Gemini copied the page **as written**, including the misspellings "couper Husipital" and "Synethetic".
+  - After confirming as-is and investigating, extraction proposed 3 claims and verified all 3. Lena Hale appears, cited to photo lines 2–3 and 2–4.
+  - A second live read of the same photo returned "Cooper Hospital, Camden, N.J.", silently correcting the spelling. Handwriting reads vary between runs, which is why a person confirms every line against the photo.
+  - The committed recording is the first, as-written read. The no-key replay test is `test_committed_handwritten_page_replays_as_written_and_finds_lena`.
+  - Replay with no key works only if the lines are confirmed unchanged. Editing a line changes the text, and the edited text then needs a live extraction.
 
 ## Limits
 - This shows the case hasn't been altered since it was anchored. It doesn't show the paper is genuine or the transcription is right; the person who confirms each line is responsible for that.

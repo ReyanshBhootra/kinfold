@@ -196,6 +196,29 @@ def test_committed_live_recordings_replay_the_printed_clipping_without_a_key(tmp
     assert any(e["action"] == "ai_extraction" and "replay" in e["description"] and "(photo)" in e["description"] for e in result["audit"])
 
 
+def test_committed_handwritten_page_replays_as_written_and_finds_lena(tmp_path, monkeypatch):
+    """Reyansh's handwritten synthetic Bible page (a phone photo), with its real recorded gemini-3.5-flash transcription.
+    The model copied the page as written, misspellings included: correcting them is the person's job at confirmation."""
+    import backend.extraction as extraction
+    root = Path(__file__).resolve().parents[2]
+    monkeypatch.setattr(extraction, "CACHE", root / "data" / "ai_cache")
+    image = (root / "data" / "examples" / "print" / "hale-bible-handwritten.jpg").read_bytes()
+    with app(tmp_path) as client:
+        client.post("/api/cases/demo", json={})
+        client.post("/api/cases/demo-case/investigate", json={})
+        client.post("/api/cases/demo-case/documents", json={"name": "synthetic-hale-obituary.txt", "text": OBITUARY})
+        photo = add(client, data=image, media_type="image/jpeg", name="Hale family Bible page (handwritten)").json()["photos"][0]
+        t = client.post(f"/api/cases/demo-case/photos/{photo['id']}/transcribe").json()["photos"][0]["transcription"]
+        assert t["source"] == "replay" and [l["text"] for l in t["lines"]][1:3] == ["Lena Hale, born June 4, 1972,", "at couper Husipital, Camden, NJ."]
+        client.post(f"/api/cases/demo-case/photos/{photo['id']}/confirm", json={"lines": [l["text"] for l in t["lines"]]})
+        result = client.post("/api/cases/demo-case/investigate", json={}).json()
+    doc_id = result["photos"][0]["document_id"]
+    lena = next(p for p in result["people"] if p["name"] == "Lena Hale")
+    lead = next(c for c in result["candidates"] if c["person_id"] == lena["id"])
+    assert lead["status"] == "possible" and lead["dna_checks"][0]["status"] == "consistent"
+    assert {(c["start_line"], c["end_line"]) for c in lead["citations"] if c["document_id"] == doc_id} >= {(2, 4)}
+
+
 def test_photo_upload_body_limit_is_scoped_to_the_photo_endpoint(tmp_path, cache):
     with app(tmp_path) as client:
         client.post("/api/cases/demo", json={})

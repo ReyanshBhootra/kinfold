@@ -1,0 +1,41 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "kinfold-extract-v1",
+  "recorded_at": "2026-11-15T04:25:41.576304Z",
+  "document_sha256": "cfe267177824139a0985750abecb690d350612c4e9a7288ceb7dc02fe26f2668",
+  "raw": {
+    "claims": [
+      {
+        "kind": "birth",
+        "person": "Lena Hale",
+        "other_person": null,
+        "year": 1972,
+        "place": "Cooper Hospital, Camden, N.J.",
+        "quote": "Lena Hale, born June 4, 1972,\nat Cooper Hospital, Camden, N.J.",
+        "start_line": 2,
+        "end_line": 3
+      },
+      {
+        "kind": "parent",
+        "person": "George Hale",
+        "other_person": "Lena Hale",
+        "year": null,
+        "place": null,
+        "quote": "Lena Hale, born June 4, 1972,\nat Cooper Hospital, Camden, N.J.\ndaughter of George Hale",
+        "start_line": 2,
+        "end_line": 4
+      },
+      {
+        "kind": "parent",
+        "person": "Patricia (Novak) Hale",
+        "other_person": "Lena Hale",
+        "year": null,
+        "place": null,
+        "quote": "Lena Hale, born June 4, 1972,\nat Cooper Hospital, Camden, N.J.\ndaughter of George Hale\nand Patricia (Novak) Hale.",
+        "start_line": 2,
+        "end_line": 5
+      }
+    ]
+  }
+}

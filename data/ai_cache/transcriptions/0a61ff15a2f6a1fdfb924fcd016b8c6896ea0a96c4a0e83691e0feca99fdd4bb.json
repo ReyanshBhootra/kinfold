@@ -1,0 +1,71 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "kinfold-transcribe-v1",
+  "recorded_at": "2026-11-15T04:24:41.956745Z",
+  "image_sha256": "a7b3060ff34397ffff94cb0f61f000e8ded03efa9c12d2fcb5259b80d82fa416",
+  "raw": {
+    "lines": [
+      {
+        "text": "Hale Family Bible: Births",
+        "box": [
+          173,
+          227,
+          230,
+          755
+        ],
+        "uncertain": false
+      },
+      {
+        "text": "Lena Hale, born June 4, 1972,",
+        "box": [
+          224,
+          252,
+          264,
+          893
+        ],
+        "uncertain": false
+      },
+      {
+        "text": "at couper Husipital, Camden, NJ.",
+        "box": [
+          265,
+          256,
+          309,
+          952
+        ],
+        "uncertain": false
+      },
+      {
+        "text": "daughter of George Hale",
+        "box": [
+          308,
+          304,
+          356,
+          858
+        ],
+        "uncertain": false
+      },
+      {
+        "text": "and Patricia (Novak) Hale.",
+        "box": [
+          351,
+          286,
+          393,
+          876
+        ],
+        "uncertain": false
+      },
+      {
+        "text": "(Synethetic, kinfold demo)",
+        "box": [
+          390,
+          281,
+          442,
+          858
+        ],
+        "uncertain": false
+      }
+    ]
+  }
+}
