@@ -156,6 +156,15 @@ def test_agent_endpoint_without_live_model_or_recording_explains_itself(tmp_path
     assert client.post("/api/cases/demo-case/agent", json={"person_id": "not-a-lead"}).status_code == 409
 
 
+def test_committed_live_recording_replays_for_the_demo_case(tmp_path, monkeypatch):
+    """The demo video replays the real gemini-3.5-flash run in data/agent_runs; keep that working."""
+    _, snapshot, lena = hale_client(tmp_path, monkeypatch)
+    run = investigator.investigate_lead(snapshot, lena, None, None, ROOT / "data" / "agent_runs")
+    assert run["source"] == "replay" and run["model"] == "gemini-3.5-flash" and run["report"] is not None
+    assert len(run["verified_claims"]) == 7 and len(run["rejected_claims"]) == 1
+    assert ("1C1R", "consistent") in {(t["relationship"], t["status"]) for t in run["dna_tests"]}
+
+
 def test_tool_bounds(tmp_path, monkeypatch):
     _, snapshot, lena = hale_client(tmp_path, monkeypatch)
     tools = investigator.CaseTools(snapshot, lena)

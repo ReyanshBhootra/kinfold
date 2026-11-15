@@ -69,14 +69,21 @@ On Candidate leads, **Investigate with the agent** (`POST /api/cases/{id}/agent`
 
 The agent decides what to call; Kinfold computes every result. The run is stored beside the case, outside the manifest. It never changes lead statuses or scores.
 
-**Bounds:** 24 model calls, 28 tool calls, a 100-second deadline (under the UI's 120-second request timeout), and a 60-second per-request model timeout with 3 retries.
+**Bounds:** 40 model calls, 40 tool calls, a 100-second deadline (under the UI's 120-second request timeout), and a 60-second per-request model timeout with 3 retries. When 6 tool calls remain, tool results tell the live model to wrap up and write its report. The first live run made one tool call per turn and ran out of a 24-call budget before reporting.
 
 **Recordings:**
 - A successful live run records only the agent's tool calls (not the results) in `data/agent_runs/<key>.json`, keyed by prompt version, target and the processed records' text hashes. It never overwrites an existing recording.
 - Without a live model, or after a live failure (the UI says so), the endpoint replays the recorded calls through the same tools. Every result is recomputed, so a tampered quote is rejected on replay.
 - A stored run is marked stale once the records change.
 
-Tests drive the real harness with a scripted offline model. They cover the denied `read_file`, a verified and a rejected claim, a refused uncited claim, DNA tests, the refused identity report, replay, tamper rejection, no-overwrite, the failure fallback, injected-instruction records and the stale flag. **No live Gemini run of the investigator has been recorded yet.** Claim it only after one is committed to `data/agent_runs/`.
+Tests drive the real harness with a scripted offline model. They cover the denied `read_file`, a verified and a rejected claim, a refused uncited claim, DNA tests, the refused identity report, replay, tamper rejection, no-overwrite, the failure fallback, injected-instruction records and the stale flag. **Recorded live run:** `gemini-3.5-flash`, 2026-11-15 01:55 UTC, on Lena Hale, in `data/agent_runs/`. The agent made 33 tool calls:
+- It read all 12 records.
+- It tested 7 DNA hypotheses. First cousin once removed, half first cousin, second cousin and 2C1R fit 220 cM; first cousin, great-aunt/niece and half aunt/niece don't.
+- It submitted 8 claims; 7 were verified. The rejected one used Lena's person ID in place of her name, and the agent resubmitted it correctly.
+- It proposed 3 next steps.
+- Its first report was refused for being too long (1,585 characters); it rewrote it.
+
+With no key set, the demo replays this run, recomputing every result.
 
 ## MongoDB / Atlas persistence
 

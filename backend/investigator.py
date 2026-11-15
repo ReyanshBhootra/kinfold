@@ -27,7 +27,8 @@ RUNS = Path(os.getenv("KINFOLD_AGENT_RUNS", ROOT / "data" / "agent_runs"))
 PROMPT_VERSION = "kinfold-investigator-v1"
 TOOLS = ("list_leads", "search_records", "read_record", "test_dna_hypothesis", "verify_claim", "propose_next_action", "write_report")
 # The deadline stays under the UI's 120 s request timeout (frontend/src/api.ts).
-MAX_READ_LINES, MAX_TOOL_CALLS, MAX_MODEL_CALLS, DEADLINE_SECONDS = 30, 28, 24, 100
+# A live gemini-3.5-flash run made one tool call per model turn and used all 24 turns (39 s) before reporting.
+MAX_READ_LINES, MAX_TOOL_CALLS, MAX_MODEL_CALLS, DEADLINE_SECONDS, WRAP_UP_AT = 30, 40, 40, 100, 6
 LIMITS = ("The agent proposes; it cannot change lead statuses or scores. Verified claims passed Kinfold's quote check. "
           "DNA tests are reference-range checks, not likelihoods or identifications.")
 IDENTITY_CLAIM = re.compile(r"\b(?:confirmed identity|definitive identity|certain identification|is definitely|positively identified)\b|\bconfidence\b.{0,30}\d+\s*%", re.I)
@@ -245,7 +246,10 @@ def build_investigator(model, tools, calls):
     def run(name, **args):
         args = {k: v for k, v in args.items() if v is not None}
         calls.append({"tool": name, "args": args})
-        return json.dumps(tools.call(name, args), ensure_ascii=False)
+        result, left = tools.call(name, args), MAX_TOOL_CALLS - len(tools.steps)
+        if left <= WRAP_UP_AT and tools.report is None:  # budget notice for the live model only; replay recomputes tools.call alone
+            result = {**result, "budget": f"{left} tool calls left. Stop investigating: propose next actions if useful, then call write_report."}
+        return json.dumps(result, ensure_ascii=False)
 
     def list_leads() -> str:
         """List the case's candidate leads (status, score, reasons, recorded-pedigree DNA checks), the DNA match and the record keys."""

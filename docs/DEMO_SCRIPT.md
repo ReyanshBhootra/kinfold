@@ -34,8 +34,12 @@
 - The model gave her birthplace only as "Cooper Hospital", so Kinfold does not award a region point it can't support.
 - Open a citation to show the exact line behind each step.
 
-**Optional, 10–15 s, only if a recorded agent run exists in `data/agent_runs/`: the agent checks the lead.**
-- On Lena Hale's card, select **Investigate with the agent**. The panel shows what the deepagents investigator chose to check: the records it read, the DNA hypotheses it tested (first cousin once removed is consistent, niece is not), the claims Kinfold verified or rejected, and its next steps.
+**Optional, 10–15 s: the agent checks the lead.** This replays the recorded live `gemini-3.5-flash` run in `data/agent_runs/`.
+- On Lena Hale's card, select **Investigate with the agent**. The panel shows what the deepagents investigator chose to check:
+  - all 12 records read;
+  - 7 DNA hypotheses tested: first cousin once removed fits 220 cM, first cousin and great-aunt don't;
+  - 7 claims verified and 1 rejected (it used an ID in place of a name, then fixed it);
+  - 3 next steps, including checking that Frances and Arthur were full siblings.
 - "The agent chooses what to check; Kinfold's own code computes every answer. It can't change a lead, and it isn't allowed to claim an identity."
 - With no key set, the panel says "Replay of a recorded agent run". Without a recording, the button explains that no agent is configured. Skip this beat in that case.
 

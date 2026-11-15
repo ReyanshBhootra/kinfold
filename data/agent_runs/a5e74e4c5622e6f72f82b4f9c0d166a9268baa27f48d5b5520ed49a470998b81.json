@@ -1,0 +1,299 @@
+{
+  "prompt_version": "kinfold-investigator-v1",
+  "key": "a5e74e4c5622e6f72f82b4f9c0d166a9268baa27f48d5b5520ed49a470998b81",
+  "target": "p-36902396a6b853",
+  "model": "gemini-3.5-flash",
+  "recorded_at": "2026-11-15T01:55:42.765613Z",
+  "calls": [
+    {
+      "tool": "list_leads",
+      "args": {}
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d01",
+        "start_line": 1,
+        "end_line": 6
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d02",
+        "start_line": 1,
+        "end_line": 5
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d03",
+        "start_line": 1,
+        "end_line": 9
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d04",
+        "start_line": 1,
+        "end_line": 4
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d05",
+        "start_line": 1,
+        "end_line": 4
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d06",
+        "start_line": 1,
+        "end_line": 3
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d07",
+        "start_line": 1,
+        "end_line": 5
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d08",
+        "start_line": 1,
+        "end_line": 5
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d09",
+        "start_line": 1,
+        "end_line": 4
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "d10",
+        "start_line": 1,
+        "end_line": 4
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "u-e03e0f6f5d",
+        "start_line": 1,
+        "end_line": 18
+      }
+    },
+    {
+      "tool": "read_record",
+      "args": {
+        "document": "u-ec6e3d53c4",
+        "start_line": 1,
+        "end_line": 8
+      }
+    },
+    {
+      "tool": "test_dna_hypothesis",
+      "args": {
+        "person_id": "p-36902396a6b853",
+        "relationship": "1C1R"
+      }
+    },
+    {
+      "tool": "test_dna_hypothesis",
+      "args": {
+        "person_id": "p-36902396a6b853",
+        "relationship": "half_1C"
+      }
+    },
+    {
+      "tool": "test_dna_hypothesis",
+      "args": {
+        "person_id": "p-36902396a6b853",
+        "relationship": "2C"
+      }
+    },
+    {
+      "tool": "test_dna_hypothesis",
+      "args": {
+        "person_id": "p-36902396a6b853",
+        "relationship": "2C1R"
+      }
+    },
+    {
+      "tool": "test_dna_hypothesis",
+      "args": {
+        "person_id": "p-36902396a6b853",
+        "relationship": "1C"
+      }
+    },
+    {
+      "tool": "test_dna_hypothesis",
+      "args": {
+        "person_id": "p-36902396a6b853",
+        "relationship": "great_aunt_niece"
+      }
+    },
+    {
+      "tool": "test_dna_hypothesis",
+      "args": {
+        "person_id": "p-36902396a6b853",
+        "relationship": "half_aunt_niece"
+      }
+    },
+    {
+      "tool": "verify_claim",
+      "args": {
+        "kind": "birth",
+        "person": "p-36902396a6b853",
+        "quote": "Mr. and Mrs. George Hale, of 214 Linden St., Camden, New Jersey, announce\nthe birth of their first child, a daughter, Lena Hale, born June 4, 1972,\nat Cooper Hospital. Mrs. Hale is the former Patricia Novak of Collingswood.",
+        "document": "u-ec6e3d53c4",
+        "start_line": 4,
+        "end_line": 6,
+        "year": 1972
+      }
+    },
+    {
+      "tool": "verify_claim",
+      "args": {
+        "kind": "birth",
+        "person": "Lena Hale",
+        "quote": "Mr. and Mrs. George Hale, of 214 Linden St., Camden, New Jersey, announce\nthe birth of their first child, a daughter, Lena Hale, born June 4, 1972,\nat Cooper Hospital. Mrs. Hale is the former Patricia Novak of Collingswood.",
+        "document": "u-ec6e3d53c4",
+        "start_line": 4,
+        "end_line": 6,
+        "year": 1972
+      }
+    },
+    {
+      "tool": "verify_claim",
+      "args": {
+        "kind": "parent",
+        "person": "George Hale",
+        "quote": "Mr. and Mrs. George Hale, of 214 Linden St., Camden, New Jersey, announce\nthe birth of their first child, a daughter, Lena Hale, born June 4, 1972,\nat Cooper Hospital. Mrs. Hale is the former Patricia Novak of Collingswood.",
+        "document": "u-ec6e3d53c4",
+        "start_line": 4,
+        "end_line": 6,
+        "other_person": "Lena Hale"
+      }
+    },
+    {
+      "tool": "verify_claim",
+      "args": {
+        "kind": "parent",
+        "person": "Frances",
+        "quote": "Frances is survived by her son, George Hale, and his wife Patricia, of Camden;\nand by her beloved granddaughter, Lena Hale. Frances will be remembered",
+        "document": "u-e03e0f6f5d",
+        "start_line": 13,
+        "end_line": 14,
+        "other_person": "George Hale"
+      }
+    },
+    {
+      "tool": "verify_claim",
+      "args": {
+        "kind": "sibling",
+        "person": "Frances",
+        "quote": "Frances was predeceased by her husband of 51 years, Edward Hale, and by\nher brother, Arthur Mercer.",
+        "document": "u-e03e0f6f5d",
+        "start_line": 10,
+        "end_line": 11,
+        "other_person": "Arthur Mercer"
+      }
+    },
+    {
+      "tool": "verify_claim",
+      "args": {
+        "kind": "parent",
+        "person": "Arthur Mercer",
+        "quote": "Ruth Mercer is the daughter of Arthur Mercer and Edith Mercer.",
+        "document": "d03",
+        "start_line": 9,
+        "end_line": 9,
+        "other_person": "Ruth Mercer"
+      }
+    },
+    {
+      "tool": "verify_claim",
+      "args": {
+        "kind": "birth",
+        "person": "Ruth Mercer",
+        "quote": "Ruth Mercer was born in 1948 in Trenton, New Jersey.",
+        "document": "d03",
+        "start_line": 6,
+        "end_line": 6,
+        "year": 1948
+      }
+    },
+    {
+      "tool": "verify_claim",
+      "args": {
+        "kind": "death",
+        "person": "Frances Mercer Hale",
+        "quote": "HALE, Frances M. (née Mercer)\nFrances Mercer Hale, 88, of Trenton, New Jersey, died peacefully at home on March 3, 2008.",
+        "document": "u-e03e0f6f5d",
+        "start_line": 4,
+        "end_line": 5,
+        "year": 2008
+      }
+    },
+    {
+      "tool": "propose_next_action",
+      "args": {
+        "title": "Request Lena Hale Certified Birth Certificate (Camden, NJ / NJ State Department of Health)",
+        "reason": "To confirm exact birth details, parents' names, and official vital registration for Lena Hale, verifying her connection to George Hale and Patricia Novak."
+      }
+    },
+    {
+      "tool": "propose_next_action",
+      "args": {
+        "title": "Request Life-Status and Vital Search / Death Index for Lena Hale",
+        "reason": "To establish whether Lena Hale is deceased or living, as the intake notes an unidentified individual recovery in 2011 while Lena Hale was born in 1972."
+      }
+    },
+    {
+      "tool": "propose_next_action",
+      "args": {
+        "title": "Request Birth and Marriage Records for Frances Mercer and Arthur Mercer",
+        "reason": "To confirm that Frances Mercer and Arthur Mercer shared both biological parents (Walter and Mary Mercer), ruling out half-sibling relationships that would shift the expected cM range."
+      }
+    },
+    {
+      "tool": "write_report",
+      "args": {
+        "summary": "Target Lead Evaluation: Lena Hale (person_id: p-36902396a6b853)\n\n1. Recorded Pedigree & Evidence:\n- A 1972 birth announcement in Camden, NJ identifies Lena Hale as the daughter of George Hale and Patricia Novak (born June 4, 1972).\n- A 2008 obituary for Frances Mercer Hale identifies her as the sister of Arthur Mercer, mother of George Hale, and grandmother of Lena Hale.\n- A 1950 census transcript lists Ruth Mercer as the daughter of Arthur Mercer and Edith Mercer.\n- Under the recorded pedigree, Lena Hale and Ruth Mercer are first cousins once removed (1C1R).\n\n2. DNA Match Analysis:\n- Ruth Mercer and the unidentified subject share 220 cM of DNA.\n- Hypothesis testing confirms 220 cM is consistent with a first cousin once removed (1C1R) relationship (expected range 102–980 cM).\n- Alternative relationships consistent with 220 cM include half first cousin (156–979 cM), second cousin (53–429 cM), and second cousin once removed (0–316 cM).\n- Hypotheses inconsistent with 220 cM under reference ranges include full first cousin (505–1206 cM), great-aunt/niece (330–1467 cM), and half-aunt/niece (492–1315 cM).\n\n3. Summary & Next Steps:\n- The documentary evidence places Lena Hale's birth in 1972 (within the estimated 1969–1977 target age range) and links her to the Mercer family pedigree.\n- While the DNA sharing is consistent with the recorded 1C1R relationship, DNA data alone does not prove identity or eliminate alternative pedigree paths.\n- Primary vital records and life-status verification should be pursued to confirm parental relationships and resolve current status.",
+        "open_questions": [
+          "Is Lena Hale living or deceased, and can primary vital/life-status records confirm her whereabouts post-2008?",
+          "Do birth/marriage records confirm that Arthur Mercer and Frances Mercer were full biological siblings sharing both parents?",
+          "Are there secondary or non-paternity events in either the Hale or Mercer branches that would alter the relationship from 1C1R to half-1C or 2C?",
+          "Can primary birth certificates for George Hale and Lena Hale be obtained from Camden, New Jersey, to confirm official parental documentation?"
+        ]
+      }
+    },
+    {
+      "tool": "write_report",
+      "args": {
+        "summary": "Lead Evaluation: Lena Hale (person_id: p-36902396a6b853)\n\nDocumentary Evidence:\n- A 1972 birth announcement names Lena Hale as the daughter of George Hale and Patricia Novak, born June 4, 1972 in Camden, NJ.\n- A 2008 obituary for Frances Mercer Hale links her as sister to Arthur Mercer, mother to George Hale, and grandmother to Lena Hale.\n- A 1950 census record establishes Ruth Mercer as the daughter of Arthur Mercer.\n- Under this recorded pedigree, Lena Hale and DNA match Ruth Mercer are first cousins once removed (1C1R).\n\nDNA Hypothesis Analysis:\n- Ruth Mercer and the subject share 220 cM.\n- Range testing confirms 220 cM fits 1C1R (expected range 102–980 cM).\n- Other relationship paths fitting 220 cM include half 1C, 2C, and 2C1R.\n- Hypotheses inconsistent with 220 cM include full 1C (505–1206 cM), great-aunt/niece (330–1467 cM), and half-aunt/niece (492–1315 cM).\n\nConclusion:\n- Documentary and genetic evidence are consistent with Lena Hale being a 1C1R candidate to Ruth Mercer.\n- Shared DNA consistency does not constitute identity proof. Primary vital records and life-status confirmation are needed.",
+        "open_questions": [
+          "Is Lena Hale living or deceased, and can primary vital/life-status records confirm her whereabouts post-2008?",
+          "Do birth and marriage records confirm that Arthur Mercer and Frances Mercer were full biological siblings sharing both parents?",
+          "Are there secondary or non-paternity events in either the Hale or Mercer branches that would alter the relationship from 1C1R to half-1C or 2C?",
+          "Can certified primary birth certificates for George Hale and Lena Hale be obtained from Camden, New Jersey, to confirm official parental documentation?"
+        ]
+      }
+    }
+  ]
+}
