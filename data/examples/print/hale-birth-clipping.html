@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hale Birth Clipping</title>
+<!-- Printable SYNTHETIC record for the Kinfold "paper to proof" demo. Print at 100% scale, cut along the dashed line,
+     then photograph it. All people and the newspaper issue are fictional. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+ :root { --ink: #1b1915; --paper: #f4ecd8; --rule: #3a352c; --page: #ffffff }
+ * { box-sizing: border-box }
+ body { margin: 0; background: var(--page); color: var(--ink); font-family: "Old Standard TT", Georgia, serif; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 32px 16px }
+ .help { font: 13px/1.5 system-ui, sans-serif; color: #555; max-width: 520px; text-align: center }
+ .cut { border: 1.5px dashed #999; padding: 14px }
+ .clip { width: 3.1in; background: var(--paper); padding: 16px 18px 14px; box-shadow: 0 1px 0 rgba(0,0,0,.08) }
+ .masthead { text-align: center; border-bottom: 2px solid var(--rule); padding-bottom: 4px }
+ .masthead .name { font-family: "UnifrakturMaguntia", "Old Standard TT", serif; font-size: 27px; line-height: 1 }
+ .dateline { display: flex; justify-content: space-between; font-size: 9.5px; letter-spacing: .04em; text-transform: uppercase; border-bottom: 1px solid var(--rule); padding: 3px 0; margin-bottom: 10px }
+ h2 { font-size: 15px; text-align: center; margin: 0 0 2px; letter-spacing: .12em; text-transform: uppercase }
+ .rule { height: 0; border-top: 1px solid var(--rule); width: 40%; margin: 4px auto 8px }
+ p { font-size: 12.5px; line-height: 1.42; margin: 0 0 6px; text-align: justify; hyphens: none }
+ p.lead::first-letter { font-weight: 700 }
+ .foot { margin-top: 10px; padding-top: 5px; border-top: 1px solid var(--rule); font: 7.5px/1.3 system-ui, sans-serif; letter-spacing: .03em; text-transform: uppercase; color: #6b6355; text-align: center }
+ body:has(#clip:target) .help { display: none }
+ @media print { .help { display: none } body { padding: 0 } .clip { box-shadow: none } }
+</style>
+</head>
+<body>
+ <p class="help">Print at 100% scale (no "fit to page"), cut along the dashed line, then photograph it under even light. Optional: age it with cold tea and let it dry flat. This is a synthetic demo record; keep the footer visible.</p>
+ <div class="cut" id="clip">
+  <article class="clip" aria-label="Synthetic newspaper clipping">
+   <div class="masthead"><div class="name">Camden Clarion</div></div>
+   <div class="dateline"><span>Camden, N.J.</span><span>Friday, June 9, 1972</span><span>Page 14</span></div>
+   <h2>Births</h2>
+   <div class="rule"></div>
+   <p class="lead">Mr. and Mrs. George Hale, of 214 Linden St., Camden, New Jersey, announce the birth of their first child, a daughter, Lena Hale, born June 4, 1972, at Cooper Hospital.</p>
+   <p>Mrs. Hale is the former Patricia Novak of Collingswood.</p>
+   <p>Paternal grandparents are Mr. and Mrs. Edward Hale of Trenton.</p>
+   <div class="foot">Synthetic record · Kinfold demo, HackPrinceton 2026 · All people are fictional</div>
+  </article>
+ </div>
+</body>
+</html>

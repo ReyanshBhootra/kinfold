@@ -72,6 +72,21 @@ class JsonRepository:
             self.put(state)
             return deepcopy(state)
 
+    # Original photo bytes, content-addressed by SHA-256 and stored exactly as received (never re-encoded).
+    def put_blob(self, sha256, data):
+        path = self.directory / "blobs" / sha256
+        if not path.exists():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            temporary = path.with_suffix(f".{uuid4().hex}.tmp")
+            temporary.write_bytes(data)
+            os.replace(temporary, path)
+
+    def get_blob(self, sha256):
+        path = self.directory / "blobs" / sha256
+        if not re.fullmatch(r"[0-9a-f]{64}", sha256) or not path.exists():
+            raise KeyError(sha256)
+        return path.read_bytes()
+
 
 class MongoRepository:
     """Optional real MongoDB persistence. A configured connection must actually ping."""
@@ -107,6 +122,16 @@ class MongoRepository:
     def reset_demo(self):
         with self.lock:
             state = demo_state(); self.put(state); return state
+
+    def put_blob(self, sha256, data):
+        from bson import Binary
+        self.collection.database["blobs"].update_one({"_id": sha256}, {"$setOnInsert": {"data": Binary(data)}}, upsert=True)
+
+    def get_blob(self, sha256):
+        result = self.collection.database["blobs"].find_one({"_id": sha256}) if re.fullmatch(r"[0-9a-f]{64}", sha256) else None
+        if result is None:
+            raise KeyError(sha256)
+        return bytes(result["data"])
 
 
 def configured_repository():

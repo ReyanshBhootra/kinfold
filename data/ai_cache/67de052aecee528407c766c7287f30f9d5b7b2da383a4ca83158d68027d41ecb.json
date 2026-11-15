@@ -1,0 +1,41 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "kinfold-extract-v1",
+  "recorded_at": "2026-11-15T04:29:23.258086Z",
+  "document_sha256": "c190d75f3c2244490f84bc848edd27219675985b327a264e8a292f21a67c4fcf",
+  "raw": {
+    "claims": [
+      {
+        "kind": "birth",
+        "person": "Lena Hale",
+        "other_person": null,
+        "year": 1972,
+        "place": "couper Husipital, Camden, NJ",
+        "quote": "Lena Hale, born June 4, 1972,\nat couper Husipital, Camden, NJ.",
+        "start_line": 2,
+        "end_line": 3
+      },
+      {
+        "kind": "parent",
+        "person": "George Hale",
+        "other_person": "Lena Hale",
+        "year": null,
+        "place": null,
+        "quote": "Lena Hale, born June 4, 1972,\nat couper Husipital, Camden, NJ.\ndaughter of George Hale",
+        "start_line": 2,
+        "end_line": 4
+      },
+      {
+        "kind": "parent",
+        "person": "Patricia (Novak) Hale",
+        "other_person": "Lena Hale",
+        "year": null,
+        "place": null,
+        "quote": "Lena Hale, born June 4, 1972,\nat couper Husipital, Camden, NJ.\ndaughter of George Hale\nand Patricia (Novak) Hale.",
+        "start_line": 2,
+        "end_line": 5
+      }
+    ]
+  }
+}

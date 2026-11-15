@@ -135,7 +135,10 @@ def hale_state(tmp_path):
 
 def test_ai_raw_output_is_sealed_into_the_manifest(tmp_path):
     state = hale_state(tmp_path)
-    recorded = {raw_sha256(json.loads(p.read_text(encoding="utf8"))["raw"]) for p in (ROOT / "data" / "ai_cache").glob("*.json")}
+    import hashlib
+    hale = {hashlib.sha256((EXAMPLES / n).read_text(encoding="utf8").encode("utf8")).hexdigest() for n in ("synthetic-hale-obituary.txt", "synthetic-hale-birth-announcement.txt")}
+    entries = [json.loads(p.read_text(encoding="utf8")) for p in (ROOT / "data" / "ai_cache").glob("*.json")]
+    recorded = {raw_sha256(e["raw"]) for e in entries if e.get("document_sha256") in hale}  # other recordings (e.g. the photo transcript) aren't in this state
     assert {r["raw_sha256"] for r in state["ai_extractions"].values()} == recorded
     manifest = evidence_manifest(derive(state))
     assert len(manifest["manifest"]["ai_recordings"]) == 2
