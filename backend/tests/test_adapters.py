@@ -1,4 +1,5 @@
 from copy import deepcopy
+import json
 from types import SimpleNamespace
 import pytest
 from fastapi.testclient import TestClient
@@ -40,7 +41,7 @@ def test_gemini_adapter_sends_schema_and_checks_returned_citations_offline(snaps
 
     def generate(**kwargs):
         calls.append(kwargs)
-        return SimpleNamespace(parsed=ObservationBatch.model_validate({"observations": [observation()]}))
+        return SimpleNamespace(text=json.dumps({"observations": [observation()]}))
 
     adapter = GeminiProvider("offline-test", "explicit-model", SimpleNamespace(models=SimpleNamespace(generate_content=generate)))
     result, trace = adapter.extract(snapshot, "Compare birth years")
@@ -154,3 +155,74 @@ def test_mongo_repository_uses_database_contract_and_sanitizes_connection_errors
     with pytest.raises(RuntimeError, match="MongoDB connection failed") as error:
         MongoRepository("mongodb://secret-user:secret-pass@invalid", client=BadClient())
     assert "secret-pass" not in str(error.value)
+
+
+# --- issue #8: live annotation replies failed strict validation as a whole -------------------------------------
+
+def fake_gemini(reply_text):
+    calls = []
+
+    def generate(**kwargs):
+        calls.append(kwargs)
+        return SimpleNamespace(text=reply_text)
+    return GeminiProvider("offline-test", "explicit-model", SimpleNamespace(models=SimpleNamespace(generate_content=generate))), calls
+
+
+def test_annotation_schema_never_sends_size_limits_gemini_rejects():
+    """Regression (#8, live run on PR #17): gemini-3.5-flash answers 400 INVALID_ARGUMENT when the schema has
+    minItems/maxItems. Limits are stated in the prompt and field descriptions and enforced per item locally."""
+    from backend.providers import SYSTEM
+    sent = json.dumps(gemini_schema(ObservationBatch))
+    for keyword in ("minItems", "maxItems", "minLength", "maxLength"):
+        assert keyword not in sent
+    item = gemini_schema(ObservationBatch)["properties"]["observations"]["items"]["properties"]
+    assert "known_people" in item["person_ids"]["description"] and "160" in item["title"]["description"]
+    assert "At most 12 observations" in SYSTEM and "1 to 4 citations" in SYSTEM
+
+
+def test_one_bad_observation_no_longer_discards_the_valid_ones(snapshot):
+    pytest.importorskip("google.genai")
+    good = observation()
+    uncited = {**observation(), "title": "No citation", "citations": []}
+    too_long = {**observation(), "title": "x" * 161}
+    extra_field = {**observation(), "confidence": "high"}
+    adapter, _ = fake_gemini(json.dumps({"observations": [good, uncited, too_long, extra_field]}))
+    findings, trace = adapter.extract(snapshot, "")
+    assert len(findings) == 1 and findings[0]["title"] == "Model suggestion · " + good["title"]
+    assert "rejected 3 on schema" in trace[0]
+    assert "observations[1].citations: too_short" in trace[0] and "observations[2].title: string_too_long" in trace[0]
+    assert "observations[3].confidence: extra_forbidden" in trace[0]
+    assert "x" * 20 not in trace[0] and "high" not in trace[0]  # locations and types only, never reply content
+
+
+def test_items_past_the_limit_are_rejected_not_fatal(snapshot):
+    pytest.importorskip("google.genai")
+    adapter, _ = fake_gemini(json.dumps({"observations": [observation()] * 14}))
+    findings, trace = adapter.extract(snapshot, "")
+    assert len(findings) == 1  # 12 parsed; exact repeats collapse to one finding (one stable id)
+    assert "rejected 2 on schema" in trace[0] and "over the 12-item limit" in trace[0]
+
+
+@pytest.mark.parametrize("reply, message", [
+    ('{"observations": [{"title": "cut off', "not valid JSON"),
+    ('[{"title": "x"}]', "expected {observations"),
+    ('{"observations": [], "notes": "x"}', "expected {observations"),
+])
+def test_malformed_replies_still_fail_the_whole_call(snapshot, reply, message):
+    pytest.importorskip("google.genai")
+    adapter, _ = fake_gemini(reply)
+    with pytest.raises(ProviderError, match=message):
+        adapter.extract(snapshot, "")
+
+
+def test_all_invalid_reply_reports_safe_diagnostics_in_the_audit(tmp_path):
+    pytest.importorskip("google.genai")
+    secret_text = "SECRET-REPLY-TEXT"
+    adapter, _ = fake_gemini(json.dumps({"observations": [{**observation(), "title": secret_text * 20, "citations": []}]}))
+    with TestClient(create_app(JsonRepository(tmp_path), adapter, extractor=None)) as client:
+        client.post("/api/cases/demo", json={})
+        result = client.post("/api/cases/demo-case/investigate", json={}).json()
+    entry = result["audit"][-1]
+    assert entry["action"] == "provider_unavailable" and result["case"]["mode"] == "demo"
+    assert "observations[0].title: string_too_long" in entry["description"] and "observations[0].citations: too_short" in entry["description"]
+    assert secret_text not in entry["description"]
