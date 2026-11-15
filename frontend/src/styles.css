@@ -506,3 +506,4 @@ h2{font-weight:600!important}
 .small-muted,.case-meta-item,.file-main small{color:var(--muted-ink)!important}
 .candidate-card.excluded .candidate-rank,.candidate-card.excluded .score strong{color:var(--warn)!important}
 :root{--paper:#ffffff}.run-panel h2{font-size:20px!important;line-height:1.25}
+.sidebar .brand{font-size:32px!important;letter-spacing:-.02em!important}
