@@ -665,3 +665,27 @@ button.secondary,button.quiet{background:transparent!important}
 .agent-report{background:transparent!important;padding:0!important}
 @media(max-width:1100px){.handoff-card+.handoff-card{border-left:0!important;border-top:1px solid var(--rule)!important}.handoff-card{padding-left:0!important}}
 .activity-list,.candidate-list>.agent-run{background:transparent!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}
+
+/* ==== Wordmark: cursive Garamond italic ==== */
+.sidebar .brand{font-family:'EB Garamond',Georgia,serif!important;font-style:italic!important;font-weight:600!important;font-size:42px!important;letter-spacing:-.01em!important;color:#fffeeb!important;gap:10px!important}
+.sidebar .brand .brand-dot{color:#f0d7ff!important;font-style:normal}
+.sidebar .brand .brand-mark svg{color:#f0d7ff!important}
+@media(max-width:1200px) and (min-width:721px){.sidebar .brand{font-size:34px!important}}
+@media(max-width:720px){.sidebar .brand{font-size:0!important}}
+/* ==== Folders: black outline ==== */
+.folder-card,.folder-card:hover{border:1.5px solid #1a1a1a!important}
+.folder-tab,.folder-card:hover .folder-tab{border:1.5px solid #1a1a1a!important;border-bottom:0!important;top:-13px!important;left:-1.5px!important}
+.folder-new{border-style:dashed!important}
+/* ==== Sidebar tabs, each with its own colour ==== */
+.sidebar nav .nav-item:nth-child(1){--nc:#f0d7ff}
+.sidebar nav .nav-item:nth-child(2){--nc:#ffd98a}
+.sidebar nav .nav-item:nth-child(3){--nc:#c3bdff}
+.sidebar nav .nav-item:nth-child(4){--nc:#9fd3ff}
+.sidebar-bottom .nav-item:nth-of-type(1){--nc:#ffd98a}
+.sidebar-bottom .nav-item:nth-of-type(2){--nc:#cfe9df}
+.sidebar .nav-item svg{color:var(--nc,#cfe9df)!important}
+.sidebar .nav-item:hover{background:color-mix(in srgb,var(--nc,#fff) 14%,transparent)!important}
+.sidebar .nav-item.selected{background:color-mix(in srgb,var(--nc,#fff) 20%,transparent)!important;box-shadow:inset 4px 0 0 var(--nc,#f0d7ff)!important;color:#fffeeb!important}
+.sidebar .nav-item.selected svg{color:var(--nc,#f0d7ff)!important}
+.sidebar nav .nav-item>span:last-child{background:color-mix(in srgb,var(--nc,#fff) 30%,transparent)!important;color:#fffeeb!important}
+.folder-card,.folder-card:hover{border-width:2px!important}.folder-tab,.folder-card:hover .folder-tab{border-width:2px!important;border-bottom-width:0!important;top:-14px!important;left:-2px!important}
