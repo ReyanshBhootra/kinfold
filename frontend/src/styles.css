@@ -417,3 +417,19 @@ body{background:#f4f3ec}
 .topbar{position:relative;z-index:30}
 .sidebar .local-status,.sidebar .local-status span{color:#b6c1da!important}
 .handoff-state strong{text-transform:none}.handoff-state strong.ok,.handoff-state strong.warn{text-transform:capitalize}
+/* DNA check: a sentence, not a formula */
+.dna-bar figcaption{display:grid!important;gap:6px;margin-bottom:30px!important}
+.dna-title{font-size:12px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:#3d475e}
+.dna-title .dna-verdict{font-size:12px}
+.dna-sentence{font-size:13.5px;line-height:1.55;color:#2c3446}
+.dna-sentence strong{color:var(--ink)}
+.dna-bar.fits .dna-sentence strong:nth-of-type(3){color:var(--rec)}
+.dna-bar.misses .dna-sentence strong:nth-of-type(3){color:var(--warn)}
+.dna-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:6px;font-size:11.5px;color:#4b5468}
+.dna-legend span{display:inline-flex;align-items:center;gap:6px}
+.dna-legend i{display:inline-block}
+.sw-range{width:18px;height:8px;border-radius:999px;background:linear-gradient(90deg,#8fd0a6,#2f8f5b)}
+.dna-bar.misses .sw-range{background:repeating-linear-gradient(135deg,#f3b293 0 4px,#fbd9c7 4px 8px)}
+.sw-mark{width:3px;height:12px;border-radius:2px;background:var(--dna)}
+.dna-units{color:#5b6378}
+.dna-bar{max-width:720px}
