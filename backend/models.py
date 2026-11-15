@@ -48,6 +48,19 @@ class UploadRequest(BaseModel):
         return self
 
 
+class PhotoUpload(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    name: str = Field(min_length=1, max_length=200)
+    media_type: Literal["image/jpeg", "image/png", "image/webp"]
+    image_base64: str = Field(min_length=8, max_length=5_600_000)
+    capture: Literal["webcam", "phone", "file"] = "file"
+
+
+class PhotoConfirm(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    lines: list[str] = Field(max_length=80)
+
+
 class VerifyRequest(BaseModel):
     digest: str = Field(pattern=r"^[a-fA-F0-9]{64}$")
 

@@ -4,11 +4,12 @@ import hashlib
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from dotenv import load_dotenv
 from .engine import derive
 from .manifest import evidence_manifest
-from .models import InvestigationRequest, UploadRequest, VerifyRequest
+from .models import InvestigationRequest, PhotoConfirm, PhotoUpload, UploadRequest, VerifyRequest
+from . import photos as paper
 from .repository import configured_repository, event
 from .providers import ProviderError, configured_provider
 from .extraction import configured_extractor, extract_document
@@ -25,11 +26,12 @@ class AgentRequest(BaseModel):
     person_id: str | None = Field(default=None, max_length=80)
 
 
-def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET):
+def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET, transcriber=_UNSET):
     app = FastAPI(title="Kinfold evidence research API", version="0.1.0")
     app.state.repository = repository or configured_repository()
     app.state.provider = provider if provider is not None else configured_provider()
     app.state.extractor = configured_extractor() if extractor is _UNSET else extractor
+    app.state.transcriber = paper.configured_transcriber() if transcriber is _UNSET else transcriber
     app.state.agent = investigator.configured_chat() if agent is _UNSET else (agent or (None, None))
     app.add_middleware(CORSMiddleware, allow_origin_regex=r"^http://(127\.0\.0\.1|localhost)(:\d+)?$", allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
 
@@ -47,8 +49,10 @@ def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET):
         # Includes UTF-8/JSON escaping overhead above the 100,000-character model bound.
         if request.method == "POST":
             body = await request.body()
-            if len(body) > 800000:
-                return JSONResponse(status_code=413, content={"detail": "Request body exceeds the local 800 KB limit."})
+            # Photo uploads carry a base64 image (at most 4 MB of bytes); every other request stays under 800 KB.
+            limit, label = (6_000_000, "6 MB") if request.url.path.endswith("/photos") else (800000, "800 KB")
+            if len(body) > limit:
+                return JSONResponse(status_code=413, content={"detail": f"Request body exceeds the local {label} limit."})
         return await call_next(request)
 
     def get(case_id):
@@ -65,6 +69,9 @@ def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET):
         run = state.get("agent_run")
         # The latest agent run, also outside the manifest. Marked stale once the records it read have changed.
         current["agent_run"] = {**run, "stale": run["records_key"] != investigator.recording_key(current, run["target"]["person_id"])} if run else None
+        # Photographed records awaiting or past review. A confirmed photo's hash and line boxes enter the manifest
+        # through its record's provenance; unconfirmed photos are not evidence yet.
+        current["photos"] = state.get("photos", [])
         return current
 
     def manifest_for(state):
@@ -115,6 +122,95 @@ def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET):
             app.state.repository.put(state)
             return snap(state)
 
+    def find_photo(state, photo_id):
+        photo = next((p for p in state.get("photos", []) if p["id"] == photo_id), None)
+        if photo is None:
+            raise HTTPException(404, "Photo not found")
+        return photo
+
+    @app.post("/api/cases/{case_id}/photos")
+    def add_photo(case_id: str, body: PhotoUpload):
+        """Paper to proof, step 1: hash the original bytes on arrival and store them unchanged."""
+        try:
+            data, sha256 = paper.decode_image(body.media_type, body.image_base64)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from None
+        with app.state.repository.lock:
+            state = get(case_id)
+            photos = state.setdefault("photos", [])
+            if not any(p["sha256"] == sha256 for p in photos):
+                if len(photos) >= 20:
+                    raise HTTPException(409, "The local prototype supports at most 20 photos per case.")
+                app.state.repository.put_blob(sha256, data)
+                name = body.name.strip() or "Photographed record"
+                photos.append({"id": "photo-" + uuid4().hex[:12], "name": name, "sha256": sha256, "media_type": body.media_type, "bytes": len(data),
+                               "capture": body.capture, "received_at": paper.now(), "status": "captured", "transcription": None, "document_id": None})
+                state["audit"].append(event("photo_added", f"Received photo \"{name}\" ({body.capture}, {len(data):,} bytes). SHA-256 {sha256[:16]}… recorded on arrival; the original bytes are stored unchanged."))
+                app.state.repository.put(state)
+            return snap(state)
+
+    @app.get("/api/cases/{case_id}/photos/{photo_id}/image")
+    def photo_image(case_id: str, photo_id: str):
+        photo = find_photo(get(case_id), photo_id)
+        try:
+            data = app.state.repository.get_blob(photo["sha256"])
+        except KeyError:
+            raise HTTPException(404, "The original image is not in this storage backend.") from None
+        if hashlib.sha256(data).hexdigest() != photo["sha256"]:
+            raise HTTPException(409, "The stored image no longer matches the hash recorded on arrival.")
+        return Response(content=data, media_type=photo["media_type"], headers={"Cache-Control": "no-store", "X-Content-SHA256": photo["sha256"]})
+
+    @app.post("/api/cases/{case_id}/photos/{photo_id}/transcribe")
+    def transcribe_photo(case_id: str, photo_id: str):
+        """Paper to proof, step 2: Gemini reads the photo line by line, with a box per line. A proposal, not evidence."""
+        with app.state.repository.lock:
+            state = get(case_id)
+            photo = find_photo(state, photo_id)
+            if photo["status"] == "confirmed":
+                raise HTTPException(409, "This photo's transcription is already confirmed as a record.")
+            try:
+                data = app.state.repository.get_blob(photo["sha256"])
+            except KeyError:
+                raise HTTPException(409, "The original image is not in this storage backend.") from None
+            if hashlib.sha256(data).hexdigest() != photo["sha256"]:
+                raise HTTPException(409, "The stored image no longer matches the hash recorded on arrival.")
+            try:
+                photo["transcription"] = paper.transcribe(photo, data, app.state.transcriber)
+            except LookupError as exc:
+                state["audit"].append(event("photo_transcription_failed", f"{photo['name']}: {exc}"))
+                app.state.repository.put(state)
+                raise HTTPException(409, str(exc)) from None
+            t = photo["transcription"]
+            photo["status"] = "transcribed"
+            uncertain = sum(line["uncertain"] for line in t["lines"])
+            state["audit"].append(event("photo_transcribed", f"{photo['name']}: Gemini ({t['model']}, {t['source']}) transcribed {len(t['lines'])} line(s), {uncertain} marked uncertain. Awaiting human confirmation against the photo." + (f" {t['note']}" if t["note"] else "")))
+            app.state.repository.put(state)
+            return snap(state)
+
+    @app.post("/api/cases/{case_id}/photos/{photo_id}/confirm")
+    def confirm_photo(case_id: str, photo_id: str, body: PhotoConfirm):
+        """Paper to proof, step 3: a person confirms each line against the photo; the result becomes a record."""
+        with app.state.repository.lock:
+            state = get(case_id)
+            photo = find_photo(state, photo_id)
+            if photo["status"] != "transcribed":
+                raise HTTPException(409, "Transcribe the photo first." if photo["status"] == "captured" else "This photo is already confirmed.")
+            if len(state["documents"]) >= 100:
+                raise HTTPException(409, "The local prototype supports at most 100 records per case.")
+            try:
+                document = paper.confirmed_document(photo, body.lines)
+            except ValueError as exc:
+                raise HTTPException(422, str(exc)) from None
+            document = {"id": "photo-doc-" + uuid4().hex[:12], **document}
+            state["documents"].append(document)
+            photo["status"], photo["document_id"] = "confirmed", document["id"]
+            state["case"]["version"] += 1
+            state["case"]["status"] = "evidence_added"
+            corrections = len(document["provenance"]["corrections"])
+            state["audit"].append(event("photo_confirmed", f"{photo['name']}: transcription confirmed by a person with {corrections} correction(s). Added as a record tied to photo SHA-256 {photo['sha256'][:16]}…; claims await review."))
+            app.state.repository.put(state)
+            return snap(state)
+
     @app.post("/api/cases/{case_id}/investigate")
     def investigate(case_id: str, body: InvestigationRequest):
         with app.state.repository.lock:
@@ -128,7 +224,7 @@ def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET):
             for document in reviewed:
                 document["processed"] = True
                 # Uploaded records go through AI extraction (live, or a recorded replay); fixtures use the template parser.
-                if document.get("kind") == "uploaded_text":
+                if document.get("kind") in ("uploaded_text", "photo_transcription"):
                     result = extract_document(document, known_names, app.state.extractor)
                     if result is not None:
                         state.setdefault("ai_extractions", {})[document["id"]] = result
