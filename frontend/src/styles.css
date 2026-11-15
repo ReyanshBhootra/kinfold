@@ -136,3 +136,101 @@ a{text-underline-offset:3px}
 .disclosure span{font-size:12px}
 .small-muted{font-size:11.5px}
 .document-card h3 .kind-chip{display:flex;width:max-content;margin:0 0 10px}
+
+/* ==== Colour carries meaning (#22, impeccable colorize): one hue per kind of evidence ====
+   green = records / supported / fits · indigo = DNA · blue = AI (Gemini, agent)
+   gold = on-chain integrity · terracotta = conflicts, exclusions, rejections            */
+:root{
+ --rec:#2f6b4f;--rec-soft:#e3efe5;--rec-line:#b9d6c1;
+ --dna:#4a3fb0;--dna-soft:#ecebfc;--dna-line:#cbc6f2;--dna-fill:#7b6fe0;
+ --ai:#1d5fae;--ai-soft:#e5effb;--ai-line:#bad2ef;--ai-fill:#3d84d6;
+ --chain:#7d5a07;--chain-soft:#fbf2da;--chain-line:#ebd393;--chain-fill:#d9a521;
+ --warn:#a24a26;--warn-soft:#fbe9df;--warn-line:#efc3ab;--warn-fill:#e07a4f;
+}
+/* Storyline: each step in its domain colour */
+.case-story .d-records{--d:var(--rec);--d-soft:var(--rec-soft)}
+.case-story .d-dna{--d:var(--dna);--d-soft:var(--dna-soft)}
+.case-story .d-ai{--d:var(--ai);--d-soft:var(--ai-soft)}
+.case-story .d-chain{--d:var(--chain-fill);--d-soft:var(--chain-soft)}
+.case-story .done .story-dot{background:var(--d);border-color:var(--d)}
+.case-story .current .story-dot{border-color:var(--d);color:var(--d);box-shadow:0 0 0 5px var(--d-soft)}
+.case-story .current .story-text strong{color:var(--d)}
+.case-story .d-chain.current .story-text strong{color:var(--chain)}
+.case-story li button:hover .story-dot{box-shadow:0 0 0 5px var(--d-soft)}
+.case-story li button:hover .story-text strong{text-decoration:underline;text-underline-offset:3px}
+.story-next span{background:var(--ink)}
+/* Category chips */
+.kind-ai_extraction,.kind-agent_run,.kind-provider_success{background:var(--ai-soft);border-color:var(--ai-line);color:var(--ai)}
+.kind-ai_rejected,.kind-exclusion,.kind-conflict,.kind-ai_extraction_failed,.kind-provider_unavailable{background:var(--warn-soft);border-color:var(--warn-line);color:var(--warn)}
+.kind-relationship,.kind-document_added,.kind-case_loaded{background:var(--rec-soft);border-color:var(--rec-line);color:var(--rec)}
+.kind-anchored,.kind-anchor_verified{background:var(--chain-soft);border-color:var(--chain-line);color:var(--chain)}
+.kind-simulated_dna,.kind-dna{background:var(--dna-soft);border-color:var(--dna-line);color:var(--dna)}
+/* Status pills and DNA tags */
+.tag.green{color:var(--rec);background:var(--rec-soft);border-color:var(--rec-line)}
+.tag.red{color:var(--warn)!important;background:var(--warn-soft);border-color:var(--warn-line)}
+.tag.dna svg{color:var(--dna)}
+/* DNA visuals: the observed DNA value is indigo; ranges say fits (green) or not (terracotta) */
+.dna-bar{border-color:var(--dna-line);background:linear-gradient(180deg,#fbfaff,#fdfdfb)}
+.dna-bar figcaption strong{color:var(--dna)}
+.dna-bar.fits .dna-verdict{color:var(--rec)}.dna-bar.misses .dna-verdict{color:var(--warn)}
+.dna-bar.fits .dna-range,.dna-hyp-row.fits .dna-range{background:linear-gradient(90deg,#8fd0a6,#2f8f5b)}
+.dna-bar.misses .dna-range,.dna-hyp-row.misses .dna-range{background:repeating-linear-gradient(135deg,#f3b293 0 6px,#fbd9c7 6px 12px)}
+.dna-marker,.dna-bar.misses .dna-marker{background:var(--dna)}
+.dna-marker span,.dna-bar.misses .dna-marker span{background:var(--dna);box-shadow:0 2px 6px rgba(74,63,176,.3)}
+.dna-hyp{border-color:var(--dna-line);background:linear-gradient(180deg,#fbfaff,#fdfdfb)}
+.dna-hyp-line{background:var(--dna)}.dna-hyp-line span{color:var(--dna)}
+.dna-hyp-row.misses .dna-hyp-label small{color:var(--warn)}
+.dna-hyp-row.fits .dna-hyp-label small{color:var(--rec)}
+/* Interactive: hover one hypothesis to isolate it */
+.dna-hyp-row{border-radius:6px;transition:opacity 180ms var(--ease-out),background-color 180ms ease;cursor:default}
+.dna-hyp-plot:hover .dna-hyp-row:not(:hover){opacity:.38}
+.dna-hyp-row:hover{background:#f3f1ff}
+.dna-hyp-row:hover .dna-range{filter:saturate(1.25)}
+/* AI panel: blue */
+.agent-run{border-color:var(--ai-line)!important;background:linear-gradient(180deg,#f6f9fe 0,#fffefa 140px)!important}
+.agent-run-head .small-muted{color:var(--ai)}
+.agent-run-head h2{color:#173b66}
+.agent-button{background:var(--ai)!important;border-color:var(--ai)!important;color:#fff!important}
+.agent-button:not(:disabled):hover{background:#164b8a!important;box-shadow:0 6px 16px rgba(29,95,174,.28)!important}
+/* On-chain: gold */
+.lead-timeline .timeline-list>li{border-color:var(--chain-line)}
+.lead-timeline .timeline-list>li.current{border-color:var(--chain-fill);box-shadow:0 0 0 3px var(--chain-soft)}
+.lead-timeline .timeline-limits{border-left-width:1px;background:var(--chain-soft);border-left-color:var(--chain-line);color:#5e4506}
+.lead-timeline .timeline-head h3{color:#5e4506}
+.lead-timeline .timeline-head button:not(:disabled){background:var(--chain-fill);border-color:var(--chain-fill);color:#2b1f00}
+.lead-timeline .timeline-head button:not(:disabled):hover{background:#c8941a}
+/* Lead cards: tint the hover shadow by status */
+.candidate-card:hover{box-shadow:0 12px 30px rgba(47,107,79,.12)}
+.candidate-card.excluded:hover{box-shadow:0 12px 30px rgba(162,74,38,.10)}
+.candidate-card.excluded .candidate-rank{color:#b5704f}
+.score strong{color:var(--rec)}.candidate-card.excluded .score strong{color:#b5704f}
+/* Facts row: icons in their meaning */
+.metric-0 .metric-top svg,.metric-1 .metric-top svg{color:var(--rec)}
+.metric-2 .metric-top svg,.metric-2 .metric-value{color:var(--warn)}
+.metric-3 .metric-top svg{color:var(--dna)}
+/* Family graph: roles readable at a glance */
+.person-node{transition:transform 180ms var(--ease-out),box-shadow 200ms var(--ease-out),border-color 150ms ease}
+.person-node:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(31,51,41,.12)}
+.person-node.open-lead{border-color:var(--rec);box-shadow:0 0 0 3px var(--rec-soft)}
+.person-node.open-lead .node-role{color:var(--rec);font-weight:700}
+.person-node.found{border-color:var(--rec);background:linear-gradient(180deg,#f1faf3,#fffefa)}
+.person-node.excluded{border-style:dashed;border-color:var(--warn-line);background:#fffaf6}
+.person-node.excluded .node-role{color:var(--warn)}
+.person-node.excluded .avatar{background:var(--warn-soft);color:var(--warn)}
+.person-node.open-lead .avatar{background:var(--rec);color:#fff}
+/* Findings list: icon tile takes its kind's colour */
+.finding .finding-icon,.finding>div:first-child{transition:background-color 150ms ease}
+.finding.fk-ai_extraction{background:linear-gradient(90deg,#f3f8fe,#fffefa 60%)}
+.fk-ai_extraction .finding-icon{background:var(--ai-soft);color:var(--ai)}
+.fk-ai_rejected .finding-icon,.fk-conflict .finding-icon,.fk-exclusion .finding-icon{background:var(--warn-soft);color:var(--warn)}
+.fk-relationship .finding-icon{background:var(--rec-soft);color:var(--rec)}
+.fk-observation .finding-icon{background:#eef0f3;color:#4a5563}
+.finding{transition:background-color 150ms ease}
+.finding:hover{background-color:#fbfcf7}
+.agent-report{border-left:1px solid var(--ai-line)!important;background:var(--ai-soft);padding:12px 14px!important;border-radius:8px}
+.agent-block h4{color:#173b66}
+.node-role{font-size:8px!important;letter-spacing:.6px!important}
+.node-dates{font-size:10px!important}
+.person-node.found .node-role{color:var(--rec);font-weight:700}
+.case-story .d-chain.current .story-dot{color:var(--chain)}
+.case-story .d-chain.done .story-dot{color:#2b1f00}
