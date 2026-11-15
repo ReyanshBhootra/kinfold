@@ -99,7 +99,7 @@ The integration check calls the real HTTP API, locates every returned citation i
 
 This is a local research prototype, not a validated forensic system. Simulated cM summaries do not provide sequence-level genetic inference, calibrated relationship likelihoods, or a confirmed identity. Record-derived constraints and model prose must remain separate. Live use of Gemini, MongoDB Atlas, deepagents and Solana devnet has been verified with real runs, recorded in `docs/VALIDATION.md`. The demo replays the recorded Gemini and agent runs offline, and it is fully useful without any keys.
 
-Public research datasets, pedigree simulation, relationship inference evaluation, and held-out-family baselines are stretch work. There is no model training or validated genetic benchmark in the core. Arlequin genetic genealogy eligibility still requires organizer confirmation. Sponsor integrations and prize eligibility must be described from implemented, verified behavior rather than intent.
+Public research datasets, pedigree simulation, relationship inference evaluation, and held-out-family baselines are stretch work. There is no model training or validated genetic benchmark in the core. The Arlequin team confirmed the project fits its AI-Driven Forensics track (#4). Sponsor integrations and prize eligibility must be described from implemented, verified behavior rather than intent.
 
 Development binds to loopback. Do not expose this unauthenticated prototype publicly. No purchase, deployment, account scraping, private-profile research, or real-person identification is part of this build.
 
