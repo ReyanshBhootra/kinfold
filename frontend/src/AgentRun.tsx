@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
-import { AlertTriangle, Bot, Check, Dna, X } from 'lucide-react'
+import { DnaHypotheses } from './DnaBar'
+import { AlertTriangle, Bot, Check, X } from 'lucide-react'
 import type { AgentRunRecord, Citation } from './types'
 
 const kindText = (c: {kind: string; person: string; other_person: string | null; year: number | null}) =>
@@ -16,7 +17,7 @@ export default function AgentRun({run, citations, openSource}: {run: AgentRunRec
    {run.stale && <p className="agent-warning"><AlertTriangle size={14}/>New evidence arrived after this run. Run the agent again to check the current records.</p>}
   </div>
   {run.report && <div className="agent-report"><p>{run.report.summary}</p>{run.report.open_questions.length > 0 && <><h4>Open questions</h4><ul>{run.report.open_questions.map((q,i) => <li key={i}>{q}</li>)}</ul></>}</div>}
-  {run.dna_tests.length > 0 && <div className="agent-block"><h4>DNA hypotheses tested</h4>{run.dna_tests.map(t => <div className="agent-row" key={`${t.person_id}-${t.relationship}`}><span className={`tag dna ${t.status === 'consistent' ? 'green' : 'red'}`}><Dna size={11}/>{t.status}</span><span>{t.name} as {t.relationship_label} of {t.match_name}: expected {t.expected_low_cm.toLocaleString()}–{t.expected_high_cm.toLocaleString()} cM, observed {t.observed_cm.toLocaleString()} cM</span></div>)}<small className="small-muted">Reference-range checks, not likelihoods.</small></div>}
+  {run.dna_tests.length > 0 && <div className="agent-block"><h4>DNA hypotheses tested</h4><DnaHypotheses tests={run.dna_tests} observed={run.dna_tests[0].observed_cm}/><small className="small-muted">Reference-range checks, not likelihoods.</small></div>}
   {(run.verified_claims.length > 0 || run.rejected_claims.length > 0) && <div className="agent-block"><h4>Claims the agent proposed</h4>
    {run.verified_claims.map((c,i) => <div className="agent-row" key={`v${i}`}><span className="tag green"><Check size={11}/>verified</span><div><span>{kindText(c)}</span>{citations([c.citation])}</div></div>)}
    {run.rejected_claims.map((c,i) => <div className="agent-row" key={`r${i}`}><span className="tag red"><X size={11}/>rejected</span><div><span>{kindText(c)}: {c.reason}</span> <button className="text-button" onClick={() => openSource(c.document_id)}>Open source (L{c.start_line})</button></div></div>)}
