@@ -1,9 +1,9 @@
-# Kinfold: Devpost draft
+# KinFold: Devpost draft
 
 > Placeholders marked **[DECIDE]** need a human decision before submission (see the linked issues). Remove this note, the checklist and every placeholder before you paste the copy into Devpost.
 
 ## Submission checklist (Devpost fields → where the text is)
-1. **Project name:** `Kinfold`
+1. **Project name:** `KinFold`
 2. **Tagline / elevator pitch** (Devpost limits it to about 200 characters): copy "Tagline" below.
 3. **Thumbnail / gallery images** (3–5 screenshots, 3:2 works best):
    - the family graph with the case summary;
@@ -24,7 +24,7 @@
 10. **Submit before 08:00 ET.** Devpost lets you edit after submitting, until the deadline.
 
 ## Tagline
-Every connection, a source. A genealogy research assistant that checks the family story against the DNA, and makes the AI quote its sources.
+No link goes unchecked. KinFold tests every family-tree lead against the DNA and ties each step to the exact record line behind it.
 
 ## Inspiration
 In forensic genetic genealogy, a tidy family story can run ahead of its evidence. A DNA match and a few records point at a family, and a researcher fills in the rest. We wanted a tool that does the opposite: it tests the story against the numbers, keeps contradictions visible, and makes every relationship traceable to the exact line of the record behind it.
