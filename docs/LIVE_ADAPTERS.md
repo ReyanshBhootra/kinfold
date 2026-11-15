@@ -41,7 +41,7 @@ Set `KINFOLD_AI_MODE=gemini`, a server-side `GEMINI_API_KEY` (or `GOOGLE_API_KEY
 
 Pressing **Run investigation** invokes the actual Google GenAI SDK. The request contains reviewed records with line numbers and known person IDs, and asks for a Pydantic observation schema. Code rejects unknown people, missing/forged citation spans, unreviewed sources, and explicit identity/confidence claims. Accepted annotations are prefixed **Model suggestion** and **Unverified model annotation**; they are separate from deterministic relationships and ranking. Schema validity and a located quote do not prove semantic correctness, so human review remains required.
 
-The live context limit is 60,000 source characters; the SDK request times out at 45 seconds with one attempt. This path was tested with an offline transport fixture, not a real key. Reference: [Gemini structured outputs](https://ai.google.dev/gemini-api/docs/structured-output).
+The live context limit is 60,000 source characters; the SDK request times out at 45 seconds, with up to 3 attempts on 408/429/5xx. Each observation is validated on its own against the strict model, so one malformed item no longer discards the rest. Schema rejections are logged by field location and type only, never reply text. Verified live on `gemini-3.5-flash` (#17): `provider_success`, 10 validated annotations. The response schema must not contain `minItems`/`maxItems`: that model answers 400 INVALID_ARGUMENT. Reference: [Gemini structured outputs](https://ai.google.dev/gemini-api/docs/structured-output).
 
 ## deepagents research loop
 

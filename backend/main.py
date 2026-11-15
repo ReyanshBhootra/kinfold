@@ -10,7 +10,7 @@ from .engine import derive
 from .manifest import evidence_manifest
 from .models import InvestigationRequest, PhotoConfirm, PhotoUpload, UploadRequest, VerifyRequest
 from . import photos as paper
-from .repository import configured_repository, event
+from .repository import configured_repository, current_actor, event
 from .providers import ProviderError, configured_provider
 from .extraction import configured_extractor, extract_document
 from . import anchors as anchoring
@@ -33,7 +33,7 @@ def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET, t
     app.state.extractor = configured_extractor() if extractor is _UNSET else extractor
     app.state.transcriber = paper.configured_transcriber() if transcriber is _UNSET else transcriber
     app.state.agent = investigator.configured_chat() if agent is _UNSET else (agent or (None, None))
-    app.add_middleware(CORSMiddleware, allow_origin_regex=r"^http://(127\.0\.0\.1|localhost)(:\d+)?$", allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
+    app.add_middleware(CORSMiddleware, allow_origin_regex=r"^http://(127\.0\.0\.1|localhost)(:\d+)?$", allow_methods=["GET", "POST"], allow_headers=["Content-Type", "X-Kinfold-Researcher"])
 
     @app.exception_handler(RequestValidationError)
     async def validation_error(_request, exc):
@@ -43,6 +43,17 @@ def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET, t
     @app.exception_handler(anchoring.AnchorError)
     async def anchor_error(_request, exc):
         return JSONResponse(status_code=exc.status, content={"detail": exc.detail})
+
+    @app.middleware("http")
+    async def researcher_name(request: Request, call_next):
+        # Self-declared display name for the case activity log; printable characters only, bounded.
+        raw = request.headers.get("x-kinfold-researcher", "")
+        name = "".join(ch for ch in raw if ch.isprintable()).strip()[:60] or None
+        token = current_actor.set(name)
+        try:
+            return await call_next(request)
+        finally:
+            current_actor.reset(token)
 
     @app.middleware("http")
     async def bounded_body(request: Request, call_next):

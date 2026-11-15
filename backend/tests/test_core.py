@@ -177,3 +177,17 @@ def test_persistence_restart_and_explicit_reset(tmp_path):
     assert JsonRepository(tmp_path).reset_demo()["documents"][0]["processed"] is False
     with pytest.raises(KeyError):
         repo.get("../outside")
+
+
+def test_audit_events_record_the_self_declared_researcher(client):
+    client.post("/api/cases/demo", json={})
+    named = client.post("/api/cases/demo-case/documents", json={"name": "note.txt", "text": "Synthetic note."}, headers={"X-Kinfold-Researcher": "  Shippy\x07 "}).json()
+    assert named["audit"][-1]["actor"] == "Shippy"  # trimmed, control characters dropped
+    long = client.post("/api/cases/demo-case/investigate", json={"question": "", "max_steps": 1}, headers={"X-Kinfold-Researcher": "R" * 200}).json()
+    assert long["audit"][-1]["actor"] == "R" * 60
+    anon = client.post("/api/cases/demo-case/documents", json={"name": "b.txt", "text": "Another synthetic note."}).json()
+    assert anon["audit"][-1]["actor"] is None
+    # The actor lives in the audit trail only; the evidence digest doesn't depend on who did the work.
+    before = client.get("/api/cases/demo-case/manifest").json()["digest"]
+    client.post("/api/cases/demo-case/anchors/1/verify", headers={"X-Kinfold-Researcher": "Someone else"})
+    assert client.get("/api/cases/demo-case/manifest").json()["digest"] == before
