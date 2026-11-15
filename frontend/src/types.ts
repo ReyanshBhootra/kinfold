@@ -9,7 +9,7 @@ export interface Snapshot {
  case: { id: string; title: string; summary: string; status: string; synthetic: boolean; mode: string; version: number };
  people: Person[]; relationships: Relationship[]; documents: EvidenceDocument[]; findings: Finding[]; candidates: Candidate[];
  next_actions: {id: string; title: string; reason: string; person_ids: string[]; document_ids: string[]}[];
- audit: {id: string; timestamp: string; action: string; description: string}[];
+ audit: {id: string; timestamp: string; action: string; description: string; actor?: string | null}[];
  metrics: {documents_processed: number; supported_relationships: number; conflicts: number; remaining_candidates: number};
  anchors?: AnchorRecord[]; ai_recordings?: {document_id: string; model: string; recorded_at: string; raw_sha256: string}[];
  agent_run?: AgentRunRecord | null;
