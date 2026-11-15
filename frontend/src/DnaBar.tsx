@@ -25,16 +25,17 @@ export default function DnaBar({ check, person, match }: { check: DnaCheck; pers
  </figure>
 }
 
-type Hypothesis = { relationship: string; relationship_label: string; expected_low_cm: number; expected_high_cm: number; observed_cm: number; status: string }
+type Hypothesis = { person_id: string; name: string; match_name: string; relationship: string; relationship_label: string; expected_low_cm: number; expected_high_cm: number; observed_cm: number; status: string }
 
 /** Several relationship hypotheses on one shared axis, with a single line at the observed cM.
  *  Purely a picture of the agent's recorded test results; it computes nothing itself. */
 export function DnaHypotheses({ tests, observed }: { tests: Hypothesis[]; observed: number }) {
- return <figure className="dna-hyp" aria-label={`Observed ${observed} centimorgans against ${tests.length} relationship hypotheses`}>
+ const multi = new Set(tests.map(t => t.person_id)).size > 1  // name rows when the agent tested more than one person
+ return <figure className="dna-hyp" aria-label={`Observed ${observed} centimorgans against ${tests.length} relationship hypotheses for ${[...new Set(tests.map(t => `${t.name} and ${t.match_name}`))].join(', ')}`}>
   <div className="dna-hyp-plot">
    <div className="dna-hyp-overlay" aria-hidden="true"><div className="dna-hyp-line" style={{ left: pos(observed) }}><span>{observed} cM observed</span></div></div>
-   {tests.map(t => <div className={`dna-hyp-row ${t.status === 'consistent' ? 'fits' : 'misses'}`} key={t.relationship}>
-    <span className="dna-hyp-label">{t.relationship_label}<small>{t.expected_low_cm.toLocaleString()}–{t.expected_high_cm.toLocaleString()} cM · {t.status === 'consistent' ? 'fits' : 'does not fit'}</small></span>
+   {tests.map(t => <div className={`dna-hyp-row ${t.status === 'consistent' ? 'fits' : 'misses'}`} key={`${t.person_id}-${t.relationship}`}>
+    <span className="dna-hyp-label">{multi ? `${t.name}: ` : ''}{t.relationship_label}<small>{t.expected_low_cm.toLocaleString()}–{t.expected_high_cm.toLocaleString()} cM · {t.status === 'consistent' ? 'fits' : 'does not fit'}</small></span>
     <span className="dna-hyp-track"><span className="dna-range" style={{ left: pos(t.expected_low_cm), width: `calc(${pos(t.expected_high_cm)} - ${pos(t.expected_low_cm)})` }}/></span>
    </div>)}
    <div className="dna-hyp-axis" aria-hidden="true"><span/><span className="dna-ticks">{TICKS.map(t => <span key={t} style={{ left: pos(t) }}>{t >= 1000 ? `${t / 1000}k` : t}</span>)}</span></div>
