@@ -71,7 +71,7 @@ KinFold works on a disclosed, fully **synthetic** unidentified-person case. An u
 - Real live runs of every integration (Gemini, deepagents, MongoDB Atlas, three Solana devnet anchors), recorded in `docs/VALIDATION.md`, and the whole demo still runs offline without keys.
 
 ## What we tested
-- `pytest backend/tests research/genetics/tests`: **113 passed**, including 12 for paper to proof. `npm run build`, `npm run test:anchor` (4) and `npm run test:package` (3) pass.
+- `pytest backend/tests research/genetics/tests`: **114 passed**, including 12 for paper to proof. `npm run build`, `npm run test:anchor` (4) and `npm run test:package` (3) pass.
 - `scripts/evaluate.py`: two held-out synthetic families with 6 candidate decisions. The full engine got 6/6 against 4/6 for a birth-range-only baseline. That's a small correctness check, not scientific validation.
 - `npm run test:integration` against the real HTTP API: locates every citation, checks digests across Python and JavaScript, and confirms that an old digest stops matching after new evidence.
 
