@@ -7,17 +7,21 @@ const TICKS = [10, 50, 200, 1000, 4000]
 
 /** The DNA range check, drawn: the expected range for the recorded relationship vs the observed shared cM.
  *  Purely a picture of backend data (dna_checks); it computes nothing itself. */
-export default function DnaBar({ check }: { check: DnaCheck }) {
+export default function DnaBar({ check, person, match }: { check: DnaCheck; person?: string; match?: string }) {
  if (check.status === 'unchecked' || check.expected_low_cm == null || check.expected_high_cm == null) return null
  const fits = check.status === 'consistent'
  const low = check.expected_low_cm, high = check.expected_high_cm
  return <figure className={`dna-bar ${fits ? 'fits' : 'misses'}`} aria-label={`Expected ${low} to ${high} centimorgans for ${check.relationship_label}; observed ${check.observed_cm}. ${fits ? 'Inside the range.' : 'Outside the range.'}`}>
-  <figcaption><span>If <strong>{check.relationship_label}</strong>, expect {low.toLocaleString()}–{high.toLocaleString()} cM</span><span className="dna-verdict">{fits ? 'Fits' : 'Does not fit'} · observed {check.observed_cm} cM</span></figcaption>
+  <figcaption>
+   <span className="dna-title">DNA check: <span className="dna-verdict">{fits ? 'consistent' : 'inconsistent'}</span></span>
+   <span className="dna-sentence">On the recorded family tree, {person || 'this lead'} and {match || 'the DNA match'} would be <strong>{(check.relationship_label ?? 'related').replace(' / ', ' and ')}</strong>. Relatives like that usually share <strong>{low.toLocaleString()}–{high.toLocaleString()} cM</strong> of DNA. They share <strong>{check.observed_cm.toLocaleString()} cM</strong>{fits ? ', inside that range.' : check.observed_cm < low ? ', well below that range, so the recorded tree doesn\'t fit the DNA.' : ', above that range, so the recorded tree doesn\'t fit the DNA.'}</span>
+  </figcaption>
   <div className="dna-track" aria-hidden="true">
    <div className="dna-range" style={{ left: pos(low), width: `calc(${pos(high)} - ${pos(low)})` }}/>
    <div className="dna-marker" style={{ left: pos(check.observed_cm) }}><span>{check.observed_cm}</span></div>
   </div>
   <div className="dna-ticks" aria-hidden="true">{TICKS.map(t => <span key={t} style={{ left: pos(t) }}>{t >= 1000 ? `${t / 1000}k` : t}</span>)}</div>
+  <div className="dna-legend" aria-hidden="true"><span><i className="sw-range"/>Usual range for that relationship</span><span><i className="sw-mark"/>DNA they actually share</span><span className="dna-units">cM = centimorgans, a measure of shared DNA</span></div>
  </figure>
 }
 

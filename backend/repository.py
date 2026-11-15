@@ -1,3 +1,4 @@
+from contextvars import ContextVar
 from copy import deepcopy
 from datetime import datetime, timezone
 import json
@@ -11,8 +12,13 @@ from uuid import uuid4
 ROOT = Path(__file__).resolve().parent.parent
 
 
+# Who is acting, set per request from the X-Kinfold-Researcher header (backend/main.py). A self-declared
+# display name for case handoff, not authentication: this local prototype has no sign-in.
+current_actor = ContextVar("kinfold_actor", default=None)
+
+
 def event(action, description):
-    return {"id": "e-" + uuid4().hex[:12], "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"), "action": action, "description": description}
+    return {"id": "e-" + uuid4().hex[:12], "timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"), "action": action, "description": description, "actor": current_actor.get()}
 
 
 def demo_state():
