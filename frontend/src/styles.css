@@ -559,3 +559,40 @@ h3,.handoff-card h3{font-family:'Figtree',sans-serif!important;font-weight:700!i
 .agent-report{border-left:0!important}
 .file-open:hover,.ledger-row:hover,.log-body:hover{background:#f7f7e1!important}
 .page-heading h1::first-letter{letter-spacing:0}
+
+/* ==== Bigger, bolder, higher contrast; cursive accent in titles; darker green rail ==== */
+:root{--ink:#111111;--muted-ink:#3a3a33}
+body{font-size:16px}
+main,main p,main li,main td,main small,main span,main label,.modal,.modal p{font-weight:500}
+main p,main li{color:#1c1c18}
+.small-muted,.case-meta-item,.file-main small,.story-text small,.handoff-people small,.handoff-next small,.ledger td,.l-detail{color:#2f2f29!important}
+.reason-list li span,.finding p,.case-summary p,.run-panel p,.dna-sentence{font-size:15px!important;line-height:1.6}
+.finding h3,.file-main strong,.story-text strong,.handoff-card h3,.handoff-people strong{font-weight:700!important}
+.finding h3{font-size:15.5px!important}
+.story-text strong{font-size:14px!important}.story-text small{font-size:12.5px!important}
+.ledger td{font-size:14.5px!important}
+.citations button{font-size:12px!important;font-weight:600}
+.tag,.kind-chip,.status-pill,.prog{font-weight:700!important}
+.nav-item{font-size:15.5px!important;font-weight:600!important}
+button.primary,button.secondary,.agent-button,.case-switch-text strong{font-weight:700!important}
+/* Titles: Garamond with an italic second word, like the reference */
+.page-heading h1{font-size:54px!important;font-weight:500!important;line-height:1.02;margin-bottom:6px}
+.page-heading h1 em{font-style:italic;font-weight:500;color:var(--accent)}
+.page-heading>div>p{display:none}
+/* Case meta: bold chips only */
+.case-meta{gap:8px 14px;margin-top:10px}
+.case-meta-item{font-weight:700!important;font-size:14px!important}
+.status-pill{font-size:13px!important;padding:4px 12px}
+/* Sidebar: darker green, room to breathe without the removed text */
+.sidebar{background:#023530!important}
+.sidebar nav{margin-top:34px!important}
+.sidebar .brand{font-size:34px!important}
+.disclosure span{font-size:14.5px!important}
+.explanation p{font-size:15px!important}
+.sidebar .nav-item{white-space:nowrap!important;font-size:15px!important}
+@media(max-width:720px){
+ .sidebar .brand,.sidebar .nav-item{font-size:0!important}
+ .sidebar .nav-item>span:last-child{display:none!important}
+ .page-heading h1{font-size:38px!important}
+}
+@media(max-width:1200px) and (min-width:721px){.sidebar .nav-item{font-size:14px!important}.sidebar .brand{font-size:28px!important}}

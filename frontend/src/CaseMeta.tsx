@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Check, Clock, Hash, Users } from 'lucide-react'
+import { Check, Clock, Users } from 'lucide-react'
 import { RESEARCHER_KEY, researcherName } from './api'
 import type { Snapshot } from './types'
 
@@ -11,7 +11,6 @@ const ago = (iso: string) => { const m = Math.round((Date.now() - new Date(iso).
 export function CaseMeta({ s }: { s: Snapshot }) {
  const people = contributors(s), last = s.audit[s.audit.length - 1]
  return <div className="case-meta">
-  <span className="case-meta-item"><Hash size={13}/>{s.case.id}</span>
   <span className={`status-pill st-${s.case.status}`}>{s.case.status.replaceAll('_', ' ')}</span>
   {s.case.synthetic && <span className="status-pill st-synthetic">Synthetic data</span>}
   <span className="case-meta-item"><Users size={13}/>{people.length ? <span className="avatar-stack">{people.slice(0, 4).map(p => <span key={p} className="mini-avatar" title={p}>{initials(p)}</span>)}</span> : null}{people.length ? `${people.length} ${people.length === 1 ? 'researcher' : 'researchers'}` : 'No named researchers yet'}</span>
