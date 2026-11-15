@@ -2,6 +2,7 @@
 import base64
 import hashlib
 import json
+from pathlib import Path
 from fastapi.testclient import TestClient
 import pytest
 from backend.main import create_app
@@ -170,6 +171,29 @@ def test_photographed_record_finds_lena_with_citations_back_to_the_photo(tmp_pat
     assert all(c["end_line"] <= len(boxes) for c in from_photo)  # every cited line has a box on the photo
     sealed = next(d for d in manifest["manifest"]["documents"] if d["id"] == doc_id)
     assert sealed["provenance"]["image_sha256"] == photo["sha256"] and sealed["provenance"]["line_boxes"] == boxes
+
+
+def test_committed_live_recordings_replay_the_printed_clipping_without_a_key(tmp_path, monkeypatch):
+    """The real gemini-3.5-flash transcription and extraction of data/examples/print/hale-birth-clipping.png replay offline."""
+    import backend.extraction as extraction
+    root = Path(__file__).resolve().parents[2]
+    monkeypatch.setattr(extraction, "CACHE", root / "data" / "ai_cache")
+    image = (root / "data" / "examples" / "print" / "hale-birth-clipping.png").read_bytes()
+    with app(tmp_path) as client:
+        client.post("/api/cases/demo", json={})
+        client.post("/api/cases/demo-case/investigate", json={})
+        client.post("/api/cases/demo-case/documents", json={"name": "synthetic-hale-obituary.txt", "text": OBITUARY})
+        photo = add(client, data=image, name="Camden Clarion clipping (photo)").json()["photos"][0]
+        t = client.post(f"/api/cases/demo-case/photos/{photo['id']}/transcribe").json()["photos"][0]["transcription"]
+        assert t["source"] == "replay" and t["model"] == "gemini-3.5-flash" and len(t["lines"]) == 13
+        client.post(f"/api/cases/demo-case/photos/{photo['id']}/confirm", json={"lines": [l["text"] for l in t["lines"]]})
+        result = client.post("/api/cases/demo-case/investigate", json={}).json()
+    doc_id = result["photos"][0]["document_id"]
+    lena = next(p for p in result["people"] if p["name"] == "Lena Hale")
+    lead = next(c for c in result["candidates"] if c["person_id"] == lena["id"])
+    assert lead["status"] == "possible" and lead["dna_checks"][0]["status"] == "consistent"
+    assert any(c["document_id"] == doc_id for c in lead["citations"])
+    assert any(e["action"] == "ai_extraction" and "replay" in e["description"] and "(photo)" in e["description"] for e in result["audit"])
 
 
 def test_photo_upload_body_limit_is_scoped_to_the_photo_endpoint(tmp_path, cache):

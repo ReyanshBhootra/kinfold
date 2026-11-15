@@ -1,0 +1,31 @@
+{
+  "provider": "gemini",
+  "model": "gemini-3.5-flash",
+  "prompt_version": "kinfold-extract-v1",
+  "recorded_at": "2026-11-15T04:04:27.277374Z",
+  "document_sha256": "29ca269ca6537fbb2e9d263ac7e84d8fb263a90609090353ab6892583ae406f3",
+  "raw": {
+    "claims": [
+      {
+        "kind": "birth",
+        "person": "Lena Hale",
+        "other_person": null,
+        "year": 1972,
+        "place": "Cooper Hospital",
+        "quote": "their first child, a daughter, Lena Hale, born\nJune 4, 1972, at Cooper Hospital.",
+        "start_line": 6,
+        "end_line": 7
+      },
+      {
+        "kind": "parent",
+        "person": "George Hale",
+        "other_person": "Lena Hale",
+        "year": 1972,
+        "place": null,
+        "quote": "Mr. and Mrs. George Hale, of 214 Linden St.,\nCamden, New Jersey, announce the birth of\ntheir first child, a daughter, Lena Hale, born\nJune 4, 1972, at Cooper Hospital.",
+        "start_line": 4,
+        "end_line": 7
+      }
+    ]
+  }
+}
