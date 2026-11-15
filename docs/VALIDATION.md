@@ -1,10 +1,10 @@
 # Validation record
 
-Observed November 14, 2026 (America/New_York); checks re-run November 15, 2026 01:40 UTC on `main` (`12820ad`). The local product is runnable. Team workflow is described in AGENTS.md.
+Observed November 14, 2026 (America/New_York); checks re-run November 15, 2026 on `main` (`063bc07`). The local product is runnable. Team workflow is described in AGENTS.md.
 
 | Check | Observed result |
 | --- | --- |
-| `.venv/bin/python -m pytest backend/tests research/genetics/tests -q` | **100 passed** (60 backend, 40 research; November 15 re-run). Covers extraction/citation integrity, evidence-driven exclusions, renaming/new-candidate tests, constraint abstention, conflicting parent chronology/cycles, upload/continuation, persistence, prompt injection, API bounds/errors, manifests, the DNA range check, AI extraction verification and replay, per-item annotation validation, anchoring (mocked subprocess, plus the real `anchor.mjs` preview), CRLF uploads, the deepagents investigator with a scripted model, and the hash-verified research artifacts. |
+| `.venv/bin/python -m pytest backend/tests research/genetics/tests -q` | **101 passed** (61 backend, 40 research; re-run on `063bc07`). Covers extraction/citation integrity, evidence-driven exclusions, renaming/new-candidate tests, constraint abstention, conflicting parent chronology/cycles, upload/continuation, persistence, prompt injection, API bounds/errors, manifests, the DNA range check, AI extraction verification and replay, per-item annotation validation, anchoring (mocked subprocess, plus the real `anchor.mjs` preview), CRLF uploads, the deepagents investigator with a scripted model, and the hash-verified research artifacts. |
 | `.venv/Scripts/python scripts/evaluate.py` | **PASS** on 2 separate synthetic families: 6 candidate decisions, 36 cited references. Expected outcomes live in evaluation fixtures only, outside runtime ranking inputs. This small correctness check is not scientific genetic validation. |
 | `npm run test:integration -- --reset-demo` | **PASS** against the actual running HTTP API (82 citation references on the November 15 re-run), stable manifests, cross-language Python/JavaScript digest equality, upload, continued investigation, old-digest mismatch, and honest not_anchored status. This command resets the synthetic case. |
 | `npm run build` | **PASS**, strict TypeScript plus production Vite bundle. |
@@ -41,7 +41,7 @@ Updated November 14–15, 2026 (UTC) after real runs. Each entry names the PR or
 
 ## Material limits
 
-The deterministic parser recognizes documented line-level patterns, not arbitrary document semantics. Unsupported prose remains available and is labeled reviewed without structured extraction. No PDF/OCR or DNA sequence ingestion, calibrated genetic likelihood, identity confirmation, model training, public-profile scraping or real-person identification is implemented. Model annotations remain separate from deterministic ranking and require human review. Local single-worker persistence is not a deployed multi-user forensic system. Arlequin genetic genealogy eligibility remains unconfirmed.
+The deterministic parser recognizes documented line-level patterns, not arbitrary document semantics. Unsupported prose remains available and is labeled reviewed without structured extraction. No PDF/OCR or DNA sequence ingestion, calibrated genetic likelihood, identity confirmation, model training, public-profile scraping or real-person identification is implemented. Model annotations remain separate from deterministic ranking and require human review. Local single-worker persistence is not a deployed multi-user forensic system. The Arlequin team confirmed the project fits its AI-Driven Forensics track (#4).
 
 Exact setup and parser rules: docs/LIVE_ADAPTERS.md. Optional devnet verification: blockchain/README.md. Genetic research stretch: docs/GENETIC_RESEARCH_NEXT.md.
 

@@ -20,7 +20,7 @@
    - the Solana Explorer link for the Hale-state anchor (under "Built with").
    - There's no hosted demo; it runs locally (README → "Run locally").
 7. **Video demo link:** YouTube or Vimeo URL from #5, at most 2 minutes. Devpost needs a public or unlisted link.
-8. **Prize tracks / opt-in prizes:** select exactly the tracks under "Prize tracks". Add Arlequin only if the sponsor confirms (#4).
+8. **Prize tracks / opt-in prizes:** select exactly the tracks under "Prize tracks", starting with **Arlequin (AI-Driven Forensics)**, which the sponsor confirmed (#4).
 9. **Team members:** add both teammates' Devpost accounts so both are on the submission.
 10. **Submit before 08:00 ET.** Devpost lets you edit after submitting, until the deadline.
 
@@ -91,8 +91,8 @@ Tags: `react`, `typescript`, `vite`, `python`, `fastapi`, `pydantic`, `google-ge
 - **Solana devnet:** the lead timeline. Verified anchor of the Hale state (Lena Hale possible): https://explorer.solana.com/tx/4qWrFgPTGC8wxif392icaBQM7ijpqc289k48GWndCpMFhM4q4k3yZ5MfAwEoVBrE9qeMuN3q9BCHbTj48jRWpwFV?cluster=devnet
 
 ## Prize tracks
+- **Arlequin, AI-Driven Forensics** (the sponsor confirmed the project fits, #4): AI applied to forensic genetic genealogy with accountability built in. DNA range checks on a recorded pedigree, word-for-word quote verification of every AI claim, an agent that can't change outcomes, a case handoff trail, and tamper-evident anchors of each research state. Synthetic data only; it identifies no one.
 - **Best Use of Gemini AI:** Gemini reads messy historical records into typed claims, and every claim must survive a word-for-word quote check before it counts. Real `gemini-3.5-flash` runs are recorded and replayed with re-verification. Live annotations are also verified.
-- **[DECIDE: Arlequin AI-Driven Forensics, #4]** We've emailed the sponsor and are waiting for an answer. List it first only if they confirm the project fits.
 - **MongoDB Atlas:** cases persist in Atlas, verified with a real cluster. This is storage only, so describe it plainly.
 - **Solana:** "Every lead gets a tamper-evident timeline". A judge or defence attorney can later check what was known, when, and what the AI actually said, without trusting the lab. These are real devnet Memo anchors, verified on-chain from the app (Explorer link above). An anchor proves the state existed unchanged; it doesn't prove the records are true.
 - **LangChain "Best use of deepagents":** the agent does an investigator's job. It decides what to read and which relationship hypotheses to test against the DNA, then proposes next steps. It holds only allow-listed tools over deterministic code and can't change outcomes. A live `gemini-3.5-flash` run is recorded in `data/agent_runs/` and replays with every result recomputed.
