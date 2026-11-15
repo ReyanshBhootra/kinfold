@@ -187,7 +187,17 @@ def test_audit_events_record_the_self_declared_researcher(client):
     assert long["audit"][-1]["actor"] == "R" * 60
     anon = client.post("/api/cases/demo-case/documents", json={"name": "b.txt", "text": "Another synthetic note."}).json()
     assert anon["audit"][-1]["actor"] is None
-    # The actor lives in the audit trail only; the evidence digest doesn't depend on who did the work.
-    before = client.get("/api/cases/demo-case/manifest").json()["digest"]
-    client.post("/api/cases/demo-case/anchors/1/verify", headers={"X-Kinfold-Researcher": "Someone else"})
-    assert client.get("/api/cases/demo-case/manifest").json()["digest"] == before
+
+
+def test_researcher_name_never_changes_the_evidence_digest(tmp_path):
+    """The same action, with and without a researcher name, in two fresh cases: identical manifests,
+    different audit actors. (Investigate is deterministic on the fixture; uploads would add random ids.)"""
+    digests, actors = [], []
+    for i, headers in enumerate([{"X-Kinfold-Researcher": "Det. Shippy"}, {}]):
+        with TestClient(create_app(JsonRepository(tmp_path / f"case-{i}"), provider=None, extractor=None)) as c:
+            c.post("/api/cases/demo", json={})
+            result = c.post("/api/cases/demo-case/investigate", json={"question": "", "max_steps": 3}, headers=headers).json()
+            actors.append(result["audit"][-1]["actor"])
+            digests.append(c.get("/api/cases/demo-case/manifest").json()["digest"])
+    assert actors == ["Det. Shippy", None]
+    assert digests[0] == digests[1]
