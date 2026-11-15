@@ -39,7 +39,7 @@ KinFold works on a disclosed, fully **synthetic** unidentified-person case. An u
 
 1. **The DNA says no.** KinFold builds the family tree from the records, with every edge citing a line span, and follows the recorded parent links from each lead to the DNA match. All three would be Ruth's nieces, who usually share **1,201–2,282 cM**. They share 220. All three are excluded, with the reason drawn on screen as a DNA range bar, plus record-based reasons (a birth year outside the estimate, an alive record after the estimated death, conflicting birth sources).
 2. **The AI must quote its sources.** We add two messy records, an obituary and a 1972 birth announcement. Gemini proposes typed claims, each with a quote and line span. KinFold keeps a claim **only if the quote is word for word in those lines and names every person and year** it asserts. In our recorded run, Gemini proposed 13 claims: **11 verified, 2 rejected**, each shown with its reason. Both rejections were probably true, but the quote didn't say it, and we'd rather lose a true claim than trust an unsupported one. Rejected claims never reach the tree.
-3. **A new lead appears.** The verified lines reveal a branch nobody named: Frances Hale, Arthur Mercer's sister, and her granddaughter **Lena Hale**. KinFold proposes Lena itself ("Found by Kinfold"): born in 1972, inside the estimated range, and as Ruth's first cousin once removed she'd usually share **102–980 cM**, so 220 fits. Her birthplace is only "Cooper Hospital", so KinFold awards no region point it can't support.
+3. **A new lead appears.** The verified lines reveal a branch nobody named: Frances Hale, Arthur Mercer's sister, and her granddaughter **Lena Hale**. KinFold proposes Lena itself ("Found by KinFold"): born in 1972, inside the estimated range, and as Ruth's first cousin once removed she'd usually share **102–980 cM**, so 220 fits. Her birthplace is only "Cooper Hospital", so KinFold awards no region point it can't support.
 4. **An agent double-checks the lead.** A LangChain deep agent investigates Lena: it reads the records, tests **7 relationship hypotheses** against the DNA (4 fit, 3 don't), and submits claims to the same quote verifier (**7 of 8 verified**; it fixed the rejected one). KinFold's own code computes every result, and **the agent can't change any lead**.
 5. **Every lead gets a tamper-evident timeline.** One click anchors a hash of the current state (cited records, the AI's raw outputs, lead decisions) on **Solana devnet**. If the evidence changes later, KinFold says the current state differs from the anchor. Only the hash goes on-chain: no names, DNA or records.
 
@@ -71,7 +71,7 @@ KinFold works on a disclosed, fully **synthetic** unidentified-person case. An u
 - Real live runs of every integration (Gemini, deepagents, MongoDB Atlas, three Solana devnet anchors), recorded in `docs/VALIDATION.md`, and the whole demo still runs offline without keys.
 
 ## What we tested
-- `pytest backend/tests research/genetics/tests`: **101 passed**. `npm run build`, `npm run test:anchor` (4) and `npm run test:package` (3) pass.
+- `pytest backend/tests research/genetics/tests`: **114 passed**, including 12 for paper to proof. `npm run build`, `npm run test:anchor` (4) and `npm run test:package` (3) pass.
 - `scripts/evaluate.py`: two held-out synthetic families with 6 candidate decisions. The full engine got 6/6 against 4/6 for a birth-range-only baseline. That's a small correctness check, not scientific validation.
 - `npm run test:integration` against the real HTTP API: locates every citation, checks digests across Python and JavaScript, and confirms that an old digest stops matching after new evidence.
 
@@ -79,7 +79,10 @@ KinFold works on a disclosed, fully **synthetic** unidentified-person case. An u
 Evidence integrity isn't evidence truth. A shared-cM value fits several relationships, and a perfectly located quote can still be misread. The most useful thing a tool like this can do is show its work, keep its doubts visible, and leave the decision to a person.
 
 ## What's next
-- **Paper to proof:** photograph a physical record, transcribe it line by line, and cite back to the photo (in progress).
+- **Paper to proof (backend built, screens next):** photograph a paper record, and Gemini transcribes it line by line, with a box for each line. A person confirms every line against the photo, and each verified claim then cites the lines of the photo it came from. The photo's SHA-256 is sealed into the anchor.
+  - **Done:** the API and its tests are built. They include two real recorded `gemini-3.5-flash` runs: a printed synthetic clipping (13 lines, all correct) and a handwritten synthetic Bible page.
+  - **What the handwritten page showed:** Gemini copied the misspellings as written, and Lena Hale was found from it with photo-line citations. A second read silently "corrected" the spelling, which is why a person confirms every line.
+  - **Not built yet:** the capture and review screens, so paper to proof isn't in the demo video.
 - **Name linking** across records ("Patricia Hale" and "the former Patricia Novak") without guessing.
 - **Real sign-in and signed audit entries**, so the handoff trail is attributable, not self-declared.
 - **Validation:** relationship inference on simulated pedigrees with whole-family holdouts and declared baselines (`research/genetics/`).

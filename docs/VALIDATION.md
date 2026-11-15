@@ -1,10 +1,10 @@
 # Validation record
 
-Observed November 14, 2026 (America/New_York); checks re-run November 15, 2026 on `main` (`063bc07`). The local product is runnable. Team workflow is described in AGENTS.md.
+Observed November 14, 2026 (America/New_York); checks re-run November 15, 2026 on `main` (`063bc07`); pytest re-run on `5210dc1`, after #27 and #32 merged. The local product is runnable. Team workflow is described in AGENTS.md.
 
 | Check | Observed result |
 | --- | --- |
-| `.venv/bin/python -m pytest backend/tests research/genetics/tests -q` | **101 passed** (61 backend, 40 research; re-run on `063bc07`). Covers extraction/citation integrity, evidence-driven exclusions, renaming/new-candidate tests, constraint abstention, conflicting parent chronology/cycles, upload/continuation, persistence, prompt injection, API bounds/errors, manifests, the DNA range check, AI extraction verification and replay, per-item annotation validation, anchoring (mocked subprocess, plus the real `anchor.mjs` preview), CRLF uploads, the deepagents investigator with a scripted model, and the hash-verified research artifacts. |
+| `.venv/bin/python -m pytest backend/tests research/genetics/tests -q` | **114 passed** (74 backend, 40 research; re-run on `5210dc1`, including 12 paper-to-proof tests). Covers extraction/citation integrity, evidence-driven exclusions, renaming/new-candidate tests, constraint abstention, conflicting parent chronology/cycles, upload/continuation, persistence, prompt injection, API bounds/errors, manifests, the DNA range check, AI extraction verification and replay, per-item annotation validation, anchoring (mocked subprocess, plus the real `anchor.mjs` preview), CRLF uploads, the deepagents investigator with a scripted model, the hash-verified research artifacts, and paper to proof (photo intake and hashing, a tampered stored image refused, transcription replay only for the exact bytes, line-count-checked confirm with corrections, and end-to-end photo-line citations sealed into the manifest). |
 | `.venv/Scripts/python scripts/evaluate.py` | **PASS** on 2 separate synthetic families: 6 candidate decisions, 36 cited references. Expected outcomes live in evaluation fixtures only, outside runtime ranking inputs. This small correctness check is not scientific genetic validation. |
 | `npm run test:integration -- --reset-demo` | **PASS** against the actual running HTTP API (82 citation references on the November 15 re-run), stable manifests, cross-language Python/JavaScript digest equality, upload, continued investigation, old-digest mismatch, and honest not_anchored status. This command resets the synthetic case. |
 | `npm run build` | **PASS**, strict TypeScript plus production Vite bundle. |
@@ -38,6 +38,11 @@ Updated November 14–15, 2026 (UTC) after real runs. Each entry names the PR or
   - two earlier states: [2HnRhAr9…poRAV](https://explorer.solana.com/tx/2HnRhAr9iAqJ8FqpVuD31CgVXizZQVQfYPbVJT6oYXUCMcRG5ymKG1D1zLVbJ1ZVw8WFxvFfgDTewxwB9NnpoRAV?cluster=devnet) and [5tPFJY6B…yXRwW](https://explorer.solana.com/tx/5tPFJY6Bg78JTAh8QWBfNuK6yxi27AUkTkt5QJ5xeZP4tM7x7d9RE1bMVXxPPrjoxfDqv86Ng8aEdNDr1R6yXRwW?cluster=devnet).
 
   The UI says "anchored" only for a confirmed anchor of the current digest; otherwise it says "not anchored". An anchor proves a state existed unchanged; it does not prove the records are true.
+- **Paper to proof (Gemini vision, #26/#27, backend and API only):** two live `gemini-3.5-flash` transcriptions on 2026-11-15 (UTC), recorded in `data/ai_cache/transcriptions/` and replayed offline only for the exact same image bytes:
+  - a printed synthetic clipping (`data/examples/print/hale-birth-clipping.png`): 13 lines, all correct; 2 of 2 extracted claims verified;
+  - a handwritten synthetic Bible page photographed on a phone (`hale-bible-handwritten.jpg`): 6 lines, misspellings kept as written; 3 of 3 claims verified; Lena Hale cited to photo lines 2–4.
+  
+  A second live read of the handwritten page silently corrected its spelling, which is why a person must confirm every line. The capture and review screens are not built, so this is tested through the API and pytest only. Details: `docs/PAPER_TO_PROOF.md`.
 
 ## Material limits
 
