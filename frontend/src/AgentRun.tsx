@@ -10,9 +10,9 @@ const kindText = (c: {kind: string; person: string; other_person: string | null;
 export default function AgentRun({run, citations, openSource}: {run: AgentRunRecord; citations: (items: Citation[]) => ReactNode; openSource: (id: string) => void}) {
  const when = new Date(run.source === 'live' ? run.ran_at : run.recorded_at).toLocaleString()
  return <section className="agent-run" aria-label="Lead investigator run">
-  <div className="agent-run-head"><span className="eyebrow"><Bot size={13}/>LEAD INVESTIGATOR · LANGCHAIN DEEPAGENTS</span>
+  <div className="agent-run-head">
    <h2>{run.target.name}: what the agent checked</h2>
-   <p className="small-muted">{run.source === 'live' ? `Live run · ${run.model} · ${when}` : `Replay of a recorded agent run · ${run.model} · recorded ${when}`} · {run.steps.length} tool calls · lead statuses unchanged</p>
+   <p className="small-muted"><Bot size={13} aria-hidden="true"/> Lead investigator (LangChain deepagents) · {run.source === 'live' ? `Live run · ${run.model} · ${when}` : `Replay of a recorded agent run · ${run.model} · recorded ${when}`} · {run.steps.length} tool calls · lead statuses unchanged</p>
    {run.note && <p className="agent-warning"><AlertTriangle size={14}/>{run.note}</p>}
    {run.stale && <p className="agent-warning"><AlertTriangle size={14}/>New evidence arrived after this run. Run the agent again to check the current records.</p>}
   </div>
