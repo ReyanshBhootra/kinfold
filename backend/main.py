@@ -13,16 +13,24 @@ from .repository import configured_repository, event
 from .providers import ProviderError, configured_provider
 from .extraction import configured_extractor, extract_document
 from . import anchors as anchoring
+from . import investigator
+from pydantic import BaseModel, ConfigDict, Field
 
 load_dotenv()
 _UNSET = object()
 
 
-def create_app(repository=None, provider=None, extractor=_UNSET):
+class AgentRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    person_id: str | None = Field(default=None, max_length=80)
+
+
+def create_app(repository=None, provider=None, extractor=_UNSET, agent=_UNSET):
     app = FastAPI(title="Kinfold evidence research API", version="0.1.0")
     app.state.repository = repository or configured_repository()
     app.state.provider = provider if provider is not None else configured_provider()
     app.state.extractor = configured_extractor() if extractor is _UNSET else extractor
+    app.state.agent = investigator.configured_chat() if agent is _UNSET else (agent or (None, None))
     app.add_middleware(CORSMiddleware, allow_origin_regex=r"^http://(127\.0\.0\.1|localhost)(:\d+)?$", allow_methods=["GET", "POST"], allow_headers=["Content-Type"])
 
     @app.exception_handler(RequestValidationError)
@@ -54,6 +62,9 @@ def create_app(repository=None, provider=None, extractor=_UNSET):
         current = derive(state)
         digest = evidence_manifest(current)["digest"]
         current["anchors"] = [anchoring.public(a, digest) for a in state.get("anchors", [])]
+        run = state.get("agent_run")
+        # The latest agent run, also outside the manifest. Marked stale once the records it read have changed.
+        current["agent_run"] = {**run, "stale": run["records_key"] != investigator.recording_key(current, run["target"]["person_id"])} if run else None
         return current
 
     def manifest_for(state):
@@ -172,6 +183,31 @@ def create_app(repository=None, provider=None, extractor=_UNSET):
     def verify(case_id: str, body: VerifyRequest):
         actual = evidence_manifest(derive(get(case_id)))["digest"]
         return {"matches": body.digest.lower() == actual, "expected_digest": body.digest.lower(), "actual_digest": actual}
+
+    @app.post("/api/cases/{case_id}/agent")
+    def agent_run(case_id: str, body: AgentRequest):
+        """Let the lead-investigator agent check one lead. Its report is stored outside the evidence manifest."""
+        with app.state.repository.lock:
+            current = derive(get(case_id))
+        open_leads = sorted((c for c in current["candidates"] if c["status"] != "excluded"), key=lambda c: c["rank"])
+        target = body.person_id or (open_leads[0]["person_id"] if open_leads else None)
+        if target is None or target not in {c["person_id"] for c in current["candidates"]}:
+            raise HTTPException(409, "No open candidate lead to investigate. Run the investigation first.")
+        chat, model_name = app.state.agent
+        try:  # the model calls run outside the repository lock
+            run = investigator.investigate_lead(current, target, chat, model_name)
+        except ProviderError as error:
+            raise HTTPException(409, str(error)) from None
+        with app.state.repository.lock:
+            state = get(case_id)
+            run["records_key"], run["case_version"] = investigator.recording_key(current, target), state["case"]["version"]
+            state["agent_run"] = run
+            label = "live" if run["source"] == "live" else f"replay of a recorded {run['model']} run from {run['recorded_at']}"
+            state["audit"].append(event("agent_run", f"Lead investigator ({label}) checked {run['target']['name']}: {len(run['steps'])} tool calls, "
+                                                     f"{len(run['dna_tests'])} DNA hypotheses tested, {len(run['verified_claims'])} claims verified, "
+                                                     f"{len(run['rejected_claims'])} rejected. Lead statuses unchanged." + (f" {run['note']}" if run["note"] else "")))
+            app.state.repository.put(state)
+            return snap(state)
 
     @app.post("/api/cases/{case_id}/anchor")
     def anchor(case_id: str):

@@ -22,6 +22,11 @@ Every finding opens the source record with the cited lines highlighted. Research
 - **Backend:** FastAPI and Pydantic. A deterministic pipeline turns claims into relationships, findings and leads. Atomic local JSON storage keeps the demo runnable without accounts.
 - **DNA check:** finds the closest common ancestors through recorded parent links. It compares observed shared cM with a reference range for that relationship: 99% Ped-sim intervals for first to third cousins, approximate Shared cM Project ranges otherwise. It's a range-consistency check, not a likelihood.
 - **Gemini extraction:** `gemini-3.5-flash` with structured JSON output. Strict Pydantic models validate the reply, and a separate verifier checks each quote against the document. Every real response is recorded with its model and timestamp, so the demo can replay it offline and re-verify it, clearly labelled "replay of a recorded response". We never fabricate a live AI result.
+- **Lead investigator (LangChain deepagents):** a restricted `create_deep_agent` harness investigates one lead at a time. It plans, searches and reads records, tests DNA hypotheses against reference ranges, submits claims to the same quote verifier, proposes next steps and writes a cautious report. Kinfold's own tools compute every result; the agent only chooses what to check. It cannot change lead statuses, and identity claims in its report are refused. Each run's decisions are recorded and replayed with every result recomputed. In our recorded live `gemini-3.5-flash` run, the agent:
+- read all 12 records;
+- tested 7 relationship hypotheses against 220 cM (4 fit, 3 didn't);
+- had 7 of 8 claims verified, then fixed the rejected one;
+- rewrote its report after Kinfold refused the first draft as too long.
 - **Safety:** uploaded documents are treated as untrusted evidence, never as instructions. Tests cover prompt injection.
 
 ## Challenges
@@ -58,6 +63,8 @@ MongoDB Atlas: case storage. Verified on a real Atlas cluster; the case survives
 - **[DECIDE: Arlequin AI-Driven Forensics, #4]** We've emailed the sponsor and are waiting for an answer. List it first only if they confirm the project fits.
 - **MongoDB Atlas:** cases persist in Atlas, verified with a real cluster. This is storage only, so describe it plainly.
 - **[DECIDE: Solana, #3]**: list only if verified as above.
+- **LangChain "Best use of deepagents":** a deep agent that plans and investigates a lead with real forensic tools. Deterministic code recomputes every conclusion, so the run is replayable. A live `gemini-3.5-flash` run is recorded in `data/agent_runs/`.
+- **Amazon "Best Practical AI":** the agent reasons, plans and takes multi-step actions. Its tools are bounded, every step is in a cited audit trail, and it has no ability to change outcomes.
 
 ## Demo video
 **[DECIDE: link from #5]** Not recorded yet.
