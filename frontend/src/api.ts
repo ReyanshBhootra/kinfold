@@ -2,7 +2,7 @@ const base = (import.meta as ImportMeta & {env: {VITE_API_URL?: string}}).env.VI
 // Self-declared researcher name for the case activity log (not authentication). Set from the top-bar badge.
 export const RESEARCHER_KEY = 'kinfold-researcher'
 export function researcherName(): string { try { return localStorage.getItem(RESEARCHER_KEY) || '' } catch { return '' } }
-const researcherHeader = (): Record<string, string> => { const n = researcherName(); return n ? {'X-Kinfold-Researcher': n} : {} }
+const researcherHeader = (): Record<string, string> => { const n = researcherName(); return n ? {'X-KinFold-Researcher': n} : {} }
 export async function api<T>(path: string, body?: unknown): Promise<T> {
  const controller = new AbortController(); const timeout = setTimeout(() => controller.abort(), 120000)
  try {

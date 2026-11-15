@@ -6,7 +6,7 @@ import type { AgentRunRecord, Citation } from './types'
 const kindText = (c: {kind: string; person: string; other_person: string | null; year: number | null}) =>
  `${c.kind}: ${c.person}${c.other_person ? ` → ${c.other_person}` : ''}${c.year ? ` (${c.year})` : ''}`
 
-/** The latest lead-investigator run. Every result shown here was computed by Kinfold's own tools, not written by the model. */
+/** The latest lead-investigator run. Every result shown here was computed by KinFold's own tools, not written by the model. */
 /** The agent writes its report as dashed prose ("Intro. Heading Words: - point - point Next Heading: - point").
  *  Show it as headings and bullets. Text is unchanged apart from dropping internal person ids. */
 function formatReport(text: string) {
