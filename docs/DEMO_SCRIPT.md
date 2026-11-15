@@ -22,7 +22,7 @@
 > "But one weak link can point at the wrong person. An innocent filmmaker once became a murder suspect because his father's DNA nearly matched. Add AI writing confident family trees, and every link has to be checkable."
 
 ### 0:40–0:55 · The DNA says no
-**On screen:** Candidate leads. Point at the storyline, then at Clara's red DNA bar.
+**On screen:** Candidate leads. Point at the storyline, then click Clara Mercer (under Excluded) to open her card and show the DNA bar.
 > "In this fully synthetic case, someone shares 220 centimorgans of DNA with Ruth, and the records point at her three nieces. But a niece should share 1,200 to 2,300, so Kinfold rules all three out and shows why."
 
 ### 0:55–1:20 · AI reads messy records, but must quote them
@@ -34,7 +34,7 @@
 > "Those verified lines reveal a new branch, and Kinfold finds **Lena Hale** on its own: born in 1972, and as a first cousin once removed, 220 fits."
 
 ### 1:35–1:47 · An agent double-checks it
-**On screen:** the agent panel. Point at the seven-hypothesis chart.
+**On screen:** below the leads, click **Agent investigation of Lena Hale** to open it, then point at the seven-hypothesis chart.
 > "A LangChain deep agent then double-checks Lena. It reads the records and tests seven relationships against the DNA. Kinfold computes every result, and the agent can't change any lead."
 
 ### 1:47–1:55 · Tamper-evident timeline
