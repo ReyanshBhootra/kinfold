@@ -34,6 +34,11 @@
 - The model gave her birthplace only as "Cooper Hospital", so Kinfold does not award a region point it can't support.
 - Open a citation to show the exact line behind each step.
 
+**Optional, 10–15 s, only if a recorded agent run exists in `data/agent_runs/`: the agent checks the lead.**
+- On Lena Hale's card, select **Investigate with the agent**. The panel shows what the deepagents investigator chose to check: the records it read, the DNA hypotheses it tested (first cousin once removed is consistent, niece is not), the claims Kinfold verified or rejected, and its next steps.
+- "The agent chooses what to check; Kinfold's own code computes every answer. It can't change a lead, and it isn't allowed to claim an identity."
+- With no key set, the panel says "Replay of a recorded agent run". Without a recording, the button explains that no agent is configured. Skip this beat in that case.
+
 **1:45–1:55: Every lead gets a tamper-evident timeline.**
 - Open **Evidence integrity**, then select **Anchor this state**. This needs `KINFOLD_SOLANA_KEYPAIR` (see the README). The timeline shows the new anchor: Lena Hale as a new lead and 2 records added, with an Explorer link.
 - "A hash of the cited records, the AI's raw outputs and the lead decisions is now on Solana devnet. Anyone holding the research pack can check what was known, when, and what the AI actually said. It proves this state existed unchanged; it doesn't prove the records are true."

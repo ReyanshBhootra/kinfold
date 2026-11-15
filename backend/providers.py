@@ -200,7 +200,8 @@ class DeepAgentsProvider:
 
     def extract(self, snapshot, question):
         from langchain_google_genai import ChatGoogleGenerativeAI
-        model = ChatGoogleGenerativeAI(model=self.model, api_key=self.key, timeout=20, max_retries=0, temperature=0)
+        # Retries with backoff on 429/5xx (live runs hit 504s with no retry); the loop itself stays bounded.
+        model = ChatGoogleGenerativeAI(model=self.model, api_key=self.key, timeout=60, max_retries=3, temperature=0)
         trace = []
         agent, observations = build_deep_agent(model, snapshot, trace)
         run = agent.invoke({"messages": [{"role": "user", "content": json.dumps({"question": question or "Review contradictions and source-backed observations.", "known_people": [{"id": p["id"], "name": p["name"]} for p in snapshot["people"]]}, ensure_ascii=False)}]}, config={"recursion_limit": 24})

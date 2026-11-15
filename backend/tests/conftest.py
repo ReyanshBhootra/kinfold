@@ -13,3 +13,4 @@ os.environ["GEMINI_API_KEY"] = ""
 os.environ["GOOGLE_API_KEY"] = ""
 os.environ["MONGODB_URI"] = ""
 os.environ["KINFOLD_AI_CACHE"] = tempfile.mkdtemp(prefix="kinfold-test-cache-")
+os.environ["KINFOLD_AGENT_RUNS"] = tempfile.mkdtemp(prefix="kinfold-test-agent-runs-")
