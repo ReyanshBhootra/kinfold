@@ -547,6 +547,7 @@ h3,.handoff-card h3{font-family:'Figtree',sans-serif!important;font-weight:700!i
 .secondary,.quiet,.back-button,.log-filter,.group-switch{background:var(--panel)!important;border-color:var(--line)!important}
 .secondary:not(:disabled):hover,.quiet:not(:disabled):hover{border-color:var(--ink)!important}
 .group-switch button.on,.log-filter.lc-all.on,.story-next span{background:var(--accent)!important;color:#fffeeb!important}
+.log-filter.on:not(.lc-all){background:var(--t)!important;border-color:var(--t)!important;color:#fff!important}
 .group-switch{background:#e4e4d0!important;border:0!important}
 .group-switch button.on{box-shadow:none}
 /* Focus and selection in brand green */
