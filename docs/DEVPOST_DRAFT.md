@@ -69,7 +69,7 @@ Every finding opens the source record with the cited lines highlighted. Research
 - Backend test suite (pytest): source spans, contradictions, evidence-driven candidate changes, DNA ranges, extraction verification, the Gemini schema regression, prompt injection, uploads, persistence and exports.
 - `scripts/evaluate.py`: two held-out synthetic families with 6 candidate decisions. The full engine got 6/6 against 4/6 for a birth-range-only baseline. That's a small correctness check, not scientific validation.
 - `npm run test:integration`: runs against the real HTTP API. It locates every citation, checks digests across Python and JavaScript, uploads a record and confirms that an old digest no longer matches.
-- `pytest backend/tests research/genetics/tests`: **100 passed**. `npm run build`, `npm run test:anchor` (4) and `npm run test:package` (3) also pass. Re-run on the final commit before submitting if anything changes.
+- `pytest backend/tests research/genetics/tests`: **101 passed**. `npm run build`, `npm run test:anchor` (4) and `npm run test:package` (3) also pass. Re-run on the final commit before submitting if anything changes.
 - **Live runs, all recorded in `docs/VALIDATION.md`:** Gemini extraction and annotations, the deep agent's investigation, MongoDB Atlas persistence, and three Solana devnet anchors.
 
 ## What we learned
