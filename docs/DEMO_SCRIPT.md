@@ -4,7 +4,7 @@
 
 ## Before you record
 - Pull the latest `main`, leave `GEMINI_API_KEY` **unset** (so the AI and agent steps replay the real recorded runs exactly), and keep `KINFOLD_SOLANA_KEYPAIR` set for the anchor beat. Run `npm start`, open http://127.0.0.1:5173, and zoom the browser to 110–125% so the text is readable in the video.
-- Reset the synthetic case (Research log → Reset synthetic case). Have `data/examples/synthetic-hale-obituary.txt` and `synthetic-hale-birth-announcement.txt` ready.
+- Click the round badge in the top-right corner and set your name, so the Case activity view shows who did each step. Then reset the synthetic case: open the **Case** menu at the top left and choose **Start a fresh copy** (also under Case activity → Reset synthetic case). Have `data/examples/synthetic-hale-obituary.txt` and `synthetic-hale-birth-announcement.txt` ready.
 - To save time on camera, do the uploads and the agent run **before recording** and cut straight to the result. The storyline at the top shows each step's state, so the jump is easy to follow.
 - **Turn on captions** (YouTube auto-captions, then fix the names). Many judges watch without sound.
 - Record the voice-over separately if you can, and keep each beat to one take.
@@ -40,6 +40,8 @@
 ### 1:47–1:55 · Tamper-evident timeline
 **On screen:** Evidence integrity, then Anchor this state, then Verify. The Lead timeline shows "On-chain: transaction found".
 > "Finally, we anchor a hash of this exact state on Solana, so anyone can later prove what was known, and when."
+
+Optional, if you have spare seconds: show **Case activity**. It lists who worked on the case, what each person did, and where the case stands, so the next investigator can pick it up.
 
 ### 1:55–2:00 · Close
 **On screen:** the storyline with all six steps checked.
