@@ -596,3 +596,72 @@ button.primary,button.secondary,.agent-button,.case-switch-text strong{font-weig
  .page-heading h1{font-size:38px!important}
 }
 @media(max-width:1200px) and (min-width:721px){.sidebar .nav-item{font-size:14px!important}.sidebar .brand{font-size:28px!important}}
+
+/* =================== DISTILL (impeccable): fewer boxes, said once, structure from type and rules =================== */
+:root{--rule:#d9d9c4;--r:6px}
+/* 1. Sections are not cards: hairline rule + space */
+.case-story,.case-summary,.findings-section,.run-panel,.handoff-card,.explanation,.disclosure,.agent-run,.graph-section,.lead-timeline .timeline-list>li{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
+.case-summary,.findings-section,.graph-section,.run-panel,.agent-run{border-top:1px solid var(--rule)!important;padding:22px 0 0!important;margin-top:8px}
+.case-summary{display:block!important}
+.case-summary h2{font-size:30px!important;margin:0 0 6px}
+.graph-section .section-heading,.findings-section .section-heading{padding:0 0 12px!important;border:0!important}
+.graph-viewport{border:1px solid var(--rule);border-radius:var(--r);background:#fffef6}
+.graph-footer{border:0!important;padding-left:0!important;padding-right:0!important;background:transparent!important}
+.finding{padding:16px 0!important;border:0!important;border-bottom:1px solid var(--rule)!important;background:transparent!important}
+.finding-icon{display:none!important}
+.findings-filters{padding:0!important}
+.run-panel{padding-left:0!important}
+.run-panel h2{font-size:26px!important}
+/* 2. Facts as one sentence */
+.facts-line{display:flex;flex-wrap:wrap;gap:6px 0;margin:14px 0 26px;font-size:16px;color:#2f2f29}
+.facts-line span{padding-right:18px;margin-right:18px;border-right:1px solid var(--rule)}
+.facts-line span:last-child{border-right:0}
+.facts-line b{font-family:'EB Garamond',Georgia,serif;font-size:26px;font-weight:600;color:var(--ink);margin-right:5px;vertical-align:-2px}
+.facts-line .warn b{color:var(--warn)}
+/* 3. Notices: a quiet line, not a banner */
+.disclosure{padding:0!important;margin:0 0 6px!important;color:#3a3a33}
+.disclosure svg,.disclosure button{display:none!important}
+.disclosure span{font-size:14px!important}
+.explanation{padding:0!important;margin:0 0 18px!important}
+.explanation svg{display:none!important}
+/* 4. Storyline: monochrome, numbered, no coloured discs */
+.case-story{padding:0!important;margin:0 0 26px!important;border-top:1px solid var(--rule)!important;border-bottom:1px solid var(--rule)!important}
+.case-story ol{padding:14px 0!important}
+.case-story .story-dot,.case-story .done .story-dot,.case-story .current .story-dot{width:24px!important;height:24px!important;border:1.5px solid #9a9a86!important;background:transparent!important;color:#55554a!important;box-shadow:none!important;font-size:12px!important}
+.case-story .done .story-dot{border-color:var(--ink)!important;background:var(--ink)!important;color:#fffeeb!important}
+.case-story .current .story-dot{border-color:var(--accent)!important;color:var(--accent)!important;border-width:2px!important}
+.case-story .current .story-text strong,.case-story .d-chain.current .story-text strong{color:var(--accent)!important;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.story-text{background:transparent!important}
+.story-next{border-top:1px dashed var(--rule)!important;margin:0!important;padding:10px 0 12px!important}
+.story-next span{border-radius:4px!important}
+/* 5. Category chips become coloured text; status tags become text with a mark */
+.kind-chip{background:none!important;border:0!important;padding:0!important;margin-right:10px!important;border-radius:0!important;font-size:12.5px!important;letter-spacing:.2px}
+.kind-chip::before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:2px;background:currentColor;vertical-align:1px}
+.tag{border-radius:4px!important}
+.status-pill{border-radius:4px!important;background:transparent!important;border:1px solid var(--rule)!important}
+/* 6. Citations as footnote-style references */
+.citations{gap:4px 14px!important}
+.citations button{background:none!important;border:0!important;padding:2px 0!important;border-radius:0!important;box-shadow:none!important;color:#2a4f47!important;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;font-size:13px!important}
+.citations button svg{display:none!important}
+.citations button span{color:#55554a!important;font-weight:500;margin-left:2px}
+.citations button:hover{color:var(--accent)!important;text-decoration-style:solid}
+/* 7. Square, quiet controls */
+button.primary,button.secondary,button.quiet,.agent-button,.back-button,.log-filter,.case-switch-button,.file-open,.folder-card,.candidate-card,.dna-bar,.dna-hyp,.ledger-wrap,.case-menu,.researcher-pop,.person-pop,.modal{border-radius:var(--r)!important}
+.log-filter,.group-switch,.group-switch button{border-radius:4px!important}
+button.secondary,button.quiet{background:transparent!important}
+/* 8. Lead cards: objects, but calm */
+.candidate-card{box-shadow:none!important;border:1px solid var(--rule)!important;background:#fffef8!important}
+.candidate-card:hover{box-shadow:none!important;border-color:#a9a990!important}
+.dna-bar{background:transparent!important;border:0!important;border-left:2px solid var(--dna-line)!important;border-radius:0!important;padding:4px 0 4px 16px!important}
+.dna-hyp{background:transparent!important;border:0!important;padding:8px 0!important}
+/* 9. Handoff: three columns divided by rules, no boxes */
+.handoff{gap:0!important;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.handoff-card{padding:18px 22px!important}
+.handoff-card+.handoff-card{border-left:1px solid var(--rule)!important}
+.handoff-card:first-child{padding-left:0!important}
+.ledger-wrap{border:0!important;border-top:1px solid var(--rule)!important;border-radius:0!important;background:transparent!important}
+.ledger thead th,.ledger-day th{background:transparent!important}
+.ledger-row td:first-child{box-shadow:none!important}
+.agent-report{background:transparent!important;padding:0!important}
+@media(max-width:1100px){.handoff-card+.handoff-card{border-left:0!important;border-top:1px solid var(--rule)!important}.handoff-card{padding-left:0!important}}
+.activity-list,.candidate-list>.agent-run{background:transparent!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important;border-radius:0!important}

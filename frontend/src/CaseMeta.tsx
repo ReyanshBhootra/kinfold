@@ -12,7 +12,6 @@ export function CaseMeta({ s }: { s: Snapshot }) {
  const people = contributors(s), last = s.audit[s.audit.length - 1]
  return <div className="case-meta">
   <span className={`status-pill st-${s.case.status}`}>{s.case.status.replaceAll('_', ' ')}</span>
-  {s.case.synthetic && <span className="status-pill st-synthetic">Synthetic data</span>}
   <span className="case-meta-item"><Users size={13}/>{people.length ? <span className="avatar-stack">{people.slice(0, 4).map(p => <span key={p} className="mini-avatar" title={p}>{initials(p)}</span>)}</span> : null}{people.length ? `${people.length} ${people.length === 1 ? 'researcher' : 'researchers'}` : 'No named researchers yet'}</span>
   {last && <span className="case-meta-item"><Clock size={13}/>Updated {ago(last.timestamp)}</span>}
  </div>
